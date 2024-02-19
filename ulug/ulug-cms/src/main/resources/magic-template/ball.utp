@@ -1,0 +1,40 @@
+section tableHeader `
+<table>
+    <tbody>
+        <tr>
+            <th colspan="1" rowspan="1" colwidth="91">
+                <p style="text-align: center">赛事</p>
+            </th>
+            <th colspan="1" rowspan="1" colwidth="100">
+                <p style="text-align: center">比赛时间</p>
+            </th>
+            <th colspan="1" rowspan="1">
+                <p style="text-align: center">主队</p>
+            </th>
+            <th colspan="1" rowspan="1">
+                <p style="text-align: center">客队</p>
+            </th>
+        </tr>
+`
+section tableRow `
+<tr>
+    <td colspan="1" rowspan="1" colwidth="91">
+        <p>${systemName}-${matchRound}</p>
+    </td>
+    <td colspan="1" rowspan="1" colwidth="100">
+        <p>${matchDate}</p>
+    </td>
+    <td colspan="1" rowspan="1">
+        <p><img src="${homeImg}" width="30">${homeName}</p>
+    </td>
+    <td colspan="1" rowspan="1">
+        <p><img src="${visitingImg}">${visitingName}</p>
+    </td>
+</tr>
+`
+section liveSource `
+<li>
+    <p><img src="${systemImg}" width="30"><span>${systemName}</span>
+    <a target="_blank" rel="noopener noreferrer nofollow" href="${liveSource}">${liveSource}</a></p>
+</li>
+`

@@ -1,0 +1,104 @@
+{
+    "resultCode": 200,
+    "resultData": {
+        "modules": {
+            "title": "动态表单示例",
+            "rowKey": "id",
+            "searchKey": "name",
+            "saveApi": "data/success.json",
+            "delApi": "data/success.json",
+            "queryApi": "data/query.json",
+            "params": {
+                "parentId": 0
+            },
+            "columns": [
+                {
+                    "title": "ID",
+                    "dataIndex": "key",
+                    "inputType": "hidden",
+                    "required": true
+                },
+                {
+                    "title": "文本",
+                    "dataIndex": "title",
+                    "inputType": "text",
+                    "required": true,
+                    "message": "请填入名称"
+                },
+                {
+                    "title": "限制输入且禁止更新",
+                    "dataIndex": "title1",
+                    "inputType": "text",
+                    "pattern": "^[A-Za-z0-9]{4,16}",
+                    "required": true,
+                    "message": "4-16位字母或数字",
+                    "updateDisabled": true,
+                    "width": 120
+                },
+                {
+                    "title": "只读",
+                    "dataIndex": "code",
+                    "inputType": "text",
+                    "readOnly": "readOnly",
+                    "disabled": true,
+                    "defaultValue": "v1"
+                },
+                {
+                    "title": "是否选项",
+                    "dataIndex": "status",
+                    "inputType": "select",
+                    "catalog": "TF"
+                },
+                {
+                    "title": "图标选项",
+                    "dataIndex": "icon",
+                    "inputType": "select",
+                    "catalog": "icon"
+                },
+                {
+                    "title": "异步加载选项",
+                    "dataIndex": "dict",
+                    "inputType": "select",
+                    "catalog": "area_code",
+                    "dictCode": "31010000"
+                },
+                {
+                    "title": "异步加载树形选项",
+                    "dataIndex": "tree",
+                    "inputType": "treeSelect",
+                    "catalog": "area_code",
+                    "dictCode": "53000000"
+                },
+                {
+                    "title": "数字",
+                    "dataIndex": "num",
+                    "inputType": "number"
+                },
+                {
+                    "title": "日期",
+                    "dataIndex": "date",
+                    "format": "YYYY-MM-DD",
+                    "inputType": "date"
+                },
+                {
+                    "title": "日期时间",
+                    "dataIndex": "datetime",
+                    "format": "YYYY-MM-DD HH:mm:ss",
+                    "inputType": "date"
+                },
+                {
+                    "title": "多行",
+                    "dataIndex": "area",
+                    "inputType": "textArea"
+                },
+                {
+                    "title": "图标",
+                    "dataIndex": "logo",
+                    "inputType": "logo",
+                    "fileIndex": "file1"
+                }
+            ]
+        }
+    },
+    "resultMsg": "操作成功"
+}

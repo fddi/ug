@@ -1,0 +1,42 @@
+{
+    "resultCode": 200,
+    "resultData": [
+        {
+            "checked": true,
+            "id": 3605,
+            "key": "46000000",
+            "note": "",
+            "status": "1",
+            "label": "海南省",
+            "value": "46000000"
+        },
+        {
+            "checked": false,
+            "id": 3606,
+            "key": "62000000",
+            "note": "",
+            "status": "1",
+            "label": "甘肃省",
+            "value": "62000000"
+        },
+        {
+            "checked": false,
+            "id": 3607,
+            "key": "50000000",
+            "note": "",
+            "status": "1",
+            "label": "重庆市",
+            "value": "50000000"
+        },
+        {
+            "checked": false,
+            "id": 3608,
+            "key": "36000000",
+            "note": "",
+            "status": "1",
+            "label": "江西省",
+            "value": "36000000"
+        }
+    ],
+    "resultMsg": "操作成功"
+}

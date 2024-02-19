@@ -1,0 +1,42 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://ulug618:ulug618@127.0.0.1:9090/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+  level:
+    root: debug
+server:
+  port: 9091
+spring:
+  cloud:
+    client:
+      ip-address: 127.0.0.1
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9099
+          zkNodes: localhost:2182
+  datasource:
+    password: ulug
+    url: jdbc:mysql://127.0.0.1:3306/ulug_core
+    username: ulug
+  devtools:
+    add-properties: false
+  jpa:
+    hibernate:
+      show-sql: true
+  redis:
+    host: 127.0.0.1
+#    password: tswcbyyqjsjhfl
+    port: 6379
+project:
+  node:
+    address: 127.0.0.1
+    dist: dist
+    path: D:/Container/node-mgr
+    zip: node-server.zip

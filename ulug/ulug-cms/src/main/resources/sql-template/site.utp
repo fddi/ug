@@ -1,0 +1,30 @@
+# 焦点数据列表
+section focusList`
+SELECT 'content' AS data_type, content_id AS data_id,content_title AS title,signer,
+summary,cover,DATE_FORMAT(a.gmt_modified,'%y-%m-%d') AS date_item,tags,a.sort,subject_code,subject_name,logo
+FROM media_content a,media_subject b
+WHERE a.subject_id=b.subject_id AND a.publish_status='1' and b.status='1'
+$printIf{v != null && !"".equals(v)} AND (content_title LIKE :v OR summary LIKE :v OR tags LIKE concat('%',:v,'%') OR signer LIKE concat('%',:v,'%') OR subject_name  LIKE  concat('%',:v,'%') )
+$printIf{sid != null && !"".equals(sid)} AND subject_code=:sid
+$printIf{dl !=null && "1".equals(dl)} AND a.gmt_modified>=DATE_SUB(CURDATE(),INTERVAL 1 WEEK)
+$printIf{dl !=null && "2".equals(dl)} AND a.gmt_modified>=DATE_SUB(CURDATE(),INTERVAL 3 MONTH)
+$printIf{dl !=null && "3".equals(dl)} AND a.gmt_modified>=DATE_SUB(CURDATE(),INTERVAL 1 DAY)
+ORDER BY a.sort,a.gmt_modified desc
+`
+# 标签数据
+section tagList`
+select tags,DATE_FORMAT(gmt_modified,'%y-%m-%d') AS date_item from (
+SELECT tags,a.gmt_modified
+FROM media_content a,media_subject b
+WHERE a.subject_id=b.subject_id AND a.publish_status='1' and b.status='1'
+UNION ALL
+SELECT tags,a.gmt_modified
+FROM media_note_book a,media_subject b
+WHERE a.subject_id=b.subject_id AND a.publish_status='1' and b.status='1'
+) ta
+WHERE tags<>'' AND tags is not null
+$printIf{dl !=null && "1".equals(dl)} AND gmt_modified>=DATE_SUB(CURDATE(),INTERVAL 1 WEEK)
+$printIf{dl !=null && "2".equals(dl)} AND gmt_modified>=DATE_SUB(CURDATE(),INTERVAL 3 MONTH)
+$printIf{dl !=null && "3".equals(dl)} AND gmt_modified>=DATE_SUB(CURDATE(),INTERVAL 1 DAY)
+order by date_item desc,tags
+`

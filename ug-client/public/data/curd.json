@@ -1,0 +1,85 @@
+{
+    "resultCode": 200,
+    "resultData": {
+        "formMapper": {
+            "title": "示例",
+            "rowKey": "key",
+            "searchKey": "title",
+            "saveApi": "data/success.json",
+            "delApi": "data/success.json",
+            "queryApi": "data/dict.json",
+            "findApi": "",
+            "dragDropApi": "",
+            "type": "table",
+            "params": {
+                "table": true
+            },
+            "extra": {
+                "queryApi": "data/dict-tree.json",
+                "type": "tree",
+                "rowKey": "key",
+                "searchKey": "dictCode",
+                "isParent": true,
+                "params": {
+                    "dictCode": "0"
+                }
+            },
+            "columns": [
+                {
+                    "title": "ID",
+                    "dataIndex": "key",
+                    "inputType": "hidden",
+                    "required": true
+                },
+                {
+                    "title": "操作",
+                    "colsType": "editAndDel"
+                },
+                {
+                    "title": "名称",
+                    "dataIndex": "title",
+                    "inputType": "text",
+                    "required": true,
+                    "message": "请填入名称"
+                },
+                {
+                    "title": "代码",
+                    "dataIndex": "value",
+                    "inputType": "text",
+                    "pattern": "^[A-Za-z0-9]{4,16}",
+                    "required": true,
+                    "message": "4-16位字母或数字开头的机构代码",
+                    "updateDisabled": true,
+                    "width": 120
+                },
+                {
+                    "title": "目录",
+                    "dataIndex": "catalog",
+                    "inputType": "text",
+                    "readOnly": "readOnly",
+                    "defaultValue": "AREA_CODE",
+                    "colsType": "hidden"
+                },
+                {
+                    "title": "状态",
+                    "dataIndex": "status",
+                    "inputType": "select",
+                    "catalog": "TF"
+                },
+                {
+                    "title": "父节点",
+                    "dataIndex": "parentId",
+                    "inputType": "text",
+                    "disabled": true,
+                    "readOnly": true
+                },
+                {
+                    "title": "备注",
+                    "dataIndex": "note",
+                    "inputType": "textArea"
+                }
+            ]
+        }
+    },
+    "resultMsg": "操作成功"
+}

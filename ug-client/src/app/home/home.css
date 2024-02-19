@@ -1,0 +1,43 @@
+#menu_sider .logo {
+  height         : 50px;
+  padding        : 8px 4px;
+  display        : flex;
+  flex-flow      : row;
+  justify-content: center;
+}
+
+#menu_sider .logo img {
+  margin-right: 5px;
+  width       : 32px;
+  height      : 32px;
+}
+
+#menu_sider .logo h1 {
+  line-height   : 32px;
+  font-size     : 16px;
+  vertical-align: middle;
+  white-space   : nowrap;
+  max-width     : 120px;
+  text-overflow : ellipsis;
+}
+
+#menu_sider.ant-layout-sider-collapsed .logo h1 {
+  display: none;
+}
+
+#menu_sider.ant-layout-sider-collapsed .nav-text {
+  display: none;
+}
+
+#menu_sider.ant-layout-sider-collapsed .ant-menu-submenu-vertical>.ant-menu-submenu-title:after {
+  display: none;
+}
+
+#menu_sider.ant-layout-sider-collapsed .ant-menu-sub .nav-text {
+  display: inline-block;
+}
+
+.content {
+  padding : 15px;
+  overflow: auto;
+}

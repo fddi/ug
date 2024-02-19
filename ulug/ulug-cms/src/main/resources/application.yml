@@ -1,0 +1,58 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+project:
+  scanning-ability:
+    'on': false
+server:
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript
+    min-response-size: 2048
+spring:
+  application:
+    name: ulug-cms
+  data:
+    redis:
+      repositories:
+        enabled: false
+  datasource:
+    hikari:
+      auto-commit: true
+      connection-timeout: 60000
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      maximum-pool-size: 30
+      minimum-idle: 5
+      pool-name: DatebookHikariCP
+    type: com.zaxxer.hikari.HikariDataSource
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        event:
+          merge:
+            entity_copy_observer: allow
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: dev
+  redis:
+    database: 4
+    pool:
+      max-active: 300
+      max-idle: 8
+      max-wait: -1
+      min-idle: 0
+    timeout: 5000
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB

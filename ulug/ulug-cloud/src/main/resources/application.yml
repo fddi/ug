@@ -1,0 +1,15 @@
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://ulug618:ulug618@127.0.0.1:${server.port}/eureka/
+server:
+  port: 9090
+spring:
+  application:
+    name: ulug-server
+  security:
+    user:
+      name: ulug618
+      password: ulug618
