@@ -10,7 +10,7 @@ import top.ulug.base.dto.WrapperDTO;
 import top.ulug.core.deploy.domain.DeployNotice;
 import top.ulug.core.deploy.repository.DeployNoticeRepository;
 import top.ulug.core.deploy.service.NoticeService;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.base.dto.PageDTO;
 
 import java.util.Arrays;
 import java.util.List;

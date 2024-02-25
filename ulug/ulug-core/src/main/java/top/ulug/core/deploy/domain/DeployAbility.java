@@ -1,9 +1,9 @@
 package top.ulug.core.deploy.domain;
 
 
-import top.ulug.jpa.auditor.BaseEntity;
+import top.ulug.base.auditor.BaseEntity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * 服务接口能力
@@ -15,21 +15,20 @@ public class DeployAbility extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long abilityId;
 
-    @Column(columnDefinition = "VARCHAR(255) COMMENT '项目名称'")
     private String projectId;
 
-    @Column(unique = true, nullable = false, columnDefinition = "VARCHAR(128) COMMENT '接口地址'")
+    @Column(unique = true, nullable = false)
     private String abilityUri;
 
-    @Column(columnDefinition = "VARCHAR(255) COMMENT '接口说明'")
     private String abilityNote;
 
-    @Column(columnDefinition = "VARCHAR(1024) COMMENT '参数示例'")
+    @Column(length = 2000)
     private String paramsExample;
 
-    @Column(columnDefinition = "VARCHAR(1024) COMMENT '返回示例'")
+    @Column(length = 2000)
     private String resultExample;
 
+    @Column(length = 10)
     private String status;
 
     public Long getAbilityId() {

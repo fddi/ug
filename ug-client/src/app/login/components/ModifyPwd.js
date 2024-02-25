@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Alert } from 'antd';
+import { Button, Form, Input, Alert, message } from 'antd';
 import { lag } from '@/config/lag';
+import AES from '@/util/AES';
+import { post } from '@/config/client';
 
 const FormItem = Form.Item;
 export default function ModifyPwd(props) {
@@ -14,10 +16,29 @@ export default function ModifyPwd(props) {
     }
     const defaultStyle = {
     }
+
+    function onFinish(values) {
+        setLoading(true)
+        const encStr = AES.encrypt(values.password);
+        values.password = encStr;
+        const encStr1 = AES.encrypt(values.newPassword);
+        values.newPassword = encStr1;
+        values.newPassword2 = encStr1;
+        post('auth/pwd-modify', values).then(result => {
+            setLoading(false)
+            if (result && 200 === result.resultCode) {
+                message.success(result.resultMsg);
+                props.onFinish && props.onFinish();
+            } else if (result) {
+                message.error(result.resultMsg);
+            }
+        })
+    }
+
     return (
         <div style={{ ...defaultStyle, ...props.style }}>
             <Alert banner message={lag.alertPasswordReg} showIcon />
-            <Form onFinish={() => { }}
+            <Form onFinish={onFinish}
                 style={{ marginTop: 10, }}
                 initialValues={{ userName: props.userName || "" }}
                 labelCol={{

@@ -1,7 +1,10 @@
 package top.ulug.core.deploy.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import top.ulug.base.dto.WrapperDTO;
 import top.ulug.base.inf.ApiDocument;
 import top.ulug.core.deploy.service.AnalysisService;
@@ -26,10 +29,4 @@ public class AnalysisController {
         return analysisService.pvToday();
     }
 
-    @RequestMapping(value = "/node", method = RequestMethod.POST)
-    @ResponseBody
-    @ApiDocument(note = "运行统计-节点数", paramsExample = "", resultExample = "")
-    public WrapperDTO<Map> node() throws Exception {
-        return analysisService.node();
-    }
 }

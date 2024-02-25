@@ -9,7 +9,7 @@ import top.ulug.base.dto.WrapperDTO;
 import top.ulug.base.inf.ApiDocument;
 import top.ulug.core.auth.domain.AuthOrg;
 import top.ulug.core.auth.service.OrgService;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.base.dto.PageDTO;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package top.ulug.core.deploy.service.impl;
 
+import org.checkerframework.checker.units.qual.A;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import top.ulug.base.dto.LabelDTO;
 import top.ulug.base.dto.WrapperDTO;
@@ -17,10 +17,12 @@ import top.ulug.base.servlet.RequestUtils;
 import top.ulug.base.util.StringUtils;
 import top.ulug.core.deploy.domain.DeployClient;
 import top.ulug.core.deploy.repository.DeployClientRepository;
+import top.ulug.core.deploy.service.CacheService;
 import top.ulug.core.deploy.service.ClientService;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.base.dto.PageDTO;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -38,12 +40,12 @@ public class ClientServiceImpl implements ClientService {
     String projectId;
     @Autowired
     DeployClientRepository clientRepository;
-    @Resource(name = "redisTemplate")
-    ValueOperations<String, DeployClient> redisClient;
     @Autowired
     RequestUtils requestUtils;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    CacheService cacheService;
 
     @Override
     public boolean checkClient(Map<String, String> params) {
@@ -53,7 +55,7 @@ public class ClientServiceImpl implements ClientService {
             //参数为空
             return false;
         }
-        DeployClient client = redisClient.get(appId);
+        DeployClient client = cacheService.getClient(appId);
         if (client == null) {
             client = clientRepository.findByClientNameAndStatus(appId, "1");
         }
@@ -61,7 +63,7 @@ public class ClientServiceImpl implements ClientService {
             //此客户端未注册
             return false;
         }
-        redisClient.set(appId, client);
+        cacheService.cacheClient(appId, client);
         String queryString = StringUtils.signString(params, client.getClientKey());
         String signRight = Digest.MACSHA256Encrypt(queryString, client.getClientKey());
         if (!sign.equalsIgnoreCase(signRight)) {

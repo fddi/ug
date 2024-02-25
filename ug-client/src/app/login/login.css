@@ -6,8 +6,9 @@
 }
 
 .content-wrapper .left-info {
-    background-image         : url(../../asset/wheat.png);
-    background-repeat        : repeat;
+    background-image         : url(../../asset/c.jpg);
+    background-repeat        : no-repeat;
+    background-size          : cover;
     min-width                : 500px;
     min-height               : 500px;
     box-shadow               : 0 0 50px rgba(0, 0, 0, .09);

@@ -4,7 +4,7 @@ package top.ulug.core.deploy.service;
 import top.ulug.base.dto.LabelDTO;
 import top.ulug.base.dto.WrapperDTO;
 import top.ulug.core.deploy.domain.DeployClient;
-import top.ulug.jpa.CurdService;
+import top.ulug.base.inf.CurdService;
 
 import java.util.List;
 import java.util.Map;

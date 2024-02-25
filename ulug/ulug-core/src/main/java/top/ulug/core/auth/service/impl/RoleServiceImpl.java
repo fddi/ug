@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import top.ulug.base.dto.LabelDTO;
 import top.ulug.base.dto.TreeDTO;
@@ -28,9 +27,11 @@ import top.ulug.core.auth.service.AuthService;
 import top.ulug.core.auth.service.MenuService;
 import top.ulug.core.auth.service.RoleService;
 import top.ulug.core.deploy.repository.DeployAbilityRepository;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.base.dto.PageDTO;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
+import top.ulug.core.deploy.service.CacheService;
+
 import java.util.*;
 
 /**
@@ -39,8 +40,6 @@ import java.util.*;
  */
 @Service
 public class RoleServiceImpl implements RoleService {
-    @Resource(name = "redisTemplate")
-    private ValueOperations<String, AuthDTO> redisVoAuth;
     @Autowired
     private AccountService accountService;
     @Autowired
@@ -59,6 +58,8 @@ public class RoleServiceImpl implements RoleService {
     private MenuService menuService;
     @Autowired
     RequestUtils requestUtils;
+    @Autowired
+    CacheService cacheService;
 
     @Override
     public WrapperDTO<String> roleCopy(Long orgId, String roleIds) {
@@ -224,8 +225,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public WrapperDTO<RoleOrgDTO> listRoleOrg(Long roleId) {
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         if (authDTO == null || authDTO.getAccount() == null) {
             return WrapperDTO.fail(ResultMsgEnum.RESULT_ERROR_OUT_TIME, null);
         }

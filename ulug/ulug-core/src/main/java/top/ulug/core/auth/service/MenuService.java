@@ -5,7 +5,7 @@ import top.ulug.base.dto.TreeDTO;
 import top.ulug.base.dto.WrapperDTO;
 import top.ulug.core.auth.domain.AuthMenu;
 import top.ulug.core.auth.dto.MenuDTO;
-import top.ulug.jpa.CurdService;
+import top.ulug.base.inf.CurdService;
 
 import java.util.List;
 

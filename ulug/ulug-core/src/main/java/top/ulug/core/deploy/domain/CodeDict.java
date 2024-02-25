@@ -1,9 +1,9 @@
 package top.ulug.core.deploy.domain;
 
 
-import top.ulug.jpa.auditor.BaseEntity;
+import top.ulug.base.auditor.BaseEntity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * 数据字典
@@ -19,49 +19,43 @@ public class CodeDict extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long dictId;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(50) COMMENT '目录码'")
+    @Column(nullable = false,length = 50)
     private String catalog;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(50) COMMENT '编码'")
+    @Column(nullable = false,length = 50)
     private String dictCode;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(150) COMMENT '编码名称'")
+    @Column(nullable = false)
     private String dictName;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '拼音'")
+    @Column(length = 50)
     private String pinyin;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '助记码'")
+    @Column(length = 50)
     private String zhuji;
 
-    @Column(columnDefinition = "VARCHAR(255) COMMENT '编码说明'")
     private String dictNote;
 
-    @Column(columnDefinition = "INT(5) COMMENT '排序'")
     private Integer dictSort;
 
-    @Column(nullable = false, columnDefinition = "INT(10) COMMENT '父级id'")
+    @Column(nullable = false)
     private Long parentId;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '父级代码'")
+    @Column(length = 50)
     private String parentCode;
 
-    @Column(columnDefinition = "VARCHAR(150) COMMENT '路径'")
     private String dictPath;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '图标'")
+    @Column(length = 50)
     private String icon;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '附加值'")
+    @Column(length = 50)
     private String extraData;
 
-    @Column(columnDefinition = "VARCHAR(150) COMMENT '附加值1'")
     private String ED001;
 
-    @Column(columnDefinition = "VARCHAR(150) COMMENT '附加值2'")
     private String ED002;
 
-    @Column(columnDefinition = "VARCHAR(150) COMMENT '附加值3'")
     private String ED003;
 
     public Long getDictId() {

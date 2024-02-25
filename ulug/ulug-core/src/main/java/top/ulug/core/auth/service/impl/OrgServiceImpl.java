@@ -1,18 +1,17 @@
 package top.ulug.core.auth.service.impl;
 
 import com.alibaba.excel.EasyExcel;
-import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import top.ulug.base.dto.LabelDTO;
+import top.ulug.base.dto.PageDTO;
 import top.ulug.base.dto.TreeDTO;
 import top.ulug.base.dto.WrapperDTO;
 import top.ulug.base.e.ResultMsgEnum;
@@ -25,9 +24,8 @@ import top.ulug.core.auth.repository.AuthOrgRepository;
 import top.ulug.core.auth.service.AuthService;
 import top.ulug.core.auth.service.OrgService;
 import top.ulug.core.deploy.repository.CodeDictRepository;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.core.deploy.service.CacheService;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,9 +38,6 @@ import java.util.Optional;
 @Service
 public class OrgServiceImpl implements OrgService {
     public static final String TYPE_ORG_UNIT = "01";
-    @Resource(name = "redisTemplate")
-    private ValueOperations<String, AuthDTO> redisVoAuth;
-
     @Autowired
     private AuthOrgRepository orgRepository;
     @Autowired
@@ -53,12 +48,15 @@ public class OrgServiceImpl implements OrgService {
     RequestUtils requestUtils;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    CacheService cacheService;
 
     @Override
     public WrapperDTO<TreeDTO> findChildrenOrg(String areaCode, Long parentId) {
         if (StringUtils.isEmpty(areaCode)) {
+            String appId = requestUtils.getCurrentAppId();
             String token = requestUtils.getCurrentToken();
-            AuthDTO authDTO = redisVoAuth.get(token);
+            AuthDTO authDTO = cacheService.getAuth(appId, token);
             assert authDTO != null;
             areaCode = authDTO.getAccount().getAreaCode();
         }
@@ -88,8 +86,9 @@ public class OrgServiceImpl implements OrgService {
     @Override
     public List<AuthOrg> listOrg(String areaCode) {
         List<AuthOrg> list = new ArrayList<>();
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         if (authDTO == null || authDTO.getAccount() == null) {
             return list;
         }
@@ -251,7 +250,7 @@ public class OrgServiceImpl implements OrgService {
         return WrapperDTO.success(new PageDTO<AuthOrg>().convert(page));
     }
 
-    private void findChild(@NotNull AuthOrg node, @NotNull List<AuthOrg> list) {
+    private void findChild(AuthOrg node, List<AuthOrg> list) {
         String parentCode = node.getOrgCode();
         for (AuthOrg org : list) {
             if (parentCode.equals(org.getParentCode())) {

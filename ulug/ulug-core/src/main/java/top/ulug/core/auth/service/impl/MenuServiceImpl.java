@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import top.ulug.base.dto.LabelDTO;
+import top.ulug.base.dto.PageDTO;
 import top.ulug.base.dto.TreeDTO;
 import top.ulug.base.dto.WrapperDTO;
 import top.ulug.base.e.ResultMsgEnum;
@@ -25,9 +25,8 @@ import top.ulug.core.auth.service.AuthService;
 import top.ulug.core.auth.service.MenuService;
 import top.ulug.core.deploy.domain.DeployAbility;
 import top.ulug.core.deploy.repository.DeployAbilityRepository;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.core.deploy.service.CacheService;
 
-import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -38,15 +37,8 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class MenuServiceImpl implements MenuService {
 
-    @Value("${spring.application.name}")
-    private String projectId;
     @Value("${project.auth.active.time}")
     private Long activeTime;
-
-    @Resource(name = "redisTemplate")
-    private ValueOperations<String, AuthDTO> redisVoAuth;
-    @Resource(name = "redisTemplate")
-    private ValueOperations<String, TreeDTO> redisVoMenu;
     @Autowired
     private AuthRoleRepository roleRepository;
     @Autowired
@@ -59,6 +51,8 @@ public class MenuServiceImpl implements MenuService {
     RequestUtils requestUtils;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    CacheService cacheService;
 
     @Override
     public WrapperDTO<TreeDTO> findChildrenMenu(String clientName, Long parentId) {
@@ -111,12 +105,10 @@ public class MenuServiceImpl implements MenuService {
     public WrapperDTO<TreeDTO> findPersonalMenu() {
         String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
-        String cacheTag = StringUtils.linkTags(projectId, appId, token, "menu");
-        cacheTag = StringUtils.getCacheKey(cacheTag);
-        TreeDTO menus = redisVoMenu.get(cacheTag);
-        if (menus != null) {
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
+        if (authDTO.getMenu() != null) {
             //缓存数据
-            return WrapperDTO.success(menus);
+            return WrapperDTO.success(authDTO.getMenu());
         }
         TreeDTO root = new TreeDTO(0L, 0L, "/", "/", "根目录", "根目录",
                 -1, "", "", "", false, "");
@@ -131,14 +123,16 @@ public class MenuServiceImpl implements MenuService {
                     menu.getMenuSort(), menu.getIcon(), menu.getMenuNote(), menu.getStatus(), false, menu.getMenuType()));
         }
         root.findChild(root, treeDTOList);
-        redisVoMenu.set(cacheTag, root, activeTime, TimeUnit.MINUTES);
+        authDTO.setMenu(root);
+        cacheService.cacheAuth(appId, token, authDTO);
         return WrapperDTO.success(root);
     }
 
     @Override
     public List<AuthMenu> listPersonalMenu(String clientName) {
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         if (authDTO == null || authDTO.getAccount() == null) {
             return null;
         }

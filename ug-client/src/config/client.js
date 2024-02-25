@@ -2,19 +2,39 @@ import fetchTo, { objToEncodeParamsStr, objToParamsStr, signData } from '../util
 import StringUtils from '../util/StringUtils';
 import getLocalData from './local_data';
 
-const IS_TEST_DATA = true;
+const IS_TEST_DATA = false;
 const IS_DEV = false;
 const TIMEOUT = 30000;
-export const APIURL = "http://localhost:3000";
+export const APIURL = "http://localhost:9091";
 export const APPID = "ug-client";
-export const APPNMAE = "ug-client";
-export const APPKEY = "7cb5ab1ee33dba7bbb172ef5c7a5a70fa665c926";
+export const APPNMAE = "有庐有瓜";
+export const APPKEY = "1b4673a6d2762ca5b575841bdd1382e2b200dd0a";
 export const LOCATE = "zh_cn";
+export const AESKEY = "1616161616161616";
 export const TAG = {
     token: APPID + "-token",
     userName: APPID + "-userName",
     menu: "Menu",
 };
+
+export function checkDep() {
+    const tokenInfo = getAuthInfo();
+    if (tokenInfo && tokenInfo.userName === 'developer') {
+        return true;
+    }
+    return false;
+}
+
+export async function getOv(optionCode) {
+    return post('ov/one', { optionCode }).then(result => {
+        if (200 === result.resultCode) {
+            return result.resultData
+        } else {
+            return ''
+        }
+    })
+}
+
 export function getAuthInfo() {
     let tokenInfo = sessionStorage.getItem(TAG.token);
     if (tokenInfo === null || tokenInfo === "")

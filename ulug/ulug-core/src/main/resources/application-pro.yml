@@ -1,0 +1,40 @@
+logging:
+  file:
+    name: ./logs/${spring.application.name}.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+  level:
+    root: info
+  logback:
+    rollingpolicy:
+      # 根据文件大小归档，超过2KB自动归档，次日启动服务时也会自动归档
+      file-name-pattern: ./logs/%d{yyyyMMdd}/${spring.application.name}.out.log.%d{yyyy-MM-dd}.%i.gz
+      # 最大日志文件大小
+      max-file-size: 10MB
+      # 要保留的日志备份的总大小(默认为0B)
+      total-size-cap: 200MB
+      # 保存存档日志文件的最大天数(默认为7天)
+      max-history: 3
+server:
+  port: 9091
+spring:
+  datasource:
+    url: jdbc:sqlite:ug.db
+    username: ug
+    password: ug
+    driverClassName: org.sqlite.JDBC
+    initialization-mode: never
+  devtools:
+    add-properties: false
+  jpa:
+    hibernate:
+      show-sql: true
+    spring.jpa.database-platform: org.hibernate.community.dialect.SQLiteDialect
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings.trace: false
+      settings.web-allow-others: false

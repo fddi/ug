@@ -17,7 +17,6 @@ public class LogoutEventListener {
 
     @EventListener
     public void logout(LogoutEvent event) {
-        System.out.println("logout---------------------------------");
         LOG.info("LogoutEventListener run...。。。。。。。。。。。。。。。。。。。。。。。。。。。");
         LOG.info(JSON.toJSONString(event));
     }

@@ -3,9 +3,9 @@ package top.ulug.core.auth.domain;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import top.ulug.core.deploy.domain.DeployAbility;
-import top.ulug.jpa.auditor.BaseEntity;
+import top.ulug.base.auditor.BaseEntity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,34 +19,30 @@ public class AuthMenu extends BaseEntity implements Comparable<AuthMenu> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long menuId;
 
-    @Column(columnDefinition = "VARCHAR(2) COMMENT '状态 1--正常 0--异常'")
+    @Column(length = 10)
     private String status;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(50) COMMENT '客户端名称'")
+    @Column(nullable = false, length = 50)
     private String clientName;
 
-    @Column(columnDefinition = "VARCHAR(128) COMMENT '菜单路径'")
     private String menuUri;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '菜单名'")
+    @Column(length = 128)
     private String menuName;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '菜单类型'")
+    @Column(length = 50)
     private String menuType;
 
-    @Column(columnDefinition = "VARCHAR(255) COMMENT '菜单说明'")
     private String menuNote;
 
-    @Column(columnDefinition = "INT(5) COMMENT '排序'")
     private Integer menuSort;
 
-    @Column(nullable = false, columnDefinition = "INT(10) COMMENT '父级id'")
+    @Column(nullable = false)
     private Long parentId;
 
-    @Column(columnDefinition = "VARCHAR(150) COMMENT '节点路径'")
     private String menuPath;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '图标'")
+    @Column(length = 50)
     private String icon;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)

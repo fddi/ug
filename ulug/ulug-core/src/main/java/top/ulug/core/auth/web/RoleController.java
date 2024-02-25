@@ -10,7 +10,7 @@ import top.ulug.core.auth.domain.AuthRole;
 import top.ulug.core.auth.dto.RoleDTO;
 import top.ulug.core.auth.dto.RoleOrgDTO;
 import top.ulug.core.auth.service.RoleService;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.base.dto.PageDTO;
 
 import java.util.List;
 

@@ -1,8 +1,4 @@
 rootProject.name = 'ulug'
-include 'ulug-cloud'
 include 'ulug-base'
 include 'ulug-core'
-include 'ulug-cms'
-include 'ulug-core-api'
-include 'ulug-jpa'
 

@@ -2,7 +2,6 @@ package top.ulug.core.auth.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import top.ulug.base.dto.AccountDTO;
 import top.ulug.base.dto.WrapperDTO;
@@ -16,8 +15,8 @@ import top.ulug.core.auth.repository.AuthRoleRepository;
 import top.ulug.core.auth.service.AuthService;
 import top.ulug.core.deploy.domain.DeployAbility;
 import top.ulug.core.deploy.repository.DeployAbilityRepository;
+import top.ulug.core.deploy.service.CacheService;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,23 +28,22 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class AuthServiceImpl implements AuthService {
-    @Value("${spring.application.name}")
-    private String appName;
     @Value("${project.auth.active.time}")
     private Long activeTime;
     @Value("${project.auth.developer.code}")
     private String developerCode;
-    @Resource(name = "redisTemplate")
-    ValueOperations<String, AuthDTO> redisVoAuth;
     @Autowired
     AuthRoleRepository roleRepository;
     @Autowired
     DeployAbilityRepository abilityRepository;
     @Autowired
     RequestUtils requestUtils;
+    @Autowired
+    CacheService cacheService;
 
     @Override
     public boolean checkToken() {
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
         if (StringUtils.isEmpty(token)) {
             return false;
@@ -56,7 +54,7 @@ public class AuthServiceImpl implements AuthService {
             e.printStackTrace();
             return false;
         }
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         if (authDTO == null || authDTO.getAccount() == null) {
             return false;
         }
@@ -68,17 +66,18 @@ public class AuthServiceImpl implements AuthService {
             return false;
         }
         authDTO.getAccount().setAuthTime(time);
-        redisVoAuth.set(token, authDTO, activeTime, TimeUnit.MINUTES);
+        cacheService.cacheAuth(appId, token, authDTO);
         return true;
     }
 
     @Override
     public boolean authAbility(String uri) {
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
         if (StringUtils.isEmpty(token)) {
             return false;
         }
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         if (authDTO == null || authDTO.getAccount() == null) {
             return false;
         }
@@ -91,7 +90,7 @@ public class AuthServiceImpl implements AuthService {
             abilityList = this.listUserAbility();
         }
         authDTO.setAbilityList(abilityList);
-        redisVoAuth.set(token, authDTO, activeTime, TimeUnit.MINUTES);
+        cacheService.cacheAuth(appId, token, authDTO);
         for (DeployAbility owner : abilityList) {
             if (owner.getAbilityUri().equals(uri)) {
                 return true;
@@ -102,27 +101,26 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean checkDevOps() {
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
         if (StringUtils.isEmpty(token)) {
             return false;
         }
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         if (authDTO == null || authDTO.getAccount() == null) {
             return false;
         }
-        if (developerCode.equals(authDTO.getAccount().getUserType())) {
-            return true;
-        }
-        return false;
+        return developerCode.equals(authDTO.getAccount().getUserType());
     }
 
     @Override
     public List<DeployAbility> listUserAbility() {
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
         if (StringUtils.isEmpty(token)) {
             return null;
         }
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         if (authDTO == null || authDTO.getAccount() == null) {
             return null;
         }
@@ -152,8 +150,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean checkAreaCode(String areaCode) {
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         if (authDTO == null || authDTO.getAccount() == null) {
             return false;
         }
@@ -166,8 +165,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean checkUnitCode(String unitCode) {
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         if (authDTO == null || authDTO.getAccount() == null
                 || StringUtils.isEmpty(unitCode)) {
             return false;
@@ -178,8 +178,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public WrapperDTO<AccountDTO> checkAccount() {
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         if (authDTO == null || authDTO.getAccount() == null) {
             return WrapperDTO.npe("user");
         }
@@ -188,15 +189,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void refreshLoginTime() {
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
-        if (StringUtils.isEmpty(token)) {
-            return;
-        }
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         if (authDTO == null || authDTO.getAccount() == null) {
             return;
         }
-        redisVoAuth.set(token, authDTO, activeTime, TimeUnit.MINUTES);
+        cacheService.cacheAuth(appId, token, authDTO);
     }
 
 }

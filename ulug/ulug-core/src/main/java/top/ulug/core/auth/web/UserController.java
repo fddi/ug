@@ -8,7 +8,7 @@ import top.ulug.base.inf.ApiDocument;
 import top.ulug.core.auth.domain.AuthUser;
 import top.ulug.core.auth.dto.UserDTO;
 import top.ulug.core.auth.service.AccountService;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.base.dto.PageDTO;
 
 /**
  * Created by liujf on 2019/9/9.

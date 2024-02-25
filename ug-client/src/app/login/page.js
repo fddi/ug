@@ -20,6 +20,12 @@ export default function Login(props) {
         }
     }, [jump])
 
+    function onFinish(logined, result) {
+        if (logined) {
+            setJump(true) 
+        }
+    }
+
     return (
         <Layout className="content-wrapper">
             <Row className='login-main'>
@@ -37,12 +43,14 @@ export default function Login(props) {
                         items={[{
                             key: '1',
                             label: lag.loginByAccount,
-                            children: <LoginByAccount jump={() => { setJump(true) }} />,
-                        }, {
-                            key: '2',
-                            label: lag.loginByScan,
-                            children: <LoginByQRCode jump={() => { setJump(true) }} />,
-                        },]}
+                            children: <LoginByAccount onFinish={onFinish} />,
+                        },
+                            // {
+                            //     key: '2',
+                            //     label: lag.loginByScan,
+                            //     children: <LoginByQRCode onFinish={onFinish} />,
+                            // }
+                        ]}
                     >
                     </Tabs>
 

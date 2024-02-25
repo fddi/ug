@@ -2,9 +2,9 @@ package top.ulug.core.auth.domain;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import top.ulug.jpa.auditor.BaseEntity;
+import top.ulug.base.auditor.BaseEntity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * 用户
@@ -19,32 +19,30 @@ public class AuthUser extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(columnDefinition = "VARCHAR(2) COMMENT '状态 1--正常 0--异常'")
+    @Column(length = 10)
     private String status;
 
-    @Column(unique = true, nullable = false,
-            columnDefinition = "VARCHAR(50) NOT NULL COMMENT '用户名'")
+    @Column(unique = true, nullable = false, length = 10)
     private String userName;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(128) NOT NULL COMMENT '密码'")
+    @Column(nullable = false)
     private String password;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '用户类型'")
+    @Column(length = 50)
     private String userType;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '名称'")
+    @Column(length = 50)
     private String nickName;
 
-    @Column(columnDefinition = "VARCHAR(16) COMMENT '手机号'")
+    @Column(length = 50)
     private String phoneNumber;
 
-    @Column(columnDefinition = "VARCHAR(128) COMMENT '地址'")
     private String address;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(32) COMMENT '区域编码'")
+    @Column(length = 50)
     private String areaCode;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(32) COMMENT '单位代码'")
+    @Column(nullable = false, length = 50)
     private String unitCode;
 
     @Column(nullable = false, insertable = false, updatable = false)

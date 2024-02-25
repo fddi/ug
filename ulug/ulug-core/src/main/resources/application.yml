@@ -1,20 +1,17 @@
-eureka:
-  instance:
-    prefer-ip-address: true
 project:
   auth:
     active:
-      time: 1440
+      time: 1800
     aes:
-      key: CHYNULUG20210618
+      key: 1616161616161616
     default:
-      password: 210618
+      password: 000000
     developer:
       code: De
     error:
       times: 5
   scanning-ability:
-    'on': true
+    'on': false
 server:
   compression:
     enabled: true
@@ -26,10 +23,6 @@ spring:
     time-zone: GMT+8
   application:
     name: ulug-core
-  data:
-    redis:
-      repositories:
-        enabled: false
   datasource:
     hikari:
       auto-commit: true
@@ -41,7 +34,6 @@ spring:
       pool-name: DatebookHikariCP
     type: com.zaxxer.hikari.HikariDataSource
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
     open-in-view: false
@@ -53,40 +45,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   profiles:
-    active: dev
-  quartz:
-    jdbc:
-      initialize-schema: never
-    job-store-type: jdbc
-    properties:
-      org:
-        quartz:
-          jobStore:
-            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
-            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
-            isClustered: false
-            misfireThreshold: 60000
-            tablePrefix: QRTZ_
-            useProperties: false
-          scheduler:
-            instanceId: AUTO
-            instanceName: JobScheduler
-            rmi:
-              export: false
-              proxy: false
-            wrapJobExecutionInUserTransaction: false
-          threadPool:
-            class: org.quartz.simpl.SimpleThreadPool
-            threadCount: 5
-            threadPriority: 5
-  redis:
-    database: 4
-    pool:
-      max-active: 300
-      max-idle: 8
-      max-wait: -1
-      min-idle: 0
-    timeout: 5000
+    active: pro
   servlet:
     encoding:
       charset: UTF-8

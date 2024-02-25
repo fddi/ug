@@ -13,7 +13,7 @@ import top.ulug.base.dto.AbilityDTO;
 import top.ulug.base.inf.ApiDocument;
 import top.ulug.base.util.JwtUtils;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**

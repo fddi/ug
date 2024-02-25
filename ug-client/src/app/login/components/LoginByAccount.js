@@ -2,14 +2,16 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Button, Row, Form, Input, Spin, Alert, Checkbox, Modal, Divider, Space, } from 'antd'
-import { TAG } from '@/config/client'
+import { TAG, post } from '@/config/client'
 import { lag } from '@/config/lag';
 import StringUtils from '@/util/StringUtils'
 import ModifyPwd from './ModifyPwd';
+import AES from '@/util/AES'
 
 const FormItem = Form.Item;
 
 export default function LoginByAccount(props) {
+    const [loading, setLoading] = useState(false)
     const [userName, setUserName] = useState();
     const [rememberUser, setRememberUser] = useState();
     const [visible, setVisible] = useState(false);
@@ -29,12 +31,31 @@ export default function LoginByAccount(props) {
     const pwRef = useRef(null);
 
     function onFinish(values) {
-        if (values.userName === 'demo' && values.password === 'demo') {
-            localStorage.setItem(TAG.userName, values.userName);
-            props && props.jump();
-        } else {
-            setErrorMsg(lag.errorUsernameOrPassword)
-        }
+        setLoading(true)
+        const encStr = AES.encrypt(values.password);
+        values.password = encStr;
+        post('auth/login', values).then(result => {
+            if (result && 200 === result.resultCode) {
+                let tokenInfo = result.resultData;
+                sessionStorage.setItem(TAG.token, JSON.stringify(tokenInfo));
+                if (rememberUser) {
+                    localStorage.setItem(TAG.userName, tokenInfo.userName);
+                } else {
+                    localStorage.removeItem(TAG.userName)
+                }
+                setLoading(false);
+                setErrorMsg(null)
+                props.onFinish && props.onFinish(true, result);
+            } else if (result) {
+                setLoading(false);
+                setErrorMsg(result.resultMsg)
+                props.onFinish && props.onFinish(false, result);
+            } else {
+                setLoading(false);
+                setErrorMsg(lag.errorNetwork)
+                props.onFinish && props.onFinish(false, result);
+            }
+        })
     }
 
     function handlePressEnter(e) {
@@ -44,7 +65,7 @@ export default function LoginByAccount(props) {
     }
     const loginAlert = errorMsg && (<Alert banner message={errorMsg} type="error" showIcon />);
     return (
-        <Spin spinning={false} tip={lag.infoLoading}>
+        <Spin spinning={loading} tip={lag.infoLoading}>
             <Form onFinish={onFinish} style={{ padding: 30 }} form={form}>
                 <FormItem hasFeedback name="userName"
                     rules={[
@@ -54,7 +75,7 @@ export default function LoginByAccount(props) {
                             message: lag.alertRequireUsername
                         },
                     ]}>
-                    <Input autoFocus size="large" placeholder="用户名：demo" onPressEnter={handlePressEnter} />
+                    <Input autoFocus size="large" placeholder="用户名：developer" onPressEnter={handlePressEnter} />
                 </FormItem>
                 <FormItem hasFeedback name="password"
                     rules={[
@@ -63,7 +84,7 @@ export default function LoginByAccount(props) {
                             message: lag.alertRequirePwd
                         },
                     ]}>
-                    <Input ref={pwRef} size="large" type="password" placeholder="密码：demo" />
+                    <Input ref={pwRef} size="large" type="password" placeholder="密码：Ulug@2024" />
                 </FormItem>
                 <Row style={{ padding: 10 }}>
                     <Checkbox checked={rememberUser}

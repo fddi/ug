@@ -12,7 +12,7 @@ import top.ulug.base.util.StringUtils;
 import top.ulug.core.deploy.domain.CodeCatalog;
 import top.ulug.core.deploy.repository.CodeCatalogRepository;
 import top.ulug.core.deploy.service.CatalogService;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.base.dto.PageDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;

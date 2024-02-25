@@ -7,7 +7,7 @@ import top.ulug.base.dto.WrapperDTO;
 import top.ulug.base.inf.ApiDocument;
 import top.ulug.core.deploy.domain.DeployClient;
 import top.ulug.core.deploy.service.ClientService;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.base.dto.PageDTO;
 
 import java.util.List;
 

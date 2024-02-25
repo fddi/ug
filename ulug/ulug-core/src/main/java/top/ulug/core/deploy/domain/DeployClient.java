@@ -1,9 +1,9 @@
 package top.ulug.core.deploy.domain;
 
 
-import top.ulug.jpa.auditor.BaseEntity;
+import top.ulug.base.auditor.BaseEntity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * 客户端管理
@@ -19,27 +19,23 @@ public class DeployClient extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long clientId;
 
-    @Column(columnDefinition = "VARCHAR(2) COMMENT '状态 1--正常 0--异常'")
+    @Column(length = 10)
     private String status;
 
-    @Column(unique = true, nullable = false,
-            columnDefinition = "VARCHAR(50) COMMENT '客户端名称'")
+    @Column(unique = true, nullable = false)
     private String clientName;
 
-    @Column(unique = true, nullable = false,
-            columnDefinition = "VARCHAR(40) COMMENT '客户端密钥'")
+    @Column(unique = true, nullable = false)
     private String clientKey;
 
-    @Column(columnDefinition = "VARCHAR(255) COMMENT '客户端秘钥说明'")
     private String clientKeyNote;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '客户端类型 1-官方客户端'")
+    @Column(length = 50)
     private String clientType;
 
-    @Column(columnDefinition = "VARCHAR(255) COMMENT '客户端说明'")
     private String clientNote;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '图标'")
+    @Column(length = 50)
     private String icon;
 
     public DeployClient() {

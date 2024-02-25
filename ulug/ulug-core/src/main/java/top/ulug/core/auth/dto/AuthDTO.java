@@ -2,6 +2,7 @@ package top.ulug.core.auth.dto;
 
 import com.alibaba.fastjson.JSON;
 import top.ulug.base.dto.AccountDTO;
+import top.ulug.base.dto.TreeDTO;
 import top.ulug.core.deploy.domain.DeployAbility;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ public class AuthDTO implements Serializable {
     private AccountDTO account;
     private List<OrgDTO> orgList;
     private List<DeployAbility> abilityList;
+    private TreeDTO menu;
 
     public AccountDTO getAccount() {
         return account;
@@ -38,6 +40,14 @@ public class AuthDTO implements Serializable {
 
     public void setAbilityList(List<DeployAbility> abilityList) {
         this.abilityList = abilityList;
+    }
+
+    public TreeDTO getMenu() {
+        return menu;
+    }
+
+    public void setMenu(TreeDTO menu) {
+        this.menu = menu;
     }
 
     @Override

@@ -12,31 +12,22 @@ import 'dayjs/locale/zh-cn';
 
 dayjs.locale('zh-cn');
 
-let themeConfig
-let defAlgorithm = [];
-
 export default function RootLayout({ children }) {
-  useEffect(() => {
-    if (themeConfig == null) {
-      themeConfig = localStorage.getItem('themeConfig')
-      themeConfig = themeConfig && JSON.parse(themeConfig);
-      themeConfig = themeConfig || {
-        color: '#00B96B',
-        type: 1,
-        compact: 0,
-      }
-      localStorage.setItem('themeConfig', JSON.stringify(themeConfig))
-      if (themeConfig.type == '2') {
-        defAlgorithm = [theme.darkAlgorithm]
-      } else {
-        defAlgorithm = [theme.defaultAlgorithm]
-      }
-      if (themeConfig.compact == '2') defAlgorithm.push(theme.compactAlgorithm)
-    }
-  },[])
+  const [color, setColor] = useState("#00B96B");
+  const [algorithm, setAlgorithm] = useState([]);
 
-  const [color, setColor] = useState(themeConfig ? themeConfig.color : "#00B96B");
-  const [algorithm, setAlgorithm] = useState(defAlgorithm);
+  useEffect(() => {
+    let themeConfig = localStorage.getItem('themeConfig')
+    themeConfig = themeConfig && JSON.parse(themeConfig);
+    themeConfig = themeConfig || {
+      color: '#00B96B',
+      type: 1,
+      compact: 0,
+    }
+    localStorage.setItem('themeConfig', JSON.stringify(themeConfig))
+    changeTheme(themeConfig);
+  }, [])
+
   function changeTheme(themeInfo) {
     if (themeInfo == null) return;
     localStorage.setItem('themeConfig', JSON.stringify(themeInfo))

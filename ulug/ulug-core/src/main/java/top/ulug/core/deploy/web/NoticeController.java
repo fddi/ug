@@ -6,7 +6,7 @@ import top.ulug.base.dto.WrapperDTO;
 import top.ulug.base.inf.ApiDocument;
 import top.ulug.core.deploy.domain.DeployNotice;
 import top.ulug.core.deploy.service.NoticeService;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.base.dto.PageDTO;
 
 /**
  * Created by liujf on 2022/7/27.

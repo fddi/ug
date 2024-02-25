@@ -1,8 +1,8 @@
 package top.ulug.core.auth.domain;
 
-import top.ulug.jpa.auditor.BaseEntity;
+import jakarta.persistence.*;
+import top.ulug.base.auditor.BaseEntity;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -25,7 +25,7 @@ public class AuthFormData extends BaseEntity implements Serializable {
     @Basic(fetch = FetchType.LAZY)
     private String formMapper;
 
-    @Column(columnDefinition = "VARCHAR(2) COMMENT '状态 1--正常 0--异常'")
+    @Column(length = 10)
     private String status;
 
     public Long getFormId() {

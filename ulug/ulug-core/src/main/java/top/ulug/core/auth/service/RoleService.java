@@ -7,7 +7,7 @@ import top.ulug.base.dto.WrapperDTO;
 import top.ulug.core.auth.domain.AuthRole;
 import top.ulug.core.auth.dto.RoleDTO;
 import top.ulug.core.auth.dto.RoleOrgDTO;
-import top.ulug.jpa.CurdService;
+import top.ulug.base.inf.CurdService;
 
 import java.util.List;
 

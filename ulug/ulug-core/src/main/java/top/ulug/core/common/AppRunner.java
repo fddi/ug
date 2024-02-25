@@ -1,5 +1,6 @@
 package top.ulug.core.common;
 
+import jakarta.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import top.ulug.base.dto.WrapperDTO;
 import top.ulug.base.servlet.RequestUtils;
 import top.ulug.core.deploy.service.AbilityService;
 
-import javax.annotation.PreDestroy;
 import java.util.List;
 
 /**

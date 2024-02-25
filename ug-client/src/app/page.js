@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 export default function App() {
   const router = useRouter();
   useEffect(() => {
-    router.replace("/login");
+    router.replace("/home");
   }, [])
   return null;
 }

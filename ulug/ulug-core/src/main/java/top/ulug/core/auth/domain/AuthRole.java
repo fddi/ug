@@ -2,9 +2,10 @@ package top.ulug.core.auth.domain;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import top.ulug.jpa.auditor.BaseEntity;
+import top.ulug.base.auditor.BaseEntity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,19 +20,17 @@ public class AuthRole extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long roleId;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '角色名称'")
+    @Column(length = 50)
     private String roleName;
 
-    @Column(columnDefinition = "VARCHAR(255) COMMENT '角色说明'")
     private String roleNote;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '角色类型'")
+    @Column(length = 50)
     private String roleType;
 
-    @Column(columnDefinition = "VARCHAR(32) COMMENT '区域编码'")
     private String areaCode;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(32) COMMENT '单位代码'")
+    @Column(nullable = false, length = 50)
     private String unitCode;
 
     @Column(insertable = false, updatable = false)

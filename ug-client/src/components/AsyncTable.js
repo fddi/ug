@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Table, Input, Avatar, Form, Card, Space, Button } from 'antd';
+import { Table, Input, Avatar, Form, Card, Space, Button,Badge } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import StringUtils from '@/util/StringUtils';
 import { post, getImgUrl } from "@/config/client";
 import { useAntdTable, useUpdateEffect } from 'ahooks';
+import { faIcon } from './IconText';
 async function queryData({ current, pageSize }, formData, modules, extraItem) {
     const addParams = {
         pageSize: pageSize,
@@ -24,6 +25,11 @@ async function queryData({ current, pageSize }, formData, modules, extraItem) {
     }
     return post(modules.queryApi, addParams).then((result) => {
         if (modules.pageable === false) {
+            if (modules.treeData === true) {
+                return {
+                    list: result.resultData && result.resultData.children,
+                }
+            }
             return {
                 list: result.resultData && result.resultData,
             }
@@ -74,11 +80,23 @@ export default function AsyncTable(props) {
         }
         let cols = [];
         columns.forEach(item => {
-            if ('hidden' !== item.inputType && 'hidden' !== item.colsType) {
+            if ('hidden' !== item.colsType) {
                 if (item.inputType === "logo") {
                     item.render = (text, record) => {
                         return text ? (<Avatar size={40} src={getImgUrl(text)} />) : null
                     };
+                } else if (item.colsType === "icon") {
+                    item.render = (text, record) => {
+                        const Com = faIcon({ name: text });
+                        return text ? Com : null
+                    };
+                } else if (item.dataIndex === "status") {
+                    item.render = (text, record) => {
+                        if (text == "1") {
+                            return (<Badge status="processing" />)
+                        }
+                        return (<Badge status="default" />)
+                    }
                 } else if (item.colsType === "edit") {
                     item.render = (text, record) => {
                         return (<a onClick={() => props.onEdit && props.onEdit(record)}>编辑</a>)

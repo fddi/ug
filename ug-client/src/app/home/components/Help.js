@@ -5,6 +5,7 @@ const FormItem = Form.Item;
 const { Group } = Radio;
 let themeConfig
 let defType
+let defCompact
 export default function Help(props) {
     if (themeConfig == null) {
         themeConfig = localStorage.getItem('themeConfig')
@@ -15,11 +16,12 @@ export default function Help(props) {
             compact: 1,
         }
         defType = themeConfig && themeConfig.type;
+        defCompact = themeConfig && themeConfig.compact;
     }
 
     const [color, setColor] = useState(themeConfig.color);
     const [type, setType] = useState(defType);
-    const [compact, setCompact] = useState(defType);
+    const [compact, setCompact] = useState(defCompact);
     const { changeTheme } = useContext(ThemeContext);
     function onChange(v, num) {
         switch (num) {

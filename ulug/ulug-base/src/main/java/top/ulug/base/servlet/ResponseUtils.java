@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import top.ulug.base.dto.WrapperDTO;
 import top.ulug.base.e.ResultMsgEnum;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
 /**

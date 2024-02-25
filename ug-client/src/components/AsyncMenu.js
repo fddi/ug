@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu } from 'antd';
 import { post } from "@/config/client";
 import { useRequest } from 'ahooks';
@@ -16,10 +16,7 @@ function rebuildData(data) {
 async function queryData(modules) {
     return post(modules.queryApi, { parentKey: 0, ...modules.params }).then((result) => {
         if (result && 200 === result.resultCode) {
-            console.log(modules.queryApi)
-            console.log(result)
             let data = result.resultData
-            data && (data[0].selected = true);
             rebuildData(data)
             return data;
         } else {
@@ -40,11 +37,15 @@ export default function AsyncMenu(props) {
             refreshDeps: [modules, refreshTime]
         });
 
+    useEffect(() => {
+        data && setSelectedKeys([data[0].key]);
+        (data && handleSelect) && handleSelect({ key: data[0].key })
+    }, [data])
+
     function onSelect(e) {
         setSelectedKeys(e.selectedKeys)
         handleSelect && handleSelect({ key: e.key })
     }
-    console.log(data)
     return (
         <Menu
             mode="inline"

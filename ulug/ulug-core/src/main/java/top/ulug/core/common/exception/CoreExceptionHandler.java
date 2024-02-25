@@ -1,11 +1,11 @@
 package top.ulug.core.common.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.ulug.base.dto.WrapperDTO;
 
-import javax.servlet.http.HttpServletRequest;
 
 import static top.ulug.base.e.ResultMsgEnum.RESULT_EXCEPTION;
 

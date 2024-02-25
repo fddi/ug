@@ -2,7 +2,9 @@ package top.ulug.core.auth.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import top.ulug.base.dto.WrapperDTO;
 import top.ulug.base.e.ResultMsgEnum;
@@ -10,7 +12,7 @@ import top.ulug.base.util.StringUtils;
 import top.ulug.core.auth.domain.AuthFormData;
 import top.ulug.core.auth.repository.AuthFormDataRepository;
 import top.ulug.core.auth.service.FormDataService;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.base.dto.PageDTO;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,9 +1,9 @@
 package top.ulug.core.auth.domain;
 
 
-import top.ulug.jpa.auditor.BaseEntity;
+import top.ulug.base.auditor.BaseEntity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * 组织结构
@@ -16,34 +16,31 @@ public class AuthOrg extends BaseEntity implements Comparable<AuthOrg> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long orgId;
 
-    @Column(columnDefinition = "VARCHAR(2) COMMENT '状态 1--正常 0--异常'")
+    @Column(length = 10)
     private String status;
 
-    @Column(nullable = false, unique = true, columnDefinition = "VARCHAR(16) COMMENT '机构代码'")
+    @Column(nullable = false, unique = true,length = 50)
     private String orgCode;
 
-    @Column(columnDefinition = "VARCHAR(150) COMMENT '机构名'")
     private String orgName;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '机构类型'")
+    @Column(length = 50)
     private String orgType;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(32) COMMENT '地区代码'")
+    @Column(nullable = false, length = 50)
     private String areaCode;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(32) COMMENT '单位代码'")
+    @Column(nullable = false, length = 50)
     private String unitCode;
 
-    @Column(nullable = false, columnDefinition = "INT(10) COMMENT '父级id'")
+    @Column(nullable = false)
     private Long parentId;
 
-    @Column(columnDefinition = "VARCHAR(50) COMMENT '附加值'")
+    @Column(length = 50)
     private String parentCode;
 
-    @Column(columnDefinition = "VARCHAR(150) COMMENT '路径'")
     private String orgPath;
 
-    @Column(columnDefinition = "INT(5) COMMENT '机构排序'")
     private Integer orgSort;
 
     public Long getOrgId() {

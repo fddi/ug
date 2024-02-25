@@ -57,7 +57,7 @@ export default function DynamicCurd(props) {
             message.warning(lag.noData);
             return;
         }
-        const rowKey = modules.rowKey || modules.columns[0].dataIndex;
+        const rowKey = modules.ID || modules.rowKey;
         let key = row[rowKey] || row.key;
         if (StringUtils.isEmpty(key) || key == "0") {
             message.warn(lag.noKey);
@@ -123,7 +123,7 @@ export default function DynamicCurd(props) {
     return (
         <Spin spinning={loading}>
             <Space direction='vertical'>
-                <Card bodyStyle={{ padding: 0 }} bordered={false}>
+                <Card styles={{ body: { padding: 0 } }} bordered={false}>
                     <Space style={{
                         padding: 10
                     }} size="small">
@@ -140,7 +140,7 @@ export default function DynamicCurd(props) {
                     height: 'calc(100vh - 180px)', ...props.style
                 }}>
                     <Col span={5} style={{ height: '100%', }}>
-                        <Card bodyStyle={{ padding: 0 }} bordered={false}>
+                        <Card styles={{ body: { padding: 0 } }} bordered={false}>
                             {Extra}
                         </Card>
                     </Col>

@@ -17,11 +17,4 @@ public interface AnalysisService {
      */
     WrapperDTO<Long> pvToday();
 
-    /**
-     * 节点数
-     *
-     * @return data
-     */
-    WrapperDTO<Map> node();
-
 }

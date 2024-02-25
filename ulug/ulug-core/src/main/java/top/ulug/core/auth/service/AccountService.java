@@ -3,9 +3,9 @@ package top.ulug.core.auth.service;
 import org.springframework.web.multipart.MultipartFile;
 import top.ulug.base.dto.AccountDTO;
 import top.ulug.base.dto.WrapperDTO;
+import top.ulug.base.inf.CurdService;
 import top.ulug.core.auth.domain.AuthUser;
 import top.ulug.core.auth.dto.UserDTO;
-import top.ulug.jpa.CurdService;
 
 /**
  * Created by liujf on 2019/3/25.

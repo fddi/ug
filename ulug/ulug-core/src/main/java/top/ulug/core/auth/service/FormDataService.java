@@ -2,7 +2,7 @@ package top.ulug.core.auth.service;
 
 import top.ulug.base.dto.WrapperDTO;
 import top.ulug.core.auth.domain.AuthFormData;
-import top.ulug.jpa.CurdService;
+import top.ulug.base.inf.CurdService;
 
 /**
  * Created by liujf on 2021/5/25.

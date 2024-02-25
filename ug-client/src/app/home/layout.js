@@ -2,11 +2,11 @@
 import "./home.css";
 import { useRouter } from 'next/navigation'
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ConfigProvider, Layout, Button, Flex, Breadcrumb } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined, } from '@ant-design/icons'
 import { useRequest } from 'ahooks';
-import { APPNMAE, post } from '../../config/client'
+import { APPNMAE, post, getAuthInfo } from '../../config/client'
 import StringUtils from '../../util/StringUtils'
 import MenuTree from './components/MenuTree'
 import MainHeader from './components/MainHeader'
@@ -31,7 +31,7 @@ async function queryData(localSearch, key) {
         });
     }
 
-    return post('data/menu.json').then((result) => {
+    return post('menu/personal').then((result) => {
         if (result && result.resultCode === 200) {
             const data = result.resultData.children;
             let menu1 = JSON.stringify(data);
@@ -57,6 +57,13 @@ export default function HomeLayout({ children }) {
     const [activeMenu, setActiveMenu] = useState();
     const { data, loading, run } = useRequest(queryData, { loadingDelay: 1000 });
     const router = useRouter();
+
+    useEffect(() => {
+        const authInfo = getAuthInfo();
+        if (StringUtils.isEmpty(authInfo.token)) {
+            router.replace("/login");
+        }
+    }, [data])
 
     function onTopMenuSelect(e) {
         run(true, e.key);
@@ -140,7 +147,7 @@ export default function HomeLayout({ children }) {
                     </Flex>
                 </ConfigProvider>
                 <Content className="content">
-                    <Breadcrumb items={[{ title: activeMenu ? activeMenu.label : '工作台' },]}/>
+                    <Breadcrumb items={[{ title: activeMenu ? activeMenu.label : '工作台' },]} />
                     <HomeContext.Provider value={{ activeMenu }}>
                         {children}
                     </HomeContext.Provider>

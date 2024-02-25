@@ -1,9 +1,9 @@
 package top.ulug.core.deploy.domain;
 
 
-import top.ulug.jpa.auditor.BaseEntity;
+import top.ulug.base.auditor.BaseEntity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * Created by liujf on 2020-09-11.

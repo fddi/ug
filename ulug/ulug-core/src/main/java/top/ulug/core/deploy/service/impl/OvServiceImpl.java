@@ -1,7 +1,6 @@
 package top.ulug.core.deploy.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import top.ulug.base.dto.WrapperDTO;
 import top.ulug.base.e.ResultMsgEnum;
@@ -11,10 +10,12 @@ import top.ulug.core.auth.dto.AuthDTO;
 import top.ulug.core.auth.service.AuthService;
 import top.ulug.core.deploy.domain.DeployOv;
 import top.ulug.core.deploy.repository.DeployOvRepository;
+import top.ulug.core.deploy.service.CacheService;
 import top.ulug.core.deploy.service.OvService;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.base.dto.PageDTO;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,15 +32,16 @@ public class OvServiceImpl implements OvService {
     DeployOvRepository ovRepository;
     @Autowired
     private AuthService authService;
-    @Resource(name = "redisTemplate")
-    private ValueOperations<String, AuthDTO> redisVoAuth;
     @Autowired
     private RequestUtils requestUtils;
+    @Autowired
+    CacheService cacheService;
 
     @Override
     public String getOv(String optionCode) {
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         if (authDTO == null || authDTO.getAccount() == null) {
             return null;
         }
@@ -73,8 +75,9 @@ public class OvServiceImpl implements OvService {
 
     @Override
     public boolean saveOv(String optionCode, String value) {
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         if (authDTO == null || authDTO.getAccount() == null) {
             return false;
         }
@@ -101,8 +104,9 @@ public class OvServiceImpl implements OvService {
             //开发者,返回所有配置值
             list = ovRepository.findByOptionCode(optionCode);
         } else {
+            String appId = requestUtils.getCurrentAppId();
             String token = requestUtils.getCurrentToken();
-            AuthDTO authDTO = redisVoAuth.get(token);
+            AuthDTO authDTO = cacheService.getAuth(appId, token);
             if (authDTO == null || authDTO.getAccount() == null) {
                 return WrapperDTO.fail(ResultMsgEnum.RESULT_ERROR_NPE, "authDTO");
             }
@@ -115,8 +119,9 @@ public class OvServiceImpl implements OvService {
     @Override
     public WrapperDTO<String> save(DeployOv... ovs) {
         List<DeployOv> list = Arrays.asList(ovs);
+        String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
-        AuthDTO authDTO = redisVoAuth.get(token);
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
         assert authDTO != null;
         for (DeployOv ov : list) {
             if (StringUtils.isEmpty(ov.getUnitCode())) {

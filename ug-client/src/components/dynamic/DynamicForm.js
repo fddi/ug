@@ -15,7 +15,7 @@ async function queryData(modules, row) {
             resolve(null);
         });
     }
-    const rowkey = modules.rowKey || modules.columns[0].dataIndex;
+    const rowkey = modules.ID || modules.rowKey;
     const v = row[rowkey] || row['id'];
     if (!StringUtils.isEmpty(modules.findOneApi) && !StringUtils.isEmpty(v)) {
         const params = {};
@@ -227,7 +227,6 @@ export default function DynamicForm(props) {
             <Spin spinning={spinning || loading}>
                 {contextHolder}
                 <Card
-                    bodyStyle={{ padding: 6, }}
                     extra={extra}
                     title={
                         <Space>

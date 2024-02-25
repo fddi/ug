@@ -7,8 +7,10 @@ import io.jsonwebtoken.security.Keys;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.Base64;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by liujf on 2021/6/13.
@@ -16,7 +18,7 @@ import java.util.Date;
  */
 public abstract class JwtUtils {
 
-    public static final String secretString = "CHYN1111999988888888ULUGCHYN2222000022221111ULUG";
+    public static final String secretString = "JWTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT";
 
     /**
      * 创建jws
@@ -25,14 +27,16 @@ public abstract class JwtUtils {
      * @param subject 主题
      * @return
      */
-    public static String create(String id, String subject) {
+    public static String create(String id, String subject, long overtime) {
+        String uuid = UUID.randomUUID().toString();
+        Date exprireDate = Date.from(Instant.now().plusSeconds(overtime));
         SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretString));
         Date now = new Date();
         String jws = Jwts.builder()
-                .setId(id)
-                .setSubject(subject)
-                .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + (24 * 60 * 60 * 1000)))
+                .id(id)
+                .subject(subject)
+                .issuedAt(now)
+                .expiration(exprireDate)
                 .signWith(key)
                 .compact();
         return Base64.getEncoder().encodeToString(jws.getBytes(StandardCharsets.UTF_8));
@@ -47,11 +51,10 @@ public abstract class JwtUtils {
      */
     public static Claims pares(String token) throws Exception {
         SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretString));
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(key)
+        Claims claims = Jwts.parser()
+                .verifyWith(key)
                 .build()
-                .parseClaimsJws(new String(Base64.getDecoder().decode(token)))
-                .getBody();
+                .parseSignedClaims(new String(Base64.getDecoder().decode(token))).getPayload();
         return claims;
     }
 }

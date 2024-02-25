@@ -1,7 +1,7 @@
 package top.ulug.core.deploy.service.impl;
 
 import com.alibaba.excel.EasyExcel;
-import org.jetbrains.annotations.NotNull;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.BeanFactory;
@@ -23,7 +23,7 @@ import top.ulug.core.deploy.dto.DictDTO;
 import top.ulug.core.deploy.repository.CodeCatalogRepository;
 import top.ulug.core.deploy.repository.CodeDictRepository;
 import top.ulug.core.deploy.service.DictService;
-import top.ulug.jpa.dto.PageDTO;
+import top.ulug.base.dto.PageDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -195,7 +195,7 @@ public class DictServiceImpl implements DictService {
         return WrapperDTO.success();
     }
 
-    private void findChild(@NotNull CodeDict node, @NotNull List<CodeDict> list) {
+    private void findChild(CodeDict node, List<CodeDict> list) {
         String parentCode = node.getDictCode();
         for (CodeDict dict : list) {
             if (parentCode.equals(dict.getParentCode())) {
