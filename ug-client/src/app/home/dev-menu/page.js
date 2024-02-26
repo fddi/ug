@@ -36,8 +36,8 @@ const modules = {
             required: true,
         },
         {
-            "title": "操作",
-            "colsType": "editAndDel"
+            title: "操作",
+            colsType: "editAndDel"
         }, {
             title: '菜单名称',
             dataIndex: 'title',
@@ -52,12 +52,14 @@ const modules = {
             title: '父级id',
             dataIndex: 'parentId',
             colsType: "hidden",
-            inputType: "hidden",
+            inputType: "text",
+            disabled: true
         }, {
             title: '客户端',
             dataIndex: 'clientName',
             colsType: "hidden",
-            readOnly: "readOnly",
+            inputType: "text",
+            disabled: true
         }, {
             title: '菜单名称',
             dataIndex: 'menuName',

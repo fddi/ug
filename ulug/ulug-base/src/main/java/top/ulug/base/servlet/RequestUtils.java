@@ -2,6 +2,7 @@ package top.ulug.base.servlet;
 
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -14,6 +15,7 @@ import top.ulug.base.inf.ApiDocument;
 import top.ulug.base.util.JwtUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.*;
 
 /**
@@ -22,6 +24,8 @@ import java.util.*;
  */
 @Component
 public class RequestUtils {
+    @Value("${project.auth.token.key}")
+    private String tokenKey;
     @Autowired
     WebApplicationContext applicationContext;
 
@@ -56,9 +60,8 @@ public class RequestUtils {
             return null;
         }
         try {
-            Claims claims = JwtUtils.pares(token);
-            String userName = String.valueOf(claims.getId());
-            return userName;
+            Claims claims = JwtUtils.pares(tokenKey, token);
+            return String.valueOf(claims.getSubject());
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -94,8 +97,8 @@ public class RequestUtils {
         Map<RequestMappingInfo, HandlerMethod> map = handleMapping.getHandlerMethods();
         List<AbilityDTO> abilities = new ArrayList<>();
         for (Map.Entry<RequestMappingInfo, HandlerMethod> handlerMethod : map.entrySet()) {
-            String uri = handlerMethod.getKey()
-                    .getPatternsCondition().getPatterns().toString();
+            String uri = String.valueOf(handlerMethod.getKey().getPathPatternsCondition());
+            if (uri == null) continue;
             uri = uri.replaceAll("\\[", "").replaceAll("]", "");
             AbilityDTO ability = new AbilityDTO();
             if (uri.equals("/error")) {

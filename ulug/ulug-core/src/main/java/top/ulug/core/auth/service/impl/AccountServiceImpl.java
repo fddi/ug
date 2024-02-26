@@ -50,6 +50,10 @@ public class AccountServiceImpl implements AccountService {
     private static final String SALT = "-a1b2";
     @Value("${project.auth.active.time}")
     private Long activeTime;
+    @Value("${project.auth.token.key}")
+    private String tokenKey;
+    @Value("${project.auth.token.time}")
+    private Long tokenTime;
     @Value("${project.auth.error.times}")
     private Long errorTimes;
     @Value("${project.auth.default.password}")
@@ -102,7 +106,7 @@ public class AccountServiceImpl implements AccountService {
             if (user.getPassword().equals(test)) {
                 //密码正确
                 long nowDate = new Date().getTime();
-                String token = JwtUtils.create(userName, requestUtils.getCurrentAppId(), activeTime);
+                String token = JwtUtils.create(userName, tokenKey, tokenTime);
                 AccountDTO ad = getAccountDto(user, token, nowDate);
                 AuthDTO authDTO = new AuthDTO();
                 authDTO.setAccount(ad);

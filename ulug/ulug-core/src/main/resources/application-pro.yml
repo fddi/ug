@@ -20,17 +20,16 @@ server:
   port: 9091
 spring:
   datasource:
-    url: jdbc:sqlite:ug.db
+    url: jdbc:h2:file:./ugDB
     username: ug
     password: ug
-    driverClassName: org.sqlite.JDBC
-    initialization-mode: never
+    driverClassName: org.h2.Driver
   devtools:
     add-properties: false
   jpa:
     hibernate:
       show-sql: true
-    spring.jpa.database-platform: org.hibernate.community.dialect.SQLiteDialect
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
   h2:
     console:

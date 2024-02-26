@@ -30,6 +30,8 @@ import java.util.concurrent.TimeUnit;
 public class AuthServiceImpl implements AuthService {
     @Value("${project.auth.active.time}")
     private Long activeTime;
+    @Value("${project.auth.token.key}")
+    private String tokenKey;
     @Value("${project.auth.developer.code}")
     private String developerCode;
     @Autowired
@@ -49,7 +51,7 @@ public class AuthServiceImpl implements AuthService {
             return false;
         }
         try {
-            JwtUtils.pares(token);
+            JwtUtils.pares(tokenKey, token);
         } catch (Exception e) {
             e.printStackTrace();
             return false;

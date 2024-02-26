@@ -2,6 +2,9 @@ project:
   auth:
     active:
       time: 1800
+    token:
+      key: 161616161616161616161616161616161616161616161616
+      time: 36000
     aes:
       key: 1616161616161616
     default:
@@ -11,7 +14,7 @@ project:
     error:
       times: 5
   scanning-ability:
-    'on': false
+    'on': true
 server:
   compression:
     enabled: true

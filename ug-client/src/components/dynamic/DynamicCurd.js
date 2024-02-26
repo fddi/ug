@@ -20,6 +20,7 @@ export default function DynamicCurd(props) {
     const [refreshTime, setRefreshTime] = useState(new Date().getTime());
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [modal, contextHolder] = Modal.useModal();
 
     useUpdateEffect(() => {
         props.refreshTime && setRefreshTime(props.refreshTime)
@@ -39,6 +40,7 @@ export default function DynamicCurd(props) {
 
     const onFinish = () => {
         setRefreshTime(new Date().getTime())
+        setVisible(false)
         props.onFinish && props.onFinish();
     }
 
@@ -48,7 +50,12 @@ export default function DynamicCurd(props) {
     }
 
     function onAdd() {
-        setRow(null)
+        if (modules && modules.treeData === true && row) {
+            let newData = { parentId: row[modules.rowKey] }
+            setRow(newData)
+        } else {
+            setRow(null)
+        }
         setVisible(true)
     }
 
@@ -69,7 +76,7 @@ export default function DynamicCurd(props) {
         }
         const params = {};
         params[rowKey] = key;
-        Modal.confirm({
+        modal.confirm({
             title: lag.confirmDel,
             content: `${lag.del}:${rowKey}=${key}`,
             okText: lag.ok,
@@ -88,7 +95,7 @@ export default function DynamicCurd(props) {
                 message.success(result.resultMsg);
                 onFinish();
             } else {
-                Modal.error({
+                modal.error({
                     title: '操作失败',
                     content: result.resultMsg,
                 });
@@ -103,7 +110,7 @@ export default function DynamicCurd(props) {
     if (StringUtils.isEmpty(modules.extra)) {
         spanForm += 5;
     }
-    let Extra = (null);
+    let Extra = null;
     if (!StringUtils.isEmpty(modules.extra)) {
         //查询分类标签控件 支持菜单和树形菜单
         switch (modules.extra.type) {
@@ -139,7 +146,7 @@ export default function DynamicCurd(props) {
                 <Row gutter={[8, 8]} style={{
                     height: 'calc(100vh - 180px)', ...props.style
                 }}>
-                    <Col span={5} style={{ height: '100%', }}>
+                    <Col span={Extra == null ? 0 : 5} style={{ height: '100%', }}>
                         <Card styles={{ body: { padding: 0 } }} bordered={false}>
                             {Extra}
                         </Card>
@@ -154,9 +161,10 @@ export default function DynamicCurd(props) {
                     </Col>
                 </Row>
             </Space>
-            <Drawer width={650} open={visible} onClose={() => setVisible(false)}>
+            <Drawer width={'calc(48vw)'} open={visible} onClose={() => setVisible(false)} closable={false}>
                 <DynamicForm modules={modules} row={row} onFinish={onFinish} extraItem={extraItem} />
             </Drawer>
+            {contextHolder}
         </Spin>
     );
 }

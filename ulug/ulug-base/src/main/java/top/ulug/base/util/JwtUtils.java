@@ -18,26 +18,25 @@ import java.util.UUID;
  */
 public abstract class JwtUtils {
 
-    public static final String secretString = "JWTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT";
-
     /**
      * 创建jws
      *
-     * @param id      id
-     * @param subject 主题
-     * @return
+     * @param subject  subject
+     * @param key      key
+     * @param overtime overtime
+     * @return token
      */
-    public static String create(String id, String subject, long overtime) {
+    public static String create(String subject, String key, long overtime) {
         String uuid = UUID.randomUUID().toString();
         Date exprireDate = Date.from(Instant.now().plusSeconds(overtime));
-        SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretString));
+        SecretKey k = Keys.hmacShaKeyFor(Decoders.BASE64.decode(key));
         Date now = new Date();
         String jws = Jwts.builder()
-                .id(id)
+                .id(uuid)
                 .subject(subject)
                 .issuedAt(now)
                 .expiration(exprireDate)
-                .signWith(key)
+                .signWith(k)
                 .compact();
         return Base64.getEncoder().encodeToString(jws.getBytes(StandardCharsets.UTF_8));
     }
@@ -49,10 +48,10 @@ public abstract class JwtUtils {
      * @return claims
      * @throws Exception
      */
-    public static Claims pares(String token) throws Exception {
-        SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretString));
+    public static Claims pares(String key, String token) throws Exception {
+        SecretKey k = Keys.hmacShaKeyFor(Decoders.BASE64.decode(key));
         Claims claims = Jwts.parser()
-                .verifyWith(key)
+                .verifyWith(k)
                 .build()
                 .parseSignedClaims(new String(Base64.getDecoder().decode(token))).getPayload();
         return claims;
