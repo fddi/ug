@@ -2,21 +2,19 @@ import JSONEditor from 'jsoneditor/dist/jsoneditor-minimalist';
 import 'jsoneditor/dist/jsoneditor.css';
 import { useEffect, useRef, useState } from 'react';
 let editor;
-export default function CompJSONEditor({ style, json, onChange, ...rest }) {
+export default function CompJSONEditor({ style, defaultJSON, onChange, ...rest }) {
     const divRef = useRef(null)
 
     function handleChange() {
         if (editor && onChange) {
             const currentJson = editor.get();
-            if (json !== currentJson) {
-                onChange(currentJson);
-            }
+            onChange(currentJson);
         }
     }
 
     function createEditor() {
         editor = new JSONEditor(divRef.current, {
-            mode:'tree',
+            mode: 'tree',
             onChange: handleChange,
             ...rest
         })
@@ -24,16 +22,9 @@ export default function CompJSONEditor({ style, json, onChange, ...rest }) {
 
     useEffect(() => {
         createEditor()
+        defaultJSON && editor.set(defaultJSON)
         return (() => editor && editor.destroy())
     }, [])
-
-    useEffect(() => {
-        if (json == null || editor == null) return;
-        const currentJson = editor.getText();
-        if (JSON.stringify(json) != currentJson) {
-            editor.set(json)
-        }
-    }, [json])
 
     return (
         <div ref={divRef} style={style || {}}></div>

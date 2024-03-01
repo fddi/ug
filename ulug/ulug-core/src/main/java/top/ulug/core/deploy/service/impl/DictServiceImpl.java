@@ -142,9 +142,10 @@ public class DictServiceImpl implements DictService {
         List<CodeDict> delList = new ArrayList<>();
         for (CodeDict dict : list) {
             String path = dictRepository.findPath(dict.getDictId());
-            List<CodeDict> childList = dictRepository.findByDictPath(path);
+            List<CodeDict> childList = dictRepository.findByDictPath(path + ">");
             delList.addAll(childList);
         }
+        delList.addAll(list);
         dictRepository.deleteAllInBatch(delList);
         return WrapperDTO.success();
     }

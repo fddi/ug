@@ -272,9 +272,10 @@ public class MenuServiceImpl implements MenuService {
         List<AuthMenu> delList = new ArrayList<>();
         for (AuthMenu menu : list) {
             String path = menuRepository.findPath(menu.getMenuId());
-            List<AuthMenu> childList = menuRepository.findByMenuPath(path);
+            List<AuthMenu> childList = menuRepository.findByMenuPath(path + ">");
             delList.addAll(childList);
         }
+        delList.addAll(list);
         menuRepository.deleteAllInBatch(delList);
         return WrapperDTO.success();
     }

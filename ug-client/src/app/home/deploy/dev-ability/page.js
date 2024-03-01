@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { post } from '@/config/client';
-import {  Button, Spin, Modal, } from 'antd';
+import { App, Button, Spin, } from 'antd';
 import { DeleteOutlined, } from '@ant-design/icons'
 import { lag } from '@/config/lag';
 import AsyncTable from '@/components/AsyncTable';
@@ -12,6 +12,7 @@ export default function AbilityList(props) {
     const [loading, setLoading] = useState(false)
     const [modules, setModules] = useState()
     const [refreshTime, setRefreshTime] = useState(new Date().getTime())
+    const { modal } = App.useApp()
 
     const defaultModules = {
         pageable: false,
@@ -27,7 +28,7 @@ export default function AbilityList(props) {
             title: '删除',
             width: 60,
             render: (text, record) =>
-                (<Button icon={<DeleteOutlined />} type='primary' danger onClick={() => onDel(record)} />),
+                (<Button size='small' danger type='default' shape="circle" icon={<DeleteOutlined />} onClick={() => onDel(record)} />),
             align: 'center',
         }, {
             title: '接口说明',
@@ -60,12 +61,12 @@ export default function AbilityList(props) {
         }],
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setModules(defaultModules)
-    },[])
+    }, [])
 
     const onDel = async (item) => {
-        Modal.confirm({
+        modal.confirm({
             title: lag.confirmDel,
             okText: lag.ok,
             okType: 'danger',

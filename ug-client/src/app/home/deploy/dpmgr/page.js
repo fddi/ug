@@ -2,7 +2,7 @@
 
 import React, { Fragment, useEffect, useState } from 'react';
 import DynamicCurd from '@/components/dynamic/DynamicCurd';
-import { Button, Modal } from 'antd';
+import { App, Button, Modal } from 'antd';
 import { EditOutlined, } from '@ant-design/icons'
 import dynamic from 'next/dynamic';
 import { post } from '@/config/client';
@@ -47,6 +47,7 @@ const modules = {
     }, {
         title: '状态',
         dataIndex: 'status',
+        colsType: 'status',
         inputType: "select",
         catalog: "TF",
         required: true
@@ -55,31 +56,41 @@ const modules = {
 export default function FormDataMgr(props) {
     const [disabled, setDisabled] = useState(true)
     const [item, setItem] = useState()
+    const [jsonStr, setJsonStr] = useState()
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
+    const { message } = App.useApp();
 
     useEffect(() => {
         if (item == null) setDisabled(true)
     }, [item])
 
     function onSelect(item) {
+        if (loading) return;
         setItem(item)
+        setJsonStr(item.formMapper)
         setDisabled(false)
     }
 
     function onOk() {
         if (item == null) return;
         setLoading(true)
+        setDisabled(true)
+        item.formMapper = jsonStr;
         post(modules.saveApi, item).then((result) => {
             setLoading(false)
             setOpen(false)
+            setItem(null)
+            message.info(result && result.resultMsg)
         })
     }
 
-    function onChange(v) {
-        if (item == null) return;
-        item.formMapper = JSON.stringify(v);
-        setItem(item)
+    let defJson = item && item.formMapper
+    try {
+        defJson = defJson && JSON.parse(defJson);
+    } catch (error) {
+        console.log(error)
+        defJson = null;
     }
 
     return (
@@ -97,8 +108,10 @@ export default function FormDataMgr(props) {
                 footer={<Button loading={loading} type='primary' onClick={onOk}>提交</Button>}
                 onCancel={() => setOpen(false)}
                 width={650}
+                destroyOnClose={true}
             >
-                <JSONEditor json={item && JSON.parse(item.formMapper)} onChange={onChange} />
+                <JSONEditor defaultJSON={defJson}
+                    onChange={(v) => setJsonStr(JSON.stringify(v))} />
             </Modal>
         </Fragment>
     );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu } from 'antd';
 import { faIcon } from '../../../components/IconText';
+import { TYPE_TOKEN_MENU } from '@/config/client';
 
 export default function MenuTree(props) {
      const [menus, setMenus] = useState();
@@ -14,7 +15,7 @@ export default function MenuTree(props) {
      useEffect(() => {
           const newMenus = []
           props.menus && props.menus.forEach(item => {
-               if (item.type != '5') {
+               if (item.type != TYPE_TOKEN_MENU) {
                     newMenus.push(item)
                }
           })

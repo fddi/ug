@@ -94,9 +94,10 @@ public class CatalogServiceImpl implements CatalogService {
         List<CodeCatalog> delList = new ArrayList<>();
         for (CodeCatalog catalog : list) {
             String path = catalogRepository.findPath(catalog.getCatalogId());
-            List<CodeCatalog> childList = catalogRepository.findByCatalogPath(path);
+            List<CodeCatalog> childList = catalogRepository.findByCatalogPath(path + ">");
             delList.addAll(childList);
         }
+        delList.addAll(list);
         catalogRepository.deleteAllInBatch(delList);
         return WrapperDTO.success();
     }

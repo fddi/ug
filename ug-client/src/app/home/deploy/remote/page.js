@@ -1,7 +1,7 @@
 "use client"
 
 import React, { Fragment, useContext, useEffect, useState } from 'react'
-import { HomeContext } from '../components/HomeContext';
+import { HomeContext } from '../../components/HomeContext';
 import Redirect404 from '@/components/Redirect404';
 
 export default function RemoteIframe(props) {

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Row, Col, Button, Space, Card, Spin, Drawer, Modal, message } from 'antd';
+import { Row, Col, Button, Space, Card, Spin, Drawer, App } from 'antd';
 import { ReloadOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import DynamicForm from './DynamicForm';
 import { post } from "../../config/client";
@@ -20,7 +20,7 @@ export default function DynamicCurd(props) {
     const [refreshTime, setRefreshTime] = useState(new Date().getTime());
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [modal, contextHolder] = Modal.useModal();
+    const { message, modal } = App.useApp();
 
     useUpdateEffect(() => {
         props.refreshTime && setRefreshTime(props.refreshTime)
@@ -41,6 +41,7 @@ export default function DynamicCurd(props) {
     const onFinish = () => {
         setRefreshTime(new Date().getTime())
         setVisible(false)
+        setRow(null)
         props.onFinish && props.onFinish();
     }
 
@@ -65,7 +66,7 @@ export default function DynamicCurd(props) {
             return;
         }
         const rowKey = modules.ID || modules.rowKey;
-        let key = row[rowKey] || row.key;
+        let key = row[rowKey] || row.id;
         if (StringUtils.isEmpty(key) || key == "0") {
             message.warn(lag.noKey);
             return;
@@ -144,7 +145,7 @@ export default function DynamicCurd(props) {
                     </Space>
                 </Card>
                 <Row gutter={[8, 8]} style={{
-                    height: 'calc(100vh - 180px)', ...props.style
+                    height: 'calc(100vh - 190px)', ...props.style
                 }}>
                     <Col span={Extra == null ? 0 : 5} style={{ height: '100%', }}>
                         <Card styles={{ body: { padding: 0 } }} bordered={false}>
@@ -161,10 +162,9 @@ export default function DynamicCurd(props) {
                     </Col>
                 </Row>
             </Space>
-            <Drawer width={'calc(48vw)'} open={visible} onClose={() => setVisible(false)} closable={false}>
+            <Drawer destroyOnClose={true} width={'calc(48vw)'} open={visible} onClose={() => setVisible(false)} closable={false}>
                 <DynamicForm modules={modules} row={row} onFinish={onFinish} extraItem={extraItem} />
             </Drawer>
-            {contextHolder}
         </Spin>
     );
 }

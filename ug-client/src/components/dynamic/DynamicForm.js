@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Spin, Form, Button, Modal, Card, message, Space, Row } from 'antd';
+import { Spin, Form, Button, Card, Space, Row, App } from 'antd';
 import { CheckOutlined, RedoOutlined, FormOutlined } from '@ant-design/icons';
 import { post } from "@/config/client";
 import { lag } from "@/config/lag";
@@ -31,7 +31,7 @@ async function queryData(modules, row) {
  * 动态表单组件
  * **/
 export default function DynamicForm(props) {
-    const [messageApi, contextHolder] = message.useMessage();
+    const { message, modal } = App.useApp();
     const [form] = Form.useForm();
     const [spinning, setSpinning] = useState(false);
     const [item, setItem] = useState();
@@ -184,12 +184,12 @@ export default function DynamicForm(props) {
                 post(modules.saveApi, formData, false).then((result) => {
                     setSpinning(false);
                     if (result && 200 === result.resultCode) {
-                        messageApi.success(result.resultMsg);
+                        message.success(result.resultMsg);
                         onFinish && onFinish();
                         reset(props.modules, null, props.extraItem);
                     } else {
                         const msg = result ? result.resultMsg : lag.errorNetwork;
-                        Modal.error({
+                        modal.error({
                             title: '操作失败',
                             content: result.resultMsg,
                         });
@@ -199,11 +199,11 @@ export default function DynamicForm(props) {
                 post(modules.saveApi, values).then((result) => {
                     setSpinning(false);
                     if (result && 200 === result.resultCode) {
-                        messageApi.success(result.resultMsg);
+                        message.success(result.resultMsg);
                         onFinish && onFinish();
                     } else {
                         const msg = result ? result.resultMsg : lag.errorNetwork;
-                        Modal.error({
+                        modal.error({
                             title: '操作失败',
                             content: result.resultMsg,
                         });
@@ -225,7 +225,6 @@ export default function DynamicForm(props) {
     return (
         <div style={props.style}>
             <Spin spinning={spinning || loading}>
-                {contextHolder}
                 <Card
                     extra={extra}
                     title={

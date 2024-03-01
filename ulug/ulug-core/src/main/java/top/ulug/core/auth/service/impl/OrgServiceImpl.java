@@ -221,10 +221,9 @@ public class OrgServiceImpl implements OrgService {
                 continue;
             }
             String path = orgRepository.findPath(org.getOrgId());
-            if (StringUtils.isEmpty(path)) {
-                delList.add(op.get());
-            } else {
-                List<AuthOrg> childList = orgRepository.findByOrgPath(path);
+            delList.add(op.get());
+            if (!StringUtils.isEmpty(path)) {
+                List<AuthOrg> childList = orgRepository.findByOrgPath(path + ">");
                 delList.addAll(childList);
             }
         }

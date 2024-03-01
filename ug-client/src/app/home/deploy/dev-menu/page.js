@@ -2,7 +2,7 @@
 
 import React, { Fragment, useState } from 'react';
 import DynamicCurd from '@/components/dynamic/DynamicCurd';
-import { Button, Modal, message, } from 'antd';
+import { App, Button, Modal } from 'antd';
 import { SwapOutlined, } from '@ant-design/icons'
 import PeAbility from './components/PeAbility';
 import StringUtils from '@/util/StringUtils';
@@ -37,7 +37,8 @@ const modules = {
         },
         {
             title: "操作",
-            colsType: "editAndDel"
+            colsType: "editAndDel",
+            width: 150
         }, {
             title: '菜单名称',
             dataIndex: 'title',
@@ -100,6 +101,7 @@ const modules = {
             title: '菜单状态',
             dataIndex: 'status',
             inputType: "select",
+            colsType: 'status',
             catalog: "TF",
             required: true,
         },],
@@ -108,6 +110,7 @@ const modules = {
 export default function MenuMgr(props) {
     const [visible, setVisible] = useState();
     const [menu, setMenu] = useState();
+    const { message, modal } = App.useApp();
 
     const onExtraSelect = (item) => {
         setMenu(null)

@@ -5,12 +5,16 @@ import getLocalData from './local_data';
 const IS_TEST_DATA = false;
 const IS_DEV = false;
 const TIMEOUT = 30000;
+
 export const APIURL = "http://localhost:9091";
 export const APPID = "ug-client";
 export const APPNMAE = "有庐有瓜";
 export const APPKEY = "1b4673a6d2762ca5b575841bdd1382e2b200dd0a";
 export const LOCATE = "zh_cn";
 export const AESKEY = "1616161616161616";
+
+export const TYPE_TOKEN_MENU = '99';
+
 export const TAG = {
     token: APPID + "-token",
     userName: APPID + "-userName",
@@ -37,6 +41,7 @@ export async function getOv(optionCode) {
 
 export function getAuthInfo() {
     let tokenInfo = sessionStorage.getItem(TAG.token);
+    console.log(tokenInfo)
     if (tokenInfo === null || tokenInfo === "")
         return {};
     tokenInfo = JSON.parse(tokenInfo);

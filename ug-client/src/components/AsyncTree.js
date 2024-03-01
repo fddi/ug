@@ -134,15 +134,15 @@ export default function AsyncTree(props) {
             }
         })
     }
-    const height = window.innerHeight - 208;
     return (
         <Fragment>
             <Input.Search
                 allowClear
                 onChange={onChange} />
             <Tree
+                virtual={true}
                 style={props.style}
-                height={height}
+                height={"calc(100vh - 208px)"}
                 onSelect={handleSelect}
                 showLine={true}
                 selectedKeys={selectedKeys}

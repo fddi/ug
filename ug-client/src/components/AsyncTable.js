@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { Table, Input, Avatar, Form, Card, Space, Button,Badge } from 'antd';
+import { Table, Input, Avatar, Form, Card, Space, Button, Badge } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import StringUtils from '@/util/StringUtils';
 import { post, getImgUrl } from "@/config/client";
 import { useAntdTable, useUpdateEffect } from 'ahooks';
 import { faIcon } from './IconText';
 async function queryData({ current, pageSize }, formData, modules, extraItem) {
+    if (StringUtils.isEmpty(modules)) {
+        return {
+            total: 0,
+            list: []
+        }
+    }
     const addParams = {
         pageSize: pageSize,
         pageNo: current - 1,
@@ -90,7 +96,7 @@ export default function AsyncTable(props) {
                         const Com = faIcon({ name: text });
                         return text ? Com : null
                     };
-                } else if (item.dataIndex === "status") {
+                } else if (item.colsType === "status") {
                     item.render = (text, record) => {
                         if (text == "1") {
                             return (<Badge status="processing" />)

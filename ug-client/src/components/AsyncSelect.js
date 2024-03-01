@@ -12,7 +12,7 @@ async function queryData(catalog, dictCode, queryApi) {
             resolve(null);
         });
     }
-    return post(queryApi || 'data/dict.json', { catalog, dictCode }).then(result => result.resultData)
+    return post(queryApi || 'code/dict-list', { catalog, dictCode }).then(result => result.resultData)
 }
 
 export default function AsyncSelect(props) {
