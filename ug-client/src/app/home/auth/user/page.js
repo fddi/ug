@@ -1,9 +1,9 @@
 "use client"
 
-import React, {  Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import DynamicCurd from '@/components/dynamic/DynamicCurd';
 import { APIURL, getAuthInfo, getOv, post } from '@/config/client';
-import { Button, Modal, message, Radio, } from 'antd';
+import { Button, App, Radio, Modal } from 'antd';
 import { DownloadOutlined, UploadOutlined, ReloadOutlined } from '@ant-design/icons'
 import ImpExcelModal from '@/components/ImpExcelModal';
 import StringUtils from '@/util/StringUtils';
@@ -26,7 +26,7 @@ const defaultModules = {
     searchKey: "userName",
     saveApi: "user/save",
     delApi: "user/del",
-    queryApi: "user/list",
+    queryApi: "user/page-list",
     params: {
         status: "1",
     },
@@ -91,6 +91,7 @@ export default function UserMgr(props) {
     const [item, setItem] = useState()
     const [visible, setVisible] = useState(false)
     const authInfo = getAuthInfo()
+    const { modal, message } = App.useApp();
     useEffect(() => {
         async function checkOrgEdit() {
             const orgEdit = await getOv('sys_org_edit');
@@ -103,10 +104,10 @@ export default function UserMgr(props) {
 
     const onResetPwd = () => {
         if (StringUtils.isEmpty(item) || item.userId == null) {
-            message.warn("请选择需要重置的用户！");
+            message.warning("请选择需要重置的用户！");
             return;
         }
-        Modal.confirm({
+        modal.confirm({
             title: '确认重置？',
             okText: lag.ok,
             okType: 'danger',

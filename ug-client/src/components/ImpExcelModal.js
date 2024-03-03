@@ -1,7 +1,7 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { post } from '@/config/client';
 import { jsonToFormData } from '@/util/FetchTo';
-import { Button, Upload, message, Radio, Alert, Spin, Divider, Modal, } from 'antd';
+import { Button, Upload, App, Radio, Alert, Spin, Divider, Modal, } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import StringUtils from '@/util/StringUtils';
 
@@ -9,6 +9,7 @@ export default function ImpExcelModal(props) {
      const [loading, setLoading] = useState(false)
      const [fileList, setFileList] = useState()
      const [dataType, setDataType] = useState(props.dataType || 'tree')
+     const { message } = App.useApp()
 
      useEffect(() => {
           setFileList([])
@@ -27,7 +28,7 @@ export default function ImpExcelModal(props) {
      const onUpload = () => {
           const { api, params, onFinish } = props;
           if (fileList == null || fileList.length <= 0) {
-               message.warn("请先选择文件");
+               message.warning("请先选择文件");
                return;
           }
           if (StringUtils.isEmpty(api)) {

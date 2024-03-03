@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Avatar, Upload, message, } from 'antd';
+import { Avatar, Upload, App, } from 'antd';
 import { PlusOutlined } from '@ant-design/icons'
 import { getFileByBase64 } from '@/util/FileUtils';
 import { lag } from "@/config/lag";
@@ -9,6 +9,7 @@ import ImgCrop from "antd-img-crop";
 export default function UploadLogo(props) {
      const [file, setFile] = useState();
      const [data, setData] = useState();
+     const { message } = App.useApp()
      useUpdateEffect(() => {
           setFile(null)
           setData(null)

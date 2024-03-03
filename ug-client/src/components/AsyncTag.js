@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { message, Tag, } from 'antd';
+import { Tag, } from 'antd';
 import { post } from "@/config/client";
 import { useRequest, useUpdateEffect } from 'ahooks';
 
@@ -8,7 +8,6 @@ async function queryData(catalog, dictCode, queryApi) {
         if (result.resultCode == '200') {
             return result.resultData
         } else {
-            message.error(result.resultMsg)
             return null
         }
     })

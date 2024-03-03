@@ -4,12 +4,13 @@ import OrgSearchBar from '../../org/components/OrgSearchBar';
 import AsyncTable from '@/components/AsyncTable';
 const defaultModules = {
     rowKey: "roleId",
-    queryApi: "/role/page-list",
+    queryApi: "role/page-list",
     selectType: 'checkbox',
     columns: [{
         title: '岗位ID',
         dataIndex: 'roleId',
         inputType: "hidden",
+        colsType: "hidden",
     }, {
         title: '机构ID',
         dataIndex: 'orgId',

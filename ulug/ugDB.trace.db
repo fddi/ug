@@ -21903,3 +21903,7 @@ org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "KEY_SEQ" not found [42122-224]
 	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetViewer$ResultSetDataPumpJob.run(ResultSetViewer.java:5148)
 	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:114)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2024-03-03 17:01:37.844267+08:00 jdbc[20]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]
+2024-03-03 17:02:12.588862+08:00 jdbc[19]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]

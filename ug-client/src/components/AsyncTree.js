@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from 'react';
-import { Tree, Input, message, } from 'antd';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Tree, Input, App, } from 'antd';
 import { post } from "@/config/client";
 import StringUtils from '@/util/StringUtils';
 import ArrayUtils from '@/util/ArrayUtils';
@@ -29,8 +29,6 @@ function searchTree(value) {
     if (selectItems.length > 0) {
         root = selectItems;
     }
-    console.log(root)
-    console.log(dataList)
     return root;
 }
 
@@ -81,6 +79,31 @@ export default function AsyncTree(props) {
             manual: !StringUtils.isEmpty(modules.extra),
             defaultParams: [modules]
         });
+    const [height, setHeight] = useState(350)
+    const { message } = App.useApp()
+
+    useEffect(() => {
+        const height = window.innerHeight - 230;
+        setHeight(height)
+    }, [])
+
+    useEffect(() => {
+        const { defaultSelectKey, handleSelect } = props;
+        if (modules == null || data == null || defaultSelectKey == null) return;
+        let key = defaultSelectKey;
+        if (defaultSelectKey == 0) {
+            key = data[0] && data[0].key
+        }
+        key && setSelectedKeys([key]);
+        let item;
+        if (defaultSelectKey == 0) {
+            item = data[0]
+        } else {
+            item = { key }
+        }
+        handleSelect && handleSelect(item)
+    }, [data])
+
     useUpdateEffect(() => {
         run(modules, extraItem)
     }, [modules, extraItem, refreshTime])
@@ -114,7 +137,7 @@ export default function AsyncTree(props) {
     const onDrop = info => {
         const dragNode = info.dragNode;
         if (dragNode.children != null && dragNode.children.length > 0) {
-            message.warn("只能移动叶子节点数据！");
+            message.warning("只能移动叶子节点数据！");
             return;
         }
         const dropNode = info.node;
@@ -140,9 +163,8 @@ export default function AsyncTree(props) {
                 allowClear
                 onChange={onChange} />
             <Tree
-                virtual={true}
                 style={props.style}
-                height={"calc(100vh - 208px)"}
+                height={height}
                 onSelect={handleSelect}
                 showLine={true}
                 selectedKeys={selectedKeys}

@@ -3,6 +3,7 @@ import { Menu } from 'antd';
 import { post } from "@/config/client";
 import { useRequest } from 'ahooks';
 import { faIcon } from './IconText';
+import StringUtils from '@/util/StringUtils';
 
 function rebuildData(data) {
     data && data.forEach(item => {
@@ -38,8 +39,20 @@ export default function AsyncMenu(props) {
         });
 
     useEffect(() => {
-        data && setSelectedKeys([data[0].key]);
-        (data && handleSelect) && handleSelect({ key: data[0].key })
+        const { defaultSelectKey, handleSelect } = props;
+        if (modules == null || data == null || defaultSelectKey == null) return;
+        let key = defaultSelectKey;
+        if (defaultSelectKey == 0) {
+            key = data[0] && data[0].key
+        }
+        key && setSelectedKeys([key]);
+        let item;
+        if (defaultSelectKey == 0) {
+            item = data[0]
+        } else {
+            item = { key }
+        }
+        handleSelect && handleSelect(item)
     }, [data])
 
     function onSelect(e) {

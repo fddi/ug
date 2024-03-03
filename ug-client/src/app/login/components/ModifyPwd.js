@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Alert, message } from 'antd';
+import { Button, Form, Input, Alert, App } from 'antd';
 import { lag } from '@/config/lag';
 import AES from '@/util/AES';
 import { post } from '@/config/client';
@@ -7,7 +7,7 @@ import { post } from '@/config/client';
 const FormItem = Form.Item;
 export default function ModifyPwd(props) {
     const [loading, setLoading] = useState(false);
-
+    const { message } = App.useApp()
     function handlePressEnter(e, id) {
         e.preventDefault();
         const ref = document.getElementById(id)

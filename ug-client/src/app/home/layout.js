@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { ConfigProvider, Layout, Button, Flex, Breadcrumb, Space, App } from 'antd';
-import { MenuUnfoldOutlined, MenuFoldOutlined, } from '@ant-design/icons'
+import { MenuUnfoldOutlined, MenuFoldOutlined, HomeOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks';
 import { APPNMAE, post, getAuthInfo } from '../../config/client'
 import StringUtils from '../../util/StringUtils'
@@ -164,8 +164,12 @@ export default function HomeLayout({ children }) {
                         </Flex>
                     </ConfigProvider>
                     <Content className="content">
-                        <Breadcrumb items={[{ title: activeMenu ? activeMenu.label : '工作台' },]} />
-                        <div style={{ height: 10 }} />
+                        <div style={{ margin: 10, marginBottom: 20 }}>
+                            <Breadcrumb items={[{
+                                href: '/home',
+                                title: <HomeOutlined />,
+                            }, { title: activeMenu ? activeMenu.label : '工作台' },]} />
+                        </div>
                         <HomeContext.Provider value={{ activeMenu }}>
                             {children}
                         </HomeContext.Provider>

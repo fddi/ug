@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { checkDep, post } from '@/config/client';
-import { Button, Table, Row, Col, Tree, message } from 'antd';
+import { Button, Table, Row, Col, Tree, App } from 'antd';
 import { DeleteOutlined, } from '@ant-design/icons'
 import OrgSearchBar from '../../org/components/OrgSearchBar';
 import ArrayUtils from '@/util/ArrayUtils';
@@ -44,6 +44,7 @@ export default function PeOrg(props) {
             setCheckedKeys(data.checkedKeys)
         }
     })
+    const { message } = App.useApp();
 
     const columns = [
         {

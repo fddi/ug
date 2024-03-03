@@ -68,11 +68,11 @@ export default function DynamicCurd(props) {
         const rowKey = modules.ID || modules.rowKey;
         let key = row[rowKey] || row.id;
         if (StringUtils.isEmpty(key) || key == "0") {
-            message.warn(lag.noKey);
+            message.warning(lag.noKey);
             return;
         }
         if (StringUtils.isEmpty(key) || key == "0") {
-            message.warn(lag.noKey);
+            message.warning(lag.noKey);
             return;
         }
         const params = {};
@@ -106,7 +106,7 @@ export default function DynamicCurd(props) {
     }
 
 
-    const { modules } = props;
+    const { formModules, modules } = props;
     let spanForm = 19;
     if (StringUtils.isEmpty(modules.extra)) {
         spanForm += 5;
@@ -116,12 +116,12 @@ export default function DynamicCurd(props) {
         //查询分类标签控件 支持菜单和树形菜单
         switch (modules.extra.type) {
             case "tree":
-                Extra = (<AsyncTree modules={modules.extra} refreshTime={refreshTime}
-                    handleSelect={handleExtraSelect} />);
+                Extra = (<AsyncTree modules={modules.extra}
+                    handleSelect={handleExtraSelect} defaultSelectKey={0} />);
                 break;
             case "menu":
-                Extra = (<AsyncMenu modules={modules.extra} refreshTime={refreshTime}
-                    handleSelect={handleExtraSelect} />);
+                Extra = (<AsyncMenu modules={modules.extra}
+                    handleSelect={handleExtraSelect} defaultSelectKey={0} />);
                 break;
             default:
                 break;
@@ -130,40 +130,38 @@ export default function DynamicCurd(props) {
 
     return (
         <Spin spinning={loading}>
-            <Space direction='vertical'>
-                <Card styles={{ body: { padding: 0 } }} bordered={false}>
-                    <Space style={{
-                        padding: 10
-                    }} size="small">
-                        <Button style={{ marginRight: 5, }} icon={<ReloadOutlined />}
-                            onClick={onFinish}>重载</Button>
-                        <Button style={{ marginRight: 5, }} icon={<PlusCircleOutlined />}
-                            onClick={onAdd}>新增</Button>
-                        {props.actions && props.actions.map((Com, index) => {
-                            return <Fragment key={`action-${index}`}>{Com}</Fragment>
-                        })}
-                    </Space>
-                </Card>
-                <Row gutter={[8, 8]} style={{
-                    height: 'calc(100vh - 190px)', ...props.style
-                }}>
-                    <Col span={Extra == null ? 0 : 5} style={{ height: '100%', }}>
-                        <Card styles={{ body: { padding: 0 } }} bordered={false}>
-                            {Extra}
-                        </Card>
-                    </Col>
-                    <Col span={spanForm} style={{ height: '100%', overflowY: "auto" }}>
-                        <AsyncTable
-                            modules={modules} refreshTime={refreshTime}
-                            extraItem={extraItem} handleSelect={onRowSelect}
-                            scroll={{ x: 600, y: 'calc(100vh - 350px)' }}
-                            onEdit={onEdit} onDel={onDel}
-                        />
-                    </Col>
-                </Row>
-            </Space>
+            <Card style={{ marginBottom: 10 }} styles={{ body: { padding: 0 } }} bordered={false}>
+                <Space style={{
+                    padding: 10
+                }} size="small">
+                    <Button style={{ marginRight: 5, }} icon={<ReloadOutlined />}
+                        onClick={onFinish}>重载</Button>
+                    <Button style={{ marginRight: 5, }} icon={<PlusCircleOutlined />}
+                        onClick={onAdd} type='primary'>新增</Button>
+                    {props.actions && props.actions.map((Com, index) => {
+                        return <Fragment key={`action-${index}`}>{Com}</Fragment>
+                    })}
+                </Space>
+            </Card>
+            <Row gutter={[8, 8]} style={{
+                height: 'calc(100vh - 200px)', ...props.style
+            }}>
+                <Col span={Extra == null ? 0 : 5} style={{ height: '100%', }}>
+                    <Card styles={{ body: { padding: 0 } }} bordered={false}>
+                        {Extra}
+                    </Card>
+                </Col>
+                <Col span={spanForm} style={{ height: '100%', overflowY: "auto" }}>
+                    <AsyncTable
+                        modules={modules} refreshTime={refreshTime}
+                        extraItem={extraItem} handleSelect={onRowSelect}
+                        scroll={{ x: 600, y: 'calc(100vh - 350px)' }}
+                        onEdit={onEdit} onDel={onDel}
+                    />
+                </Col>
+            </Row>
             <Drawer destroyOnClose={true} width={'calc(48vw)'} open={visible} onClose={() => setVisible(false)} closable={false}>
-                <DynamicForm modules={modules} row={row} onFinish={onFinish} extraItem={extraItem} />
+                <DynamicForm modules={formModules || modules} row={row} onFinish={onFinish} extraItem={extraItem} />
             </Drawer>
         </Spin>
     );

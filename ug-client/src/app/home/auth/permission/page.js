@@ -2,7 +2,7 @@
 
 import React, { Fragment, useState } from 'react';
 import { getAuthInfo, post } from '@/config/client';
-import { Button, Row, Col, Modal, Tabs, message, Space, } from 'antd';
+import { Button, Row, Col, Modal, Tabs, Space, App, } from 'antd';
 import { EditOutlined, LockOutlined } from '@ant-design/icons'
 import AsyncTreeSelect from '@/components/AsyncTreeSelect';
 import AsyncTree from '@/components/AsyncTree';
@@ -30,6 +30,7 @@ export default function RoleMgr(props) {
     const [pVisible, setPVisible] = useState()
     const [mVisible, setMVisible] = useState()
     const [extraModules, setExtraModules] = useState(defaultExtraModules)
+    const { message } = App.useApp();
 
     const defautModules = {
         selectType: 'checkbox',
@@ -91,7 +92,7 @@ export default function RoleMgr(props) {
 
     const onSubmit = () => {
         if (StringUtils.isEmpty(menuIds)) {
-            message.warn("请勾选要配置的权限！");
+            message.warning("请勾选要配置的权限！");
             return;
         }
         post("role/menu-vols-save", {
@@ -114,7 +115,7 @@ export default function RoleMgr(props) {
 
     const handlePm = () => {
         if (StringUtils.isEmpty(roleIds)) {
-            message.warn("请勾选要配置的岗位！");
+            message.warning("请勾选要配置的岗位！");
             return;
         }
         setMenuIds([])

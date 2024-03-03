@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { Upload, message, Button, } from 'antd';
+import { Upload, App, Button, } from 'antd';
 import { InboxOutlined, DeleteOutlined } from '@ant-design/icons';
 import { getFileByBase64 } from '@/util/FileUtils';
 import { lag } from '@/config/lag'
@@ -9,6 +9,7 @@ import Image from "next/image";
 export default function UploadCover(props) {
      const [file, setFile] = useState();
      const [data, setData] = useState();
+     const { message } = App.useApp()
      useUpdateEffect(() => {
           setFile(null)
           setData(null)

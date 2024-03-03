@@ -33,7 +33,6 @@ const modules = {
             dataIndex: 'key',
             inputType: "hidden",
             colsType: "hidden",
-            required: true,
         },
         {
             title: "操作",
@@ -84,6 +83,7 @@ const modules = {
             inputType: "select",
             catalog: "menu_type",
             colsType: "hidden",
+            defaultValue: '1'
         }, {
             title: '图标',
             dataIndex: 'icon',

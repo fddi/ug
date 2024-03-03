@@ -26,6 +26,9 @@ public interface AuthOrgRepository extends JpaRepository<AuthOrg, Long>,
     @Query("select orgPath from AuthOrg where orgId=?1")
     String findPath(long orgId);
 
+    @Query("select unitCode from AuthOrg where orgId=?1")
+    String findUnitCode(long orgId);
+
     @Query(" from AuthOrg t where t.orgPath like ?1% order by orgSort")
     List<AuthOrg> findByOrgPath(String orgPath);
 

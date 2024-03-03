@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { post } from '@/config/client';
-import { Row, Col, Tree, message } from 'antd';
+import { Row, Col, Tree, App } from 'antd';
 import AsyncMenu from '@/components/AsyncMenu';
 import ArrayUtils from '@/util/ArrayUtils';
 import { useRequest } from 'ahooks';
@@ -25,7 +25,6 @@ async function queryData(clientName, roleId) {
                     });
                     return { treeData: root.children || [], checkedKeys: targetKeys, }
                 } else {
-                    message.error(result.resultMsg);
                     return { treeData: [], checkedKeys: [] }
                 }
             });
@@ -39,7 +38,6 @@ async function queryData(clientName, roleId) {
                     return { treeData: root.children, checkedKeys: [], }
 
                 } else {
-                    message.error(result.resultMsg);
                     return { treeData: [], checkedKeys: [] }
                 }
             });

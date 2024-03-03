@@ -181,10 +181,8 @@ public class OrgServiceImpl implements OrgService {
     public WrapperDTO<String> save(AuthOrg... orgs) {
         List<AuthOrg> list = Arrays.asList(orgs);
         for (AuthOrg org : list) {
-            if (!authService.checkDevOps() &&
-                    (TYPE_ORG_UNIT.equals(org.getOrgType()) ||
-                            !authService.checkUnitCode(org.getUnitCode()))) {
-                //非开发者不能新建单位,或新建非本单位数据
+            if (!authService.checkDevOps() && TYPE_ORG_UNIT.equals(org.getOrgType())) {
+                //非开发者不能新建单位
                 return WrapperDTO.fail(ResultMsgEnum.RESULT_ERROR_NO_PERMISSION, null);
             }
             AuthOrg findOrg = orgRepository.findByUnitCode(org.getUnitCode());
@@ -192,6 +190,11 @@ public class OrgServiceImpl implements OrgService {
                     findOrg != null && !findOrg.getOrgId().equals(org.getOrgId())) {
                 //单位代码重复
                 return WrapperDTO.fail(ResultMsgEnum.RESULT_ERROR_ORG_REPEAT, null);
+            }
+            //单位代码与上级机构一致
+            if (org.getParentId() != null && org.getParentId() > 0) {
+                String unitCode = orgRepository.findUnitCode(org.getParentId());
+                org.setUnitCode(unitCode);
             }
         }
         //保存路径

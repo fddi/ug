@@ -41,7 +41,6 @@ export async function getOv(optionCode) {
 
 export function getAuthInfo() {
     let tokenInfo = sessionStorage.getItem(TAG.token);
-    console.log(tokenInfo)
     if (tokenInfo === null || tokenInfo === "")
         return {};
     tokenInfo = JSON.parse(tokenInfo);

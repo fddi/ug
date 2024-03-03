@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { checkDep, post } from '@/config/client';
-import { Spin, Transfer, message } from 'antd';
+import { Spin, Transfer, } from 'antd';
 import { useRequest } from 'ahooks';
 import OrgSearchBar from '../../org/components/OrgSearchBar';
 
@@ -21,7 +21,6 @@ async function queryData(roleId, unitCode) {
                     });
                     return { list, targetKeys: targetKeys, }
                 } else {
-                    message.error(result.resultMsg);
                     return { list: [], targetKeys: [] }
                 }
             });
@@ -38,7 +37,6 @@ export default function PeUser(props) {
         manual: true,
         loadingDelay: 1000,
         onSuccess: (data, params) => {
-            console.log(data)
             setTargetKeys(data.targetKeys)
         }
     })
@@ -48,7 +46,6 @@ export default function PeUser(props) {
     }, [props.roleId])
 
     const handleChange = async (targetKeys, direction, moveKeys) => {
-        console.log(targetKeys)
         setTargetKeys(targetKeys)
         setLoading(true)
         await post("role/user-save", { roleId: props.roleId, keys: targetKeys.join(',') })

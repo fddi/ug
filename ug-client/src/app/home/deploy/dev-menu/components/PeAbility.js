@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Transfer, message, Spin, } from 'antd';
+import { Transfer, Spin, } from 'antd';
 import StringUtils from '@/util/StringUtils';
 import { useRequest, useUpdateEffect } from 'ahooks';
 import { post } from '@/config/client';
@@ -12,8 +12,6 @@ async function queryData(menuId) {
      return post("menu/dev/ability-list", { menuId }).then(result => {
           if (result && 200 === result.resultCode) {
                return result.resultData;
-          } else {
-               result && message.error(result.resultMsg);
           }
      });
 }
