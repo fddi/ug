@@ -60,3 +60,307 @@ delete from auth_org where org_id=? or org_id=? or org_id=? or org_id=? [23503-2
 2024-03-03 17:01:35.118 [http-nio-9091-exec-3] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Error: 23505, SQLState: 23505
 2024-03-03 17:01:35.120 [http-nio-9091-exec-3] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Unique index or primary key violation: "PRIMARY KEY ON PUBLIC.AUTH_USER(USER_ID) ( /* key:1 */ CAST(1 AS BIGINT), TIMESTAMP '2019-09-11 21:37:24', TIMESTAMP '2024-02-26 18:18:37.3', NULL, '', NULL, '53000000', U&'\\8d85\\7ea7\\7ba1\\7406\\5458', CAST(1 AS BIGINT), 'RHPRQW9WVZHLRDLHCGHOQ2PBUE1NVJM1A1I4EXHUNVL4RU81SFZSSW5SND0=', NULL, '1', 'Y', 'developer', 'De')"; SQL statement:
 insert into auth_user (area_code,gmt_create,gmt_modified,nick_name,opt_create,opt_modified,org_id,password,status,unit_code,user_name,user_id) values (?,?,?,?,?,?,?,?,?,?,?,default) [23505-224]
+2024-03-09 15:38:21.269 [main] INFO  top.ulug.core.Application - Starting Application using Java 17.0.10 with PID 5312 (C:\WORKSPACE\OpenSource\ug\ulug\ulug-core\build\classes\java\main started by Administrator in C:\WORKSPACE\OpenSource\ug\ulug)
+2024-03-09 15:38:21.299 [main] INFO  top.ulug.core.Application - The following 1 profile is active: "pro"
+2024-03-09 15:38:25.195 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-09 15:38:25.599 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 380 ms. Found 12 JPA repository interfaces.
+2024-03-09 15:38:28.537 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 9091 (http)
+2024-03-09 15:38:28.590 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-09 15:38:28.591 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-03-09 15:38:28.900 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-09 15:38:28.902 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 7351 ms
+2024-03-09 15:38:29.379 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Starting...
+2024-03-09 15:38:30.313 [main] INFO  com.zaxxer.hikari.pool.HikariPool - DatebookHikariCP - Added connection conn0: url=jdbc:h2:file:./ugDB user=UG
+2024-03-09 15:38:30.321 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Start completed.
+2024-03-09 15:38:30.352 [main] INFO  o.s.b.autoconfigure.h2.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./ugDB'
+2024-03-09 15:38:31.098 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-09 15:38:31.262 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-03-09 15:38:31.361 [main] INFO  o.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-09 15:38:32.172 [main] INFO  o.s.o.j.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-09 15:38:36.258 [main] INFO  o.h.e.t.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-09 15:38:36.720 [main] INFO  o.s.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-09 15:38:38.103 [main] INFO  o.s.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-09 15:38:45.599 [main] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-03-09 15:38:45.857 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 9091 (http) with context path ''
+2024-03-09 15:38:45.892 [main] INFO  top.ulug.core.Application - Started Application in 27.169 seconds (process running for 29.126)
+2024-03-09 15:38:47.023 [main] INFO  top.ulug.core.common.AppRunner - saveAbility: {"resultCode":200,"resultMsg":"操作成功"}
+2024-03-09 16:03:36.823 [http-nio-9091-exec-6] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-09 16:03:36.826 [http-nio-9091-exec-6] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-09 16:03:36.830 [http-nio-9091-exec-6] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2024-03-09 16:37:49.370 [main] INFO  top.ulug.core.Application - Starting Application using Java 17.0.10 with PID 3268 (C:\WORKSPACE\OpenSource\ug\ulug\ulug-core\build\classes\java\main started by Administrator in C:\WORKSPACE\OpenSource\ug\ulug)
+2024-03-09 16:37:49.479 [main] INFO  top.ulug.core.Application - The following 1 profile is active: "pro"
+2024-03-09 16:37:54.184 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-09 16:37:55.074 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 866 ms. Found 13 JPA repository interfaces.
+2024-03-09 16:37:59.223 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 9091 (http)
+2024-03-09 16:37:59.284 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-09 16:37:59.285 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-03-09 16:37:59.611 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-09 16:37:59.615 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 9646 ms
+2024-03-09 16:38:00.175 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Starting...
+2024-03-09 16:38:01.138 [main] INFO  com.zaxxer.hikari.pool.HikariPool - DatebookHikariCP - Added connection conn0: url=jdbc:h2:file:./ugDB user=UG
+2024-03-09 16:38:01.149 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Start completed.
+2024-03-09 16:38:01.197 [main] INFO  o.s.b.autoconfigure.h2.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./ugDB'
+2024-03-09 16:38:01.958 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-09 16:38:02.165 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-03-09 16:38:02.288 [main] INFO  o.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-09 16:38:03.262 [main] INFO  o.s.o.j.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-09 16:38:10.554 [main] INFO  o.h.e.t.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-09 16:38:11.402 [main] INFO  o.s.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-09 16:38:14.805 [main] INFO  o.s.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-09 16:38:22.680 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2024-03-09 16:38:22.717 [main] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2024-03-09 16:38:22.718 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2024-03-09 16:38:22.720 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2024-03-09 16:38:22.723 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2024-03-09 16:38:22.723 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2024-03-09 16:38:22.723 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2024-03-09 16:38:22.724 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@5ace491
+2024-03-09 16:38:22.792 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'scheduledJob': Unsatisfied dependency expressed through field 'messageService': No qualifying bean of type 'top.ulug.core.deploy.service.MessageService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2024-03-09 16:38:22.795 [main] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2024-03-09 16:38:22.796 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+2024-03-09 16:38:22.798 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2024-03-09 16:38:22.800 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+2024-03-09 16:38:22.805 [main] INFO  o.s.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-09 16:38:22.812 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Shutdown initiated...
+2024-03-09 16:38:22.866 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Shutdown completed.
+2024-03-09 16:38:22.872 [main] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2024-03-09 16:38:22.933 [main] INFO  o.s.b.a.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-03-09 16:38:23.392 [main] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field messageService in top.ulug.core.common.task.ScheduledJob required a bean of type 'top.ulug.core.deploy.service.MessageService' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'top.ulug.core.deploy.service.MessageService' in your configuration.
+
+2024-03-09 16:39:21.505 [main] INFO  top.ulug.core.Application - Starting Application using Java 17.0.10 with PID 16284 (C:\WORKSPACE\OpenSource\ug\ulug\ulug-core\build\classes\java\main started by Administrator in C:\WORKSPACE\OpenSource\ug\ulug)
+2024-03-09 16:39:21.513 [main] INFO  top.ulug.core.Application - The following 1 profile is active: "pro"
+2024-03-09 16:39:27.400 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-09 16:39:27.998 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 554 ms. Found 13 JPA repository interfaces.
+2024-03-09 16:39:33.366 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 9091 (http)
+2024-03-09 16:39:33.530 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-09 16:39:33.531 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-03-09 16:39:34.180 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-09 16:39:34.182 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 12214 ms
+2024-03-09 16:39:35.365 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Starting...
+2024-03-09 16:39:37.027 [main] INFO  com.zaxxer.hikari.pool.HikariPool - DatebookHikariCP - Added connection conn0: url=jdbc:h2:file:./ugDB user=UG
+2024-03-09 16:39:37.036 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Start completed.
+2024-03-09 16:39:37.114 [main] INFO  o.s.b.autoconfigure.h2.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./ugDB'
+2024-03-09 16:39:38.285 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-09 16:39:38.612 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-03-09 16:39:38.743 [main] INFO  o.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-09 16:39:40.167 [main] INFO  o.s.o.j.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-09 16:39:47.399 [main] INFO  o.h.e.t.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-09 16:39:48.486 [main] INFO  o.s.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-09 16:39:50.793 [main] INFO  o.s.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-09 16:39:56.747 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2024-03-09 16:39:56.828 [main] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2024-03-09 16:39:56.829 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2024-03-09 16:39:56.834 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2024-03-09 16:39:56.838 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2024-03-09 16:39:56.840 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2024-03-09 16:39:56.844 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2024-03-09 16:39:56.845 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@1b3b95e8
+2024-03-09 16:40:04.503 [main] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-03-09 16:40:05.078 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 9091 (http) with context path ''
+2024-03-09 16:40:05.085 [main] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2024-03-09 16:40:05.086 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2024-03-09 16:40:05.180 [main] INFO  top.ulug.core.Application - Started Application in 45.381 seconds (process running for 47.299)
+2024-03-09 16:40:07.928 [main] INFO  top.ulug.core.common.AppRunner - saveAbility: {"resultCode":200,"resultMsg":"操作成功"}
+2024-03-09 16:41:12.011 [http-nio-9091-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-09 16:41:12.012 [http-nio-9091-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-09 16:41:12.021 [http-nio-9091-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 8 ms
+2024-03-09 16:43:53.699 [http-nio-9091-exec-9] INFO  top.ulug.core.auth.event.LoginEventListener - LoginEventListener run...
+2024-03-09 16:58:50.145 [http-nio-9091-exec-3] INFO  top.ulug.core.auth.event.LoginEventListener - LoginEventListener run...
+2024-03-09 17:08:42.197 [main] INFO  top.ulug.core.Application - Starting Application using Java 17.0.10 with PID 3492 (C:\WORKSPACE\OpenSource\ug\ulug\ulug-core\build\classes\java\main started by Administrator in C:\WORKSPACE\OpenSource\ug\ulug)
+2024-03-09 17:08:42.211 [main] INFO  top.ulug.core.Application - The following 1 profile is active: "pro"
+2024-03-09 17:08:46.032 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-09 17:08:46.526 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 467 ms. Found 13 JPA repository interfaces.
+2024-03-09 17:08:49.783 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 9091 (http)
+2024-03-09 17:08:49.832 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-09 17:08:49.833 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-03-09 17:08:50.109 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-09 17:08:50.111 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 7426 ms
+2024-03-09 17:08:50.634 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Starting...
+2024-03-09 17:08:51.648 [main] INFO  com.zaxxer.hikari.pool.HikariPool - DatebookHikariCP - Added connection conn0: url=jdbc:h2:file:./ugDB user=UG
+2024-03-09 17:08:51.662 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Start completed.
+2024-03-09 17:08:51.707 [main] INFO  o.s.b.autoconfigure.h2.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./ugDB'
+2024-03-09 17:08:53.188 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-09 17:08:54.628 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-03-09 17:08:54.951 [main] INFO  o.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-09 17:08:57.116 [main] INFO  o.s.o.j.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-09 17:09:06.729 [main] INFO  o.h.e.t.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-09 17:09:07.751 [main] INFO  o.s.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-09 17:09:10.902 [main] INFO  o.s.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-09 17:09:16.194 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2024-03-09 17:09:16.322 [main] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2024-03-09 17:09:16.323 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2024-03-09 17:09:16.327 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2024-03-09 17:09:16.329 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2024-03-09 17:09:16.329 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2024-03-09 17:09:16.330 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2024-03-09 17:09:16.330 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@17aadd1c
+2024-03-09 17:09:22.074 [main] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-03-09 17:09:22.796 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 9091 (http) with context path ''
+2024-03-09 17:09:22.802 [main] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2024-03-09 17:09:22.803 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2024-03-09 17:09:22.922 [main] INFO  top.ulug.core.Application - Started Application in 42.765 seconds (process running for 44.178)
+2024-03-09 17:09:24.527 [main] INFO  top.ulug.core.common.AppRunner - saveAbility: {"resultCode":200,"resultMsg":"操作成功"}
+2024-03-09 17:09:31.653 [http-nio-9091-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-09 17:09:31.654 [http-nio-9091-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-09 17:09:31.659 [http-nio-9091-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2024-03-09 17:09:36.902 [http-nio-9091-exec-5] INFO  top.ulug.core.auth.event.LoginEventListener - LoginEventListener run...
+2024-03-09 17:12:22.625 [quartzScheduler_Worker-1] ERROR org.quartz.core.JobRunShell - Job ulug-core.test threw an unhandled Exception: 
+java.lang.RuntimeException: org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'testService' available
+	at top.ulug.core.common.task.ScheduledJob.execute(ScheduledJob.java:41)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'testService' available
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:895)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1319)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:299)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1231)
+	at top.ulug.base.spring.SpringContextUtils.getBean(SpringContextUtils.java:32)
+	at top.ulug.core.common.task.ScheduledJob.doExecute(ScheduledJob.java:55)
+	at top.ulug.core.common.task.ScheduledJob.execute(ScheduledJob.java:39)
+	... 2 common frames omitted
+2024-03-09 17:12:22.633 [quartzScheduler_Worker-1] ERROR org.quartz.core.ErrorLogger - Job (ulug-core.test threw an exception.
+org.quartz.SchedulerException: Job threw an unhandled exception.
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:213)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Caused by: java.lang.RuntimeException: org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'testService' available
+	at top.ulug.core.common.task.ScheduledJob.execute(ScheduledJob.java:41)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	... 1 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'testService' available
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:895)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1319)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:299)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1231)
+	at top.ulug.base.spring.SpringContextUtils.getBean(SpringContextUtils.java:32)
+	at top.ulug.core.common.task.ScheduledJob.doExecute(ScheduledJob.java:55)
+	at top.ulug.core.common.task.ScheduledJob.execute(ScheduledJob.java:39)
+	... 2 common frames omitted
+2024-03-09 17:15:40.262 [main] INFO  top.ulug.core.Application - Starting Application using Java 17.0.10 with PID 12644 (C:\WORKSPACE\OpenSource\ug\ulug\ulug-core\build\classes\java\main started by Administrator in C:\WORKSPACE\OpenSource\ug\ulug)
+2024-03-09 17:15:40.320 [main] INFO  top.ulug.core.Application - The following 1 profile is active: "pro"
+2024-03-09 17:15:53.691 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-09 17:15:54.995 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 1278 ms. Found 13 JPA repository interfaces.
+2024-03-09 17:16:00.232 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 9091 (http)
+2024-03-09 17:16:00.282 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-09 17:16:00.284 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-03-09 17:16:00.516 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-09 17:16:00.517 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 18474 ms
+2024-03-09 17:16:01.093 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Starting...
+2024-03-09 17:16:01.865 [main] INFO  com.zaxxer.hikari.pool.HikariPool - DatebookHikariCP - Added connection conn0: url=jdbc:h2:file:./ugDB user=UG
+2024-03-09 17:16:01.872 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Start completed.
+2024-03-09 17:16:01.917 [main] INFO  o.s.b.autoconfigure.h2.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./ugDB'
+2024-03-09 17:16:02.796 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-09 17:16:03.016 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-03-09 17:16:03.127 [main] INFO  o.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-09 17:16:05.124 [main] INFO  o.s.o.j.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-09 17:16:11.743 [main] INFO  o.h.e.t.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-09 17:16:12.628 [main] INFO  o.s.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-09 17:16:14.981 [main] INFO  o.s.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-09 17:16:20.698 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2024-03-09 17:16:20.823 [main] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2024-03-09 17:16:20.823 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2024-03-09 17:16:20.826 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2024-03-09 17:16:20.829 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2024-03-09 17:16:20.829 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2024-03-09 17:16:20.829 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2024-03-09 17:16:20.832 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@221f7bf5
+2024-03-09 17:16:24.516 [main] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-03-09 17:16:24.850 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 9091 (http) with context path ''
+2024-03-09 17:16:24.854 [main] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2024-03-09 17:16:24.854 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2024-03-09 17:16:24.894 [main] INFO  top.ulug.core.Application - Started Application in 58.064 seconds (process running for 59.695)
+2024-03-09 17:16:26.279 [main] INFO  top.ulug.core.common.AppRunner - saveAbility: {"resultCode":200,"resultMsg":"操作成功"}
+2024-03-09 17:21:34.326 [main] INFO  top.ulug.core.Application - Starting Application using Java 17.0.10 with PID 8712 (C:\WORKSPACE\OpenSource\ug\ulug\ulug-core\build\classes\java\main started by Administrator in C:\WORKSPACE\OpenSource\ug\ulug)
+2024-03-09 17:21:34.335 [main] INFO  top.ulug.core.Application - The following 1 profile is active: "pro"
+2024-03-09 17:21:40.391 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-09 17:21:41.338 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 858 ms. Found 13 JPA repository interfaces.
+2024-03-09 17:21:48.207 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 9091 (http)
+2024-03-09 17:21:48.351 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-09 17:21:48.353 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-03-09 17:21:49.062 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-09 17:21:49.063 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 14204 ms
+2024-03-09 17:21:49.714 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Starting...
+2024-03-09 17:21:51.512 [main] INFO  com.zaxxer.hikari.pool.HikariPool - DatebookHikariCP - Added connection conn0: url=jdbc:h2:file:./ugDB user=UG
+2024-03-09 17:21:51.519 [main] INFO  com.zaxxer.hikari.HikariDataSource - DatebookHikariCP - Start completed.
+2024-03-09 17:21:51.564 [main] INFO  o.s.b.autoconfigure.h2.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./ugDB'
+2024-03-09 17:21:53.157 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-09 17:21:53.615 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-03-09 17:21:53.849 [main] INFO  o.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-09 17:21:56.328 [main] INFO  o.s.o.j.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-09 17:22:05.580 [main] INFO  o.h.e.t.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-09 17:22:06.575 [main] INFO  o.s.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-09 17:22:09.910 [main] INFO  o.s.data.jpa.repository.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-09 17:22:20.539 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2024-03-09 17:22:20.586 [main] INFO  org.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2024-03-09 17:22:20.586 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.2 created.
+2024-03-09 17:22:20.588 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2024-03-09 17:22:20.591 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2024-03-09 17:22:20.592 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2024-03-09 17:22:20.593 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.2
+2024-03-09 17:22:20.593 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@e166b1e
+2024-03-09 17:22:31.326 [main] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-03-09 17:22:32.389 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 9091 (http) with context path ''
+2024-03-09 17:22:32.392 [main] INFO  o.s.scheduling.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2024-03-09 17:22:32.393 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2024-03-09 17:22:32.462 [main] INFO  top.ulug.core.Application - Started Application in 61.054 seconds (process running for 63.004)
+2024-03-09 17:22:35.380 [main] INFO  top.ulug.core.common.AppRunner - saveAbility: {"resultCode":200,"resultMsg":"操作成功"}
+2024-03-09 17:23:42.640 [http-nio-9091-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-09 17:23:42.641 [http-nio-9091-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-03-09 17:23:42.644 [http-nio-9091-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2024-03-09 17:24:27.237 [http-nio-9091-exec-4] INFO  top.ulug.core.auth.event.LoginEventListener - LoginEventListener run...
+2024-03-09 17:30:14.443 [DatebookHikariCP housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - DatebookHikariCP - Thread starvation or clock leap detected (housekeeper delta=1m46s544ms228?s200ns).
+2024-03-09 17:32:04.031 [quartzScheduler_Worker-1] INFO  top.ulug.core.deploy.service.impl.TestServiceImpl - testService task running
