@@ -240,6 +240,7 @@ public class AccountServiceImpl implements AccountService {
         //禁止删除用户，只能禁用用户
         List<Long> ids = new ArrayList<>();
         for (AuthUser user : users) {
+            user = userRepository.findById(user.getUserId()).get();
             ids.add(user.getUserId());
             cleanAuthCache(user.getUserName());
         }

@@ -79,7 +79,7 @@ export default function RoleMgr(props) {
             const areaCode = getAuthInfo().areaCode;
             setAreaCode(areaCode)
             const defaultModules = getModules(areaCode)
-            defaultModules.columns[1].disabled = disable;
+            defaultModules.columns[2].disabled = disable;
             setModules({ ...defaultModules })
         }
         init()

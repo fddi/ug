@@ -4,102 +4,105 @@ import React, { Fragment, useEffect, useState } from 'react';
 import DynamicCurd from '@/components/dynamic/DynamicCurd';
 import { APIURL, getAuthInfo, getOv, post } from '@/config/client';
 import { Button, App, Radio, Modal } from 'antd';
-import { DownloadOutlined, UploadOutlined, ReloadOutlined } from '@ant-design/icons'
+import { DownloadOutlined, UploadOutlined, ReloadOutlined, CheckCircleOutlined, StopOutlined } from '@ant-design/icons'
 import ImpExcelModal from '@/components/ImpExcelModal';
 import StringUtils from '@/util/StringUtils';
 import { lag } from '@/config/lag';
 import AsyncTreeSelect from '@/components/AsyncTreeSelect';
 
-const defaultModules = {
-    extra: {
-        type: "tree",
-        queryApi: "org/children",
+function getModules(areaCode) {
+    return {
+        extra: {
+            type: "tree",
+            queryApi: "org/children",
+            params: {
+                areaCode,
+            },
+            rowKey: 'id',
+            searchKey: "orgId",
+        },
+        title: "用户管理",
+        type: "table",
+        rowKey: "userId",
+        searchKey: "userName",
+        saveApi: "user/save",
+        delApi: "user/del",
+        queryApi: "user/page-list",
         params: {
-            areaCode: getAuthInfo().areaCode,
+            status: "1",
         },
-        rowKey: 'id',
-        searchKey: "orgId",
-    },
-    title: "用户管理",
-    type: "table",
-    rowKey: "userId",
-    searchKey: "userName",
-    saveApi: "user/save",
-    delApi: "user/del",
-    queryApi: "user/page-list",
-    params: {
-        status: "1",
-    },
-    columns: [{
-        title: '用户ID',
-        dataIndex: 'userId',
-        inputType: "hidden",
-    }, {
-        title: '机构ID',
-        dataIndex: 'orgId',
-        inputType: "text",
-        disabled: true,
-        required: true,
-        colsType: "hidden",
-    }, {
-        title: '用户名',
-        dataIndex: 'userName',
-        inputType: "text",
-        required: true,
-        pattern: "^[A-Za-z0-9]{4,16}",
-        message: "4-16位字母或数字开头的登录名",
-        updateDisabled: true,
-        width: 120,
-        render: (text, record) => {
-            if (record.status == "1") {
-                return (<span style={{ color: "#096dd9" }}>{text}</span>)
-            }
-            return (<s>{text}</s>)
-        },
-    }, {
-        title: '姓名',
-        dataIndex: 'nickName',
-        inputType: "text",
-        required: true,
-        width: 80,
-    }, {
-        title: '手机号',
-        dataIndex: 'phoneNumber',
-        inputType: "text",
-        colsType: "hidden",
-    }, {
-        title: '直属部门',
-        dataIndex: 'orgName',
-        width: 150,
-    }, {
-        title: '联系地址',
-        dataIndex: 'address',
-        inputType: "text",
-    }, {
-        title: '状态',
-        dataIndex: 'status',
-        inputType: "select",
-        catalog: "TF",
-        required: true,
-        colsType: "hidden",
-    },],
+        columns: [{
+            title: '用户ID',
+            dataIndex: 'userId',
+            inputType: "hidden",
+            colsType: "hidden",
+        }, {
+            title: "操作",
+            colsType: "editAndDel",
+            width: 150
+        }, {
+            title: '机构ID',
+            dataIndex: 'orgId',
+            inputType: "text",
+            disabled: true,
+            required: true,
+            colsType: "hidden",
+        }, {
+            title: '用户名',
+            dataIndex: 'userName',
+            inputType: "text",
+            required: true,
+            pattern: "^[A-Za-z0-9]{4,16}",
+            message: "4-16位字母或数字开头的登录名",
+            updateDisabled: true,
+            width: 120,
+        }, {
+            title: '状态',
+            dataIndex: 'status',
+            inputType: "select",
+            catalog: "TF",
+            required: true,
+            colsType: "status",
+            width: 80,
+        }, {
+            title: '姓名',
+            dataIndex: 'nickName',
+            inputType: "text",
+            required: true,
+        }, {
+            title: '手机号',
+            dataIndex: 'phoneNumber',
+            inputType: "text",
+            colsType: "hidden",
+        }, {
+            title: '直属部门',
+            dataIndex: 'orgName',
+        }, {
+            title: '联系地址',
+            dataIndex: 'address',
+            inputType: "text",
+        },],
+    }
 }
 
 export default function UserMgr(props) {
     const [refreshTime, setRefreshTime] = useState(Date.now())
-    const [modules, setModules] = useState(defaultModules)
+    const [areaCode, setAreaCode] = useState()
+    const [modules, setModules] = useState()
     const [item, setItem] = useState()
     const [visible, setVisible] = useState(false)
-    const authInfo = getAuthInfo()
     const { modal, message } = App.useApp();
     useEffect(() => {
-        async function checkOrgEdit() {
-            const orgEdit = await getOv('sys_org_edit');
+        async function init() {
+            const orgEdit = await getOv('role_org_editable');
             const disable = orgEdit == '1' ? false : true;
-            defaultModules.columns[1].disabled = disable;
+            const areaCode = getAuthInfo().areaCode;
+            setAreaCode(areaCode)
+            const defaultModules = getModules(areaCode)
+            defaultModules.columns[2].disabled = disable;
             setModules({ ...defaultModules })
         }
-        checkOrgEdit()
+        init()
     }, [])
 
     const onResetPwd = () => {
@@ -135,6 +138,7 @@ export default function UserMgr(props) {
     }
 
     const onStChange = (v) => {
+        const defaultModules = getModules(areaCode)
         defaultModules.extra.params.areaCode = v;
         setModules({ ...defaultModules })
         setRefreshTime(Date.now())
@@ -142,8 +146,10 @@ export default function UserMgr(props) {
     }
 
     const onSwChange = (e) => {
+        const defaultModules = getModules(areaCode)
         defaultModules.params.status = e.target.value;
         setModules({ ...defaultModules })
+        setRefreshTime(Date.now())
         setItem(null)
     }
 
@@ -157,25 +163,24 @@ export default function UserMgr(props) {
                     <AsyncTreeSelect
                         style={{ width: 150 }}
                         onChange={onStChange}
-                        catalog="AREA_CODE" dictCode={authInfo.areaCode}
-                        placeholder="选择区域" value={modules.extra.params.areaCode} />,
+                        catalog="AREA_CODE" dictCode={areaCode}
+                        placeholder="选择区域" value={areaCode} />,
                     <Button icon={<DownloadOutlined />}>
                         <a href={`${APIURL}/static/用户导入模板.xls`}>下载模版</a>
                     </Button>,
                     <Button icon={<UploadOutlined />} onClick={() => setVisible(true)}>导入用户数据</Button>,
-                    <Button icon={<ReloadOutlined />} type="danger" onClick={onResetPwd}>重置密码</Button>,
-                    <Radio.Group onChange={onSwChange} defaultValue={1}>
-                        <Radio value={1}>可用</Radio>
-                        <Radio value={0}>停用</Radio>
+                    <Button icon={<ReloadOutlined />} onClick={onResetPwd}>重置密码</Button>,
+                    <Radio.Group onChange={onSwChange} defaultValue={1} buttonStyle='solid'>
+                        <Radio.Button value={1}><CheckCircleOutlined />启用</Radio.Button>
+                        <Radio.Button value={0}><StopOutlined />停用</Radio.Button>
                     </Radio.Group>
                 ]}
             />
             <Modal
                 title={`导入数据`}
-                visible={visible}
+                open={visible}
                 footer={null}
                 onCancel={() => setVisible(false)}
-                bodyStyle={{ padding: 0, paddingBottom: 100, }}
             >
                 <ImpExcelModal api="user/dev/file/upload" onFinish={handleFinish} dataType='list' />
             </Modal>

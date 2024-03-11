@@ -21907,3 +21907,15 @@ org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "KEY_SEQ" not found [42122-224]
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]
 2024-03-03 17:02:12.588862+08:00 jdbc[19]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]
+2024-03-06 18:27:38.661939+08:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]
+2024-03-06 18:27:38.676322+08:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]
+2024-03-06 18:27:38.680857+08:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]
+2024-03-06 18:27:38.683434+08:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]
+2024-03-06 18:27:38.686008+08:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]
+2024-03-06 18:27:38.688013+08:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]

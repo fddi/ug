@@ -1,9 +1,9 @@
 "use client"
 
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { getAuthInfo, post } from '@/config/client';
 import { Button, Row, Col, Modal, Tabs, Space, App, } from 'antd';
-import { EditOutlined, LockOutlined } from '@ant-design/icons'
+import { LockOutlined } from '@ant-design/icons'
 import AsyncTreeSelect from '@/components/AsyncTreeSelect';
 import AsyncTree from '@/components/AsyncTree';
 import AsyncTable from '@/components/AsyncTable';
@@ -12,27 +12,19 @@ import PeUser from './components/PeUser';
 import PeOrg from './components/PeOrg';
 import StringUtils from '@/util/StringUtils';
 
-const authInfo = getAuthInfo()
-const defaultExtraModules = {
-    type: "tree",
-    queryApi: "org/children",
-    params: {
-        areaCode: authInfo.areaCode,
-    },
-    searchKey: "orgId",
+function getExtraModules(areaCode) {
+    return {
+        type: "tree",
+        queryApi: "org/children",
+        params: {
+            areaCode,
+        },
+        searchKey: "orgId",
+    }
 }
-export default function RoleMgr(props) {
-    const [refreshTime, setRefreshTime] = useState(Date.now())
-    const [volTime, setVolTime] = useState(Date.now())
-    const [item, setItem] = useState()
-    const [roleIds, setRoleIds] = useState()
-    const [menuIds, setMenuIds] = useState()
-    const [pVisible, setPVisible] = useState()
-    const [mVisible, setMVisible] = useState()
-    const [extraModules, setExtraModules] = useState(defaultExtraModules)
-    const { message } = App.useApp();
 
-    const defautModules = {
+function getModules(onChange) {
+    return {
         selectType: 'checkbox',
         rowKey: "roleId",
         queryApi: "role/page-list",
@@ -40,37 +32,59 @@ export default function RoleMgr(props) {
         columns: [{
             title: '岗位ID',
             dataIndex: 'roleId',
-            inputType: "hidden",
+            colsType: "hidden",
         }, {
             title: '机构ID',
             dataIndex: 'orgId',
             colsType: "hidden",
         }, {
+            title: "操作",
+            render: (text, record) => {
+                return (<Button type='dashed' onClick={() => onChange(record)}>权限配置</Button>)
+            },
+            width: 150
+        }, {
             title: '岗位名称',
             dataIndex: 'roleName',
-            width: 160,
-            render: (text, record) =>
-            (<Button icon={<EditOutlined />} type="link" onClick={() => {
-                setMVisible(true)
-                setItem(record)
-            }}>{text}</Button>),
         }, {
             title: '直属部门',
             dataIndex: 'orgName',
-            width: 160,
         }, {
             title: '岗位说明',
             dataIndex: 'roleNote',
         },],
     }
+}
 
-    const [modules, setModules] = useState(defautModules)
+export default function Permission(props) {
+    const [refreshTime, setRefreshTime] = useState(Date.now())
+    const [volTime, setVolTime] = useState(Date.now())
+    const [item, setItem] = useState()
+    const [roleIds, setRoleIds] = useState()
+    const [menuIds, setMenuIds] = useState()
+    const [pVisible, setPVisible] = useState()
+    const [mVisible, setMVisible] = useState()
+    const [extraModules, setExtraModules] = useState()
+    const [areaCode, setAreaCode] = useState()
+    const { message } = App.useApp();
+    const [modules, setModules] = useState()
 
+    function onChange(record) {
+        setMVisible(true)
+        setItem(record)
+    }
+
+    useEffect(() => {
+        const areaCode = getAuthInfo().areaCode;
+        setAreaCode(areaCode)
+        setExtraModules(getExtraModules(areaCode))
+        setModules(getModules(onChange))
+    }, [])
 
     const onExtraSelect = (item) => {
         if (item) {
-            defautModules.params = { orgId: item.id }
-            setModules({ ...defautModules })
+            modules.params = { orgId: item.id }
+            setModules({ ...modules })
         }
     }
 
@@ -79,8 +93,8 @@ export default function RoleMgr(props) {
     }
 
     const onStChange = (v) => {
-        defaultExtraModules.params.areaCode = v;
-        setExtraModules({ ...defautModules })
+        extraModules.params.areaCode = v;
+        setExtraModules({ ...extraModules })
         setRefreshTime(Date.now())
         setItem(null)
     }
@@ -127,11 +141,11 @@ export default function RoleMgr(props) {
     const roleId = item ? item.roleId : '';
     return (
         <Fragment>
-            <Space size="small" style={{ width: '100%', backgroundColor: "#fff", padding: 10, marginBottom: 5, }}>
+            <Space>
                 <AsyncTreeSelect
                     onChange={onStChange} style={{ width: 150 }}
-                    catalog="AREA_CODE" dictCode={authInfo.areaCode}
-                    placeholder="选择区域" value={extraModules.params.areaCode} />
+                    catalog="AREA_CODE" dictCode={areaCode}
+                    placeholder="选择区域" value={areaCode} />
                 <Button icon={<LockOutlined />}
                     onClick={handlePm}>批量授权</Button>
             </Space>
@@ -146,7 +160,7 @@ export default function RoleMgr(props) {
             </Row>
             <Modal
                 title={(<span>批量设置权限</span>)}
-                visible={pVisible}
+                open={pVisible}
                 footer={[
                     <Button key="back" onClick={onCancel}>
                         取消
@@ -156,7 +170,6 @@ export default function RoleMgr(props) {
                     </Button>,
                 ]}
                 onCancel={onCancel}
-                bodyStyle={{ padding: 0, }}
                 width={700}
             >
                 <PeMenu roleIds={roleIds} vols={true}
@@ -166,10 +179,9 @@ export default function RoleMgr(props) {
             <Modal
                 title={(<span><span>
                     {`[${roleName}]`}</span>权限设置</span>)}
-                visible={mVisible}
+                open={mVisible}
                 footer={null}
                 onCancel={onCancel}
-                bodyStyle={{ paddingTop: 0 }}
                 width={700}
             >
                 <Tabs defaultActiveKey="1"

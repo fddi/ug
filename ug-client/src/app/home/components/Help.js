@@ -1,5 +1,6 @@
 import { ThemeContext } from "@/components/ThemeContext";
 import { Card, Form, Radio, ColorPicker, Space, Divider, } from "antd";
+import { SunOutlined, MoonFilled } from '@ant-design/icons'
 import { Fragment, useContext, useState } from "react";
 const FormItem = Form.Item;
 const { Group } = Radio;
@@ -52,9 +53,9 @@ export default function Help(props) {
         <Divider />
         <Card title='主题设置'>
             <FormItem label="主题">
-                <Group value={type} onChange={(v) => onChange(v, 1)}>
-                    <Radio value={1}>默认</Radio>
-                    <Radio value={2}>暗黑</Radio>
+                <Group value={type} onChange={(v) => onChange(v, 1)} buttonStyle="solid">
+                    <Radio.Button value={1}><SunOutlined /></Radio.Button>
+                    <Radio.Button value={2}><MoonFilled /></Radio.Button>
                 </Group>
             </FormItem>
             <FormItem label="主色">

@@ -137,7 +137,7 @@ export default function DynamicCurd(props) {
                     <Button style={{ marginRight: 5, }} icon={<ReloadOutlined />}
                         onClick={onFinish}>重载</Button>
                     <Button style={{ marginRight: 5, }} icon={<PlusCircleOutlined />}
-                        onClick={onAdd} type='primary'>新增</Button>
+                        onClick={onAdd} >新增</Button>
                     {props.actions && props.actions.map((Com, index) => {
                         return <Fragment key={`action-${index}`}>{Com}</Fragment>
                     })}
@@ -155,7 +155,7 @@ export default function DynamicCurd(props) {
                     <AsyncTable
                         modules={modules} refreshTime={refreshTime}
                         extraItem={extraItem} handleSelect={onRowSelect}
-                        scroll={{ x: 600, y: 'calc(100vh - 350px)' }}
+                        scroll={{ x: 600, y: 'calc(100vh - 360px)' }}
                         onEdit={onEdit} onDel={onDel}
                     />
                 </Col>
