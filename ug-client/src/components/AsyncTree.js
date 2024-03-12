@@ -76,12 +76,11 @@ export default function AsyncTree(props) {
     const { data, run, } = useRequest(queryData,
         {
             loadingDelay: 1000,
-            manual: !StringUtils.isEmpty(modules.extra),
+            manual: (modules != null && !StringUtils.isEmpty(modules.extra)),
             defaultParams: [modules]
         });
     const [height, setHeight] = useState(350)
     const { message } = App.useApp()
-
     useEffect(() => {
         const height = window.innerHeight - 230;
         setHeight(height)
@@ -111,6 +110,10 @@ export default function AsyncTree(props) {
         setSelectedKeys([])
     }, [extraItem])
 
+    if (StringUtils.isEmpty(modules)) {
+        return null;
+    }
+    
     const handleSelect = (keys, e) => {
         const { handleSelect } = props;
         if (StringUtils.isEmpty(keys) || keys.length === 0) {
@@ -138,6 +141,7 @@ export default function AsyncTree(props) {
         const dragNode = info.dragNode;
         if (dragNode.children != null && dragNode.children.length > 0) {
             message.warning("只能移动叶子节点数据！");
+            setSelectedKeys([])
             return;
         }
         const dropNode = info.node;
@@ -153,6 +157,7 @@ export default function AsyncTree(props) {
             dropId
         }).then((result) => {
             if (result && 200 === result.resultCode) {
+                setSelectedKeys([])
                 run(modules, extraItem)
             }
         })
@@ -168,7 +173,6 @@ export default function AsyncTree(props) {
                 onSelect={handleSelect}
                 showLine={true}
                 selectedKeys={selectedKeys}
-                autoExpandParent={true}
                 draggable
                 onDrop={onDrop}
                 blockNode={true}

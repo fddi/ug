@@ -159,7 +159,7 @@ public class OrgServiceImpl implements OrgService {
     @Override
     public WrapperDTO<String> dragDrop(Long dragId, Long dropId) {
         Optional<AuthOrg> optDrag = orgRepository.findById(dragId);
-        if (!optDrag.isPresent()) {
+        if (optDrag.isEmpty()) {
             return WrapperDTO.fail(ResultMsgEnum.RESULT_ERROR_NPE, "AuthOrg");
         }
         AuthOrg org = optDrag.get();
@@ -168,7 +168,11 @@ public class OrgServiceImpl implements OrgService {
         }
         String path = "";
         if (dropId > 0) {
-            path = orgRepository.findPath(dropId) + ">";
+            Optional<AuthOrg> opt = orgRepository.findById(dropId);
+            if (opt.isPresent()) {
+                path = opt.get().getOrgPath() + ">";
+                org.setUnitCode(opt.get().getUnitCode());
+            }
         }
         path += org.getOrgId();
         org.setParentId(dropId);

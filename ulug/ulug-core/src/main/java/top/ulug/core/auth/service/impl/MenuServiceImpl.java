@@ -167,6 +167,12 @@ public class MenuServiceImpl implements MenuService {
             /*查找是否已添加*/
             if (!has) {
                 pMenus.add(menuRepository.findById(menu.getParentId()).get());
+                Optional<AuthMenu> opt = menuRepository.findById(menu.getParentId());
+                if (opt.isPresent()) {
+                    pMenus.add(opt.get());
+                    String pId = opt.get().getMenuPath().split(">")[0];
+                    pMenus.add(menuRepository.findById(Long.valueOf(pId)).get());
+                }
             }
         }
         //去除重复数据,及无效数据
