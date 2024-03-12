@@ -50,7 +50,7 @@ export default function PeOrg(props) {
         {
             title: '管辖单位',
             dataIndex: 'title',
-            width: 160,
+            width: 130,
             render: (text, record) => `${record.title}[${record.value}]`,
         }, {
             title: '操作',
@@ -115,7 +115,7 @@ export default function PeOrg(props) {
         <Row style={{ height: 450, }}>
             <Col span={12} style={{ height: '100%', padding: 5, borderRight: '1px solid #cccccc' }}>
                 <OrgSearchBar onSelect={onOrgSelect} value={value}
-                    style={{ width: '100%', padding: 6, display }} />
+                    style={{ width: '100%', height: 40, padding: 6, display }} />
                 <Table
                     scroll={{ y: 320 }}
                     size="small"

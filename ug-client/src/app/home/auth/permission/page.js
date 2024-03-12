@@ -2,8 +2,9 @@
 
 import React, { Fragment, useEffect, useState } from 'react';
 import { getAuthInfo, post } from '@/config/client';
-import { Button, Row, Col, Modal, Tabs, Space, App, } from 'antd';
+import { Button, Row, Col, Modal, Tabs, Card, Space, App, Divider, } from 'antd';
 import { LockOutlined } from '@ant-design/icons'
+import { BiSlider } from "react-icons/bi";
 import AsyncTreeSelect from '@/components/AsyncTreeSelect';
 import AsyncTree from '@/components/AsyncTree';
 import AsyncTable from '@/components/AsyncTable';
@@ -16,10 +17,12 @@ function getExtraModules(areaCode) {
     return {
         type: "tree",
         queryApi: "org/children",
+        dragDropApi: "org/drag-drop",
+        rowKey: 'id',
+        searchKey: "orgId",
         params: {
             areaCode,
         },
-        searchKey: "orgId",
     }
 }
 
@@ -40,9 +43,9 @@ function getModules(onChange) {
         }, {
             title: "操作",
             render: (text, record) => {
-                return (<Button type='dashed' onClick={() => onChange(record)}>权限配置</Button>)
+                return (<Button icon={<BiSlider />} onClick={() => onChange(record)} shape='circle' size='small' />)
             },
-            width: 150
+            width: 60
         }, {
             title: '岗位名称',
             dataIndex: 'roleName',
@@ -141,15 +144,21 @@ export default function Permission(props) {
     const roleId = item ? item.roleId : '';
     return (
         <Fragment>
-            <Space>
-                <AsyncTreeSelect
-                    onChange={onStChange} style={{ width: 150 }}
-                    catalog="AREA_CODE" dictCode={areaCode}
-                    placeholder="选择区域" value={areaCode} />
-                <Button icon={<LockOutlined />}
-                    onClick={handlePm}>批量授权</Button>
-            </Space>
-            <Row gutter={10} style={{ flex: '1', height: '76vh' }}>
+            <Card style={{ marginBottom: 10 }} styles={{ body: { padding: 0 } }} bordered={false}>
+                <Space style={{
+                    padding: 10
+                }} size="small">
+                    <AsyncTreeSelect
+                        onChange={onStChange} style={{ width: 150 }}
+                        catalog="AREA_CODE" dictCode={areaCode}
+                        placeholder="选择区域" value={areaCode} />
+                    <Button icon={<LockOutlined />}
+                        onClick={handlePm}>批量授权</Button>
+                </Space>
+            </Card>
+            <Row gutter={[8, 8]} style={{
+                height: 'calc(100vh - 200px)', ...props.style
+            }}>
                 <Col span={5} style={{ padding: 18, backgroundColor: "#fff" }}>
                     <AsyncTree modules={extraModules} refreshTime={refreshTime}
                         handleSelect={onExtraSelect} />
@@ -184,19 +193,24 @@ export default function Permission(props) {
                 onCancel={onCancel}
                 width={700}
             >
+                <Divider />
                 <Tabs defaultActiveKey="1"
                     tabPosition='left'
-                    tabBarStyle={{ marginBottom: 0, }}>
-                    <Tabs.TabPane tab="菜单权限" key="1">
-                        <PeMenu roleId={roleId} vols={false}
-                            volTime={volTime} />
-                    </Tabs.TabPane>
-                    <Tabs.TabPane tab="部门权限" key="3">
-                        <PeOrg roleId={roleId} />
-                    </Tabs.TabPane>
-                    <Tabs.TabPane tab="人员配置" key="2">
-                        <PeUser roleId={roleId} />
-                    </Tabs.TabPane>
+                    tabBarStyle={{ marginBottom: 0, }}
+                    items={[{
+                        key: '1',
+                        label: "菜单权限",
+                        children: <PeMenu roleId={roleId} vols={false}
+                            volTime={volTime} />,
+                    }, {
+                        key: '2',
+                        label: "部门权限",
+                        children: <PeOrg roleId={roleId} />,
+                    }, {
+                        key: '3',
+                        label: "人员配置",
+                        children: <PeUser roleId={roleId} />,
+                    },]}>
                 </Tabs>
             </Modal>
         </Fragment>
