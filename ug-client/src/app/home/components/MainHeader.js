@@ -4,6 +4,7 @@ import { Badge, Menu, Button, Dropdown, Space, Input, AutoComplete, Drawer, Popo
 import { PoweroffOutlined, MessageOutlined, QuestionCircleOutlined, SearchOutlined } from '@ant-design/icons'
 import StringUtils from '@/util/StringUtils';
 import Help from './Help';
+import { APIURL, getAuthInfo } from '@/config/client';
 
 const btnStyle = {
      fontSize: '16px',
@@ -35,6 +36,25 @@ export default function HeaderView(props) {
      const [selectedKeys, setSelectedKeys] = useState([]);
      const [searchValue, setSearchValue] = useState('');
      const [helpOpen, setHelpOpen] = useState(false);
+
+     useEffect(() => {
+          const token = getAuthInfo().token;
+          const sseSource = new EventSource(`${APIURL}/sse/connect/${token}`);
+          // 连接打开
+          sseSource.onopen = function () {
+               console.log("连接打开");
+          }
+
+          // 连接错误
+          sseSource.onerror = function (err) {
+               console.log("连接错误:", err);
+          }
+
+          // 接收到数据
+          sseSource.onmessage = function (event) {
+               console.log("接收到数据:", event);
+          }
+     }, [])
 
      useEffect(() => {
           if (props.menus && props.menus.length > 0) {

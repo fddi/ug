@@ -10,7 +10,7 @@ import top.ulug.base.dto.MessageDTO;
 import top.ulug.base.inf.TaskService;
 import top.ulug.base.spring.SpringContextUtils;
 import top.ulug.core.deploy.domain.DeployQuartzTask;
-import top.ulug.core.deploy.service.MessageService;
+import top.ulug.core.deploy.service.SseMessageService;
 import top.ulug.core.deploy.service.QuartzService;
 
 /**
@@ -22,7 +22,7 @@ public class ScheduledJob implements Job {
     @Autowired
     QuartzService quartzService;
     @Autowired
-    MessageService messageService;
+    SseMessageService messageService;
     @Value("${spring.application.name}")
     private String appName;
     private final String topic = "ulug-task";

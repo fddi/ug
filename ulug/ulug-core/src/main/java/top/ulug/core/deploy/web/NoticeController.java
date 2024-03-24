@@ -20,7 +20,7 @@ public class NoticeController {
 
     @RequestMapping(value = "/page-list", method = RequestMethod.POST)
     @ResponseBody
-    @ApiDocument(note = "通知分页列表", paramsExample = "", resultExample = "")
+    @ApiDocument(note = "公告栏分页列表", paramsExample = "", resultExample = "")
     public WrapperDTO<PageDTO<DeployNotice>> page(@RequestParam(value = "pageNo") Integer pageNo,
                                                   @RequestParam(value = "pageSize") Integer pageSize,
                                                   @ModelAttribute DeployNotice notice) throws Exception {
@@ -29,7 +29,7 @@ public class NoticeController {
 
     @RequestMapping(value = "/public-list", method = RequestMethod.POST)
     @ResponseBody
-    @ApiDocument(note = "通知分页列表", paramsExample = "", resultExample = "")
+    @ApiDocument(note = "公告栏分页列表", paramsExample = "", resultExample = "")
     public WrapperDTO<PageDTO<DeployNotice>> publicList(@RequestParam(value = "pageNo") Integer pageNo,
                                                         @RequestParam(value = "pageSize") Integer pageSize) throws Exception {
         return noticeService.pagePublic(pageSize, pageNo);
@@ -37,14 +37,14 @@ public class NoticeController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    @ApiDocument(note = "通知保存", paramsExample = "", resultExample = "")
+    @ApiDocument(note = "公告保存", paramsExample = "", resultExample = "")
     public WrapperDTO<String> save(@ModelAttribute DeployNotice notice) throws Exception {
         return noticeService.save(notice);
     }
 
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
-    @ApiDocument(note = "客户端删除", paramsExample = "", resultExample = "")
+    @ApiDocument(note = "公告删除", paramsExample = "", resultExample = "")
     public WrapperDTO<String> del(@ModelAttribute DeployNotice notice) throws Exception {
         return noticeService.del(notice);
     }
