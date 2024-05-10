@@ -83,7 +83,7 @@ export default function AbilityList(props) {
     return (
         <Spin spinning={loading}>
             <AsyncTable modules={modules} refreshTime={refreshTime}
-                scroll={{ y: 'calc(100vh - 350px)' }}
+                scroll={{ y: 'calc(100vh - 260px)' }}
             />
         </Spin>
     );

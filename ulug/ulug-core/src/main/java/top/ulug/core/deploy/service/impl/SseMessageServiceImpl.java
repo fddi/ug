@@ -28,7 +28,7 @@ public class SseMessageServiceImpl implements SseMessageService {
 
     @Override
     public SseEmitter connect(String token) {
-        SseEmitter sseEmitter = new SseEmitter();
+        SseEmitter sseEmitter = new SseEmitter(0L);
         // 连接成功需要返回数据，否则会出现待处理状态
         try {
             sseEmitter.send(SseEmitter.event().comment("connect"));

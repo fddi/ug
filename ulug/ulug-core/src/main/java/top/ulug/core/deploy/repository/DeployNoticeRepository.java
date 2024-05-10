@@ -15,6 +15,6 @@ public interface DeployNoticeRepository extends JpaRepository<DeployNotice, Long
     @Query("from DeployNotice")
     Page<DeployNotice> page(Pageable pageable);
 
-    @Query(" from DeployNotice t where t.status='1' and t.level='1'")
+    @Query(" from DeployNotice t where t.status='1'")
     Page<DeployNotice> pagePublic(Pageable pageable);
 }

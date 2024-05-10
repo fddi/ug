@@ -81,7 +81,7 @@ export default function HomeLayout({ children }) {
             case "1":
                 path = menu.value;
                 if (menu.value.indexOf('http') == 0) {
-                    path = `/home/remote?url=${menu.value}`;
+                    path = `/home/deploy/remote?url=${menu.value}`;
                 }
                 router.push(path)
                 break;

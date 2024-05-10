@@ -60,7 +60,7 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public WrapperDTO<PageDTO<DeployNotice>> pagePublic(int pageSize, int pageNo) {
         pageSize = pageSize == 0 ? 10 : pageSize;
-        Sort sort = Sort.by("gmtModified").descending();
+        Sort sort = Sort.by("level").ascending().and(Sort.by("gmtModified").descending());
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
         Page<DeployNotice> page = noticeRepository.pagePublic(pageable);
         return WrapperDTO.success(new PageDTO<DeployNotice>().convert(page));

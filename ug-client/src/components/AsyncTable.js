@@ -130,7 +130,7 @@ export default function AsyncTable(props) {
         </Form>);
     const pageProp = modules.pageable === false ? { pagination: false } : null;
     return (
-        <Card bordered={false} size='small'>
+        <Card styles={{ body: { padding: 5 } }} bordered={false} size='small'>
             {searchBar}
             <Table
                 style={{ ...props.style }}

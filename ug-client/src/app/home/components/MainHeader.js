@@ -5,7 +5,7 @@ import { PoweroffOutlined, MessageOutlined, QuestionCircleOutlined, SearchOutlin
 import StringUtils from '@/util/StringUtils';
 import Help from './Help';
 import { APIURL, getAuthInfo } from '@/config/client';
-
+let sseSource = null;
 const btnStyle = {
      fontSize: '16px',
      minWidth: 55,
@@ -39,20 +39,22 @@ export default function HeaderView(props) {
 
      useEffect(() => {
           const token = getAuthInfo().token;
-          const sseSource = new EventSource(`${APIURL}/sse/connect/${token}`);
-          // 连接打开
-          sseSource.onopen = function () {
-               console.log("连接打开");
-          }
+          if (sseSource == null) {
+               sseSource = new EventSource(`${APIURL}/sse/connect/${token}`);
+               // 连接打开
+               sseSource.onopen = function () {
+                    console.log("连接打开");
+               }
 
-          // 连接错误
-          sseSource.onerror = function (err) {
-               console.log("连接错误:", err);
-          }
+               // 连接错误
+               sseSource.onerror = function (err) {
+                    console.log("连接错误:", err);
+               }
 
-          // 接收到数据
-          sseSource.onmessage = function (event) {
-               console.log("接收到数据:", event);
+               // 接收到数据
+               sseSource.onmessage = function (event) {
+                    console.log("接收到数据:", event);
+               }
           }
      }, [])
 

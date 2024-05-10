@@ -21919,3 +21919,40 @@ org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-22
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]
 2024-03-06 18:27:38.688013+08:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]
+2024-04-26 15:26:37.309686+08:00 jdbc[66]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]AUTH_MENU_ABILITY"; expected "ALTER, ANALYZE"; SQL statement:
+AUTH_MENU_ABILITY [42001-224]
+2024-04-26 15:26:40.513893+08:00 jdbc[66]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]AUTH_MENU_ABILITY AUTH_MENU_ABILITY"; expected "ALTER, ANALYZE"; SQL statement:
+AUTH_MENU_ABILITY AUTH_MENU_ABILITY [42001-224]
+2024-04-26 15:27:37.773256+08:00 jdbc[66]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]AUTH_MENU"; expected "ALTER, ANALYZE"; SQL statement:
+AUTH_MENU [42001-224]
+2024-04-26 15:28:45.698703+08:00 jdbc[66]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE FROM AUTH_MENU WHERE [*]WHERE CLIENT_NAME='menu-8924'"; expected "INTERSECTS (, NOT, EXISTS, UNIQUE, INTERSECTS"; SQL statement:
+DELETE FROM AUTH_MENU WHERE WHERE CLIENT_NAME='menu-8924' [42001-224]
+2024-04-26 16:23:12.371761+08:00 jdbc[77]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "QRTZ_CALENDARS" not found; SQL statement:
+select * from QRTZ_CALENDARS [42102-224]
+2024-04-26 16:35:46.898375+08:00 jdbc[78]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-224]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:218)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:135)
+	at org.h2.Driver.connect(Driver.java:59)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:733)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:712)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection was not closed by the application and is garbage collected [90018-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 16 more

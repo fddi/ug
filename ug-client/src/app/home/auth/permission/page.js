@@ -159,9 +159,11 @@ export default function Permission(props) {
             <Row gutter={[8, 8]} style={{
                 height: 'calc(100vh - 200px)', ...props.style
             }}>
-                <Col span={5} style={{ padding: 18, backgroundColor: "#fff" }}>
-                    <AsyncTree modules={extraModules} refreshTime={refreshTime}
-                        handleSelect={onExtraSelect} />
+                <Col span={5}>
+                    <Card className='card-extra' styles={{ body: { padding: 5 } }}>
+                        <AsyncTree modules={extraModules} refreshTime={refreshTime}
+                            handleSelect={onExtraSelect} />
+                    </Card>
                 </Col>
                 <Col span={19}>
                     <AsyncTable modules={modules} handleSelect={handleRoleSelect} />

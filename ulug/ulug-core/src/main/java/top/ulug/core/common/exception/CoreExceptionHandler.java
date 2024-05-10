@@ -17,7 +17,7 @@ import static top.ulug.base.e.ResultMsgEnum.RESULT_EXCEPTION;
 @ControllerAdvice
 public class CoreExceptionHandler {
 
-    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler(value = RuntimeException.class)
     @ResponseBody
     public WrapperDTO<String> errorHandler(HttpServletRequest req, Exception e) {
         WrapperDTO<String> dto = WrapperDTO.fail(RESULT_EXCEPTION, e.getMessage());

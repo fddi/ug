@@ -4,7 +4,7 @@ import { useRequest } from 'ahooks';
 import { post } from '@/config/client';
 
 async function queryData() {
-    return post('notice/public-list', { pageNo: 0, pageSize: 5 }).then(result => result.resultData.content)
+    return post('notice/public-list', { pageNo: 0, pageSize: 3 }).then(result => result.resultData.content)
 }
 
 export default function LoginNotice(props) {
