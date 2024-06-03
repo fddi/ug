@@ -11,6 +11,6 @@ import top.ulug.core.deploy.domain.MessageRecord;
  */
 public interface MessageRecordRepository extends JpaRepository<MessageRecord, Long> {
 
-    Page<MessageRecord> findByMultiMessageIdOrUserName(String multiMessageId, String userName, Pageable pageable);
+    Page<MessageRecord> findByMultiMessageIdAndUserNameLike(String multiMessageId, String userName, Pageable pageable);
 
 }

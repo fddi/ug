@@ -6,6 +6,7 @@ const defaultModules = {
     rowKey: "roleId",
     queryApi: "role/page-list",
     selectType: 'checkbox',
+    searchKey: "roleName",
     columns: [{
         title: '岗位ID',
         dataIndex: 'roleId',

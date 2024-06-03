@@ -5,8 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 import top.ulug.base.dto.PageDTO;
 import top.ulug.base.dto.WrapperDTO;
+import top.ulug.base.e.SQLikeEnum;
+import top.ulug.base.util.StringUtils;
 import top.ulug.core.deploy.domain.MessageRecord;
 import top.ulug.core.deploy.repository.MessageRecordRepository;
 import top.ulug.core.deploy.service.MessageRecordService;
@@ -19,6 +22,7 @@ import java.util.Optional;
  * @Author liu
  * @Date 2024/5/10 下午5:21 星期五
  */
+@Service
 public class MessageRecordServiceImpl implements MessageRecordService {
     @Autowired
     private MessageRecordRepository messageRecordRepository;
@@ -46,9 +50,10 @@ public class MessageRecordServiceImpl implements MessageRecordService {
     @Override
     public WrapperDTO<PageDTO<MessageRecord>> findPage(int pageSize, int pageNo, MessageRecord messageRecord) {
         pageSize = pageSize == 0 ? 10 : pageSize;
-        Pageable pageable = PageRequest.of(pageNo, pageSize,Sort.by("gmtModified").descending());
-        Page<MessageRecord> page = messageRecordRepository.findByMultiMessageIdOrUserName(messageRecord.getMultiMessageId(),
-                messageRecord.getUserName(), pageable);
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("gmtModified").descending());
+        String userName = StringUtils.isEmpty(messageRecord.getUserName()) ? "" : messageRecord.getUserName();
+        Page<MessageRecord> page = messageRecordRepository.findByMultiMessageIdAndUserNameLike(messageRecord.getMultiMessageId(),
+                StringUtils.linkSQLike(userName, SQLikeEnum.ALL), pageable);
         return WrapperDTO.success(new PageDTO<MessageRecord>().convert(page));
     }
 }

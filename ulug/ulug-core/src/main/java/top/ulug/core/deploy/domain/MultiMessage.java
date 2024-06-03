@@ -1,6 +1,7 @@
 package top.ulug.core.deploy.domain;
 
 import jakarta.persistence.*;
+import top.ulug.base.auditor.BaseEntity;
 
 /**
  * @Author liu
@@ -8,7 +9,7 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table
-public class MultiMessage {
+public class MultiMessage extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long messageId;
@@ -25,6 +26,10 @@ public class MultiMessage {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private String content;
+
+    private String status;
+
+    private String level;
 
     public Long getMessageId() {
         return messageId;
@@ -64,5 +69,21 @@ public class MultiMessage {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

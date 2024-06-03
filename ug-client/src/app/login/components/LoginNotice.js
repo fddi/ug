@@ -13,7 +13,7 @@ export default function LoginNotice(props) {
     function renderNotice(data) {
         return data && data.map(item => {
             return (
-                <div>
+                <div  key={item.noticeId}>
                     <Typography style={{ padding: 10 }}>
                         <Typography.Title level={3} style={{ color: '#ccc' }}>{item.title}</Typography.Title>
                         <Typography.Paragraph style={{ color: '#ccc' }}>
