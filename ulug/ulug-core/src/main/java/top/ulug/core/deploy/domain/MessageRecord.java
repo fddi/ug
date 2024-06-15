@@ -30,7 +30,6 @@ public class MessageRecord extends BaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
     private Date readTime;
 
     private String multiMessageId;

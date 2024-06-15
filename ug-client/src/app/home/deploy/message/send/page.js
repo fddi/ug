@@ -1,13 +1,10 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
-import { post } from '@/config/client';
-import { Button, Spin, Badge, Modal, App, Drawer } from 'antd';
-import { BiPaperPlane, BiSidebar } from "react-icons/bi";
+import React, { Fragment, useEffect, useState } from 'react';
+import { Button, Badge, Drawer } from 'antd';
+import { BiPaperPlane } from "react-icons/bi";
 import DynamicCurd from '@/components/dynamic/DynamicCurd'
-import RoleSearch from '@/app/home/auth/role/components/RoleSearch';
-import StringUtils from '@/util/StringUtils';
-import { lag } from '@/config/lag';
+import MultiMessageRecord from './components/MultiMessageRecord';
 
 function getModules(control) {
     return {
@@ -30,8 +27,7 @@ function getModules(control) {
             title: '发送',
             width: 80,
             render: (text, record) =>
-            (<Button.Group><Button icon={<BiPaperPlane />} onClick={() => control(record, 1)} />
-                <Button icon={<BiSidebar />} onClick={() => control(record, 2)} /></Button.Group>),
+                (<Button.Group><Button shape='circle' icon={<BiPaperPlane />} onClick={() => control(record)} /></Button.Group>),
             align: 'center',
         }, {
             title: '标题',
@@ -48,7 +44,7 @@ function getModules(control) {
             title: '服务地址',
             dataIndex: 'actionUrl',
             inputType: 'text',
-            width: 120,
+            width: 180,
         }, {
             title: '等级',
             dataIndex: 'level',
@@ -74,68 +70,25 @@ function getModules(control) {
 }
 
 export default function MultiMessageSend(props) {
-    const [loading, setLoading] = useState(false)
     const [modules, setModules] = useState();
-    const [refreshTime, setRefreshTime] = useState(Date.now());
     const [multiMessage, setMessage] = useState();
-    const [visible, setVisible] = useState(false)
     const [open, setOpen] = useState(false)
-    const { message } = App.useApp();
 
-    const control = (multiMessage, tag) => {
+    const control = (multiMessage) => {
         setMessage(multiMessage)
-        switch (tag) {
-            case 1:
-                setVisible(true);
-                break;
-            case 2:
-                setOpen(true);
-                break;
-            default:
-                break;
-        }
+        setOpen(true);
     }
 
     useEffect(() => {
         setModules(getModules(control))
     }, [])
 
-
-    const onFinish = (selectKeys) => {
-        if (StringUtils.isEmpty(selectKeys)) {
-            message.error(lag.noData);
-            return;
-        }
-        setLoading(true)
-        post("multiMessage/send",
-            {
-                ...multiMessage,
-                selectKeys: selectKeys.join(','),
-            }).then((result) => {
-                setLoading(false)
-                if (200 === result.resultCode) {
-                    setVisible(false)
-                    message.info(result.resultMsg)
-                }
-            });
-    }
-
     return (
-        <Spin spinning={loading}>
-            <DynamicCurd modules={modules} refreshTime={refreshTime} handleSelect={(item) => setMessage(item)} />
-            <Modal
-                title={`选择发送【${multiMessage && multiMessage.title}】目标岗位`}
-                open={visible}
-                footer={null}
-                onCancel={() => setVisible(false)}
-            >
-                <Spin spinning={loading}>
-                    <RoleSearch onFinish={onFinish} />
-                </Spin>
-            </Modal>
+        <Fragment>
+            <DynamicCurd modules={modules} handleSelect={(item) => setMessage(item)} />
             <Drawer title={`【${multiMessage && multiMessage.title}】发送记录`} destroyOnClose={true} width={'calc(48vw)'} open={open} onClose={() => setOpen(false)}>
-
+                <MultiMessageRecord multiMessage={multiMessage} />
             </Drawer>
-        </Spin>
+        </Fragment>
     );
 }
