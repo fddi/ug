@@ -9,7 +9,7 @@ export default function ImpExcelModal(props) {
      const [loading, setLoading] = useState(false)
      const [fileList, setFileList] = useState()
      const [dataType, setDataType] = useState(props.dataType || 'tree')
-     const { message } = App.useApp()
+     const { message,modal } = App.useApp()
 
      useEffect(() => {
           setFileList([])
@@ -48,7 +48,7 @@ export default function ImpExcelModal(props) {
                     message.success(result.resultMsg);
                     onFinish && onFinish(result);
                } else {
-                    Modal.error({
+                    modal.error({
                          title: '上传失败',
                          content: result.resultMsg,
                     });

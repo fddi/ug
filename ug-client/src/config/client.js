@@ -114,8 +114,13 @@ export async function post(url, param, isSign = true) {
             'appId': APPID,
             'token': getAuthInfo().token || ''
         }, body: bodyStr,
-    }).then(response => response.json())
-        .catch(reason => { return { resultCode: '500', resultMsg: reason.toString() } }), TIMEOUT);
+    }).then(response => response.json()).then(result => {
+        if (result && result.resultCode == '10006') {
+            let url = `${document.location.protocol}//${document.location.hostname}:${document.location.port}/login`
+            window.location.replace(url)
+        }
+        return result;
+    }).catch(reason => { return { resultCode: '500', resultMsg: reason.toString() } }), TIMEOUT);
 }
 
 export async function get(url, param) {

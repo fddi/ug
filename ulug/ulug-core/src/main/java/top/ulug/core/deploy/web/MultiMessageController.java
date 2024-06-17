@@ -62,4 +62,11 @@ public class MultiMessageController {
                                                              @ModelAttribute MessageRecord messageRecord) throws Exception {
         return messageRecordService.findPage(pageSize, pageNo, messageRecord);
     }
+
+    @RequestMapping(value = "/unread-count", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiDocument(note = "用户未读消息数量", paramsExample = "", resultExample = "")
+    public WrapperDTO<Long> messageCount() throws Exception {
+        return messageRecordService.unreadCount();
+    }
 }

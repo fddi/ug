@@ -1,10 +1,10 @@
 import React, { useState, useEffect, Fragment, } from 'react';
 import { useRouter } from 'next/navigation'
-import { Badge, Menu, Button, Dropdown, Space, Input, AutoComplete, Drawer, Popover } from 'antd';
+import { Badge, Menu, Button, Dropdown, Space, Input, AutoComplete, Drawer, Popover, App } from 'antd';
 import { PoweroffOutlined, MessageOutlined, QuestionCircleOutlined, SearchOutlined } from '@ant-design/icons'
 import StringUtils from '@/util/StringUtils';
 import Help from './Help';
-import { APIURL, getAuthInfo } from '@/config/client';
+import { APIURL, getAuthInfo, post } from '@/config/client';
 let sseSource = null;
 const btnStyle = {
      fontSize: '16px',
@@ -29,6 +29,7 @@ const items = [
           key: '3',
      },
 ];
+let mc = 0;
 
 export default function HeaderView(props) {
      const [menus, setMenus] = useState();
@@ -36,8 +37,12 @@ export default function HeaderView(props) {
      const [selectedKeys, setSelectedKeys] = useState([]);
      const [searchValue, setSearchValue] = useState('');
      const [helpOpen, setHelpOpen] = useState(false);
+     const [msgCount, setMsgCount] = useState(0);
+     const { notification } = App.useApp()
+     const router = useRouter();
 
      useEffect(() => {
+          mc = 0;
           const token = getAuthInfo().token;
           if (sseSource == null) {
                sseSource = new EventSource(`${APIURL}/sse/connect/${token}`);
@@ -53,9 +58,23 @@ export default function HeaderView(props) {
 
                // 接收到数据
                sseSource.onmessage = function (event) {
-                    console.log("接收到数据:", event);
+                    let message = event.data;
+                    message = message && JSON.parse(message);
+                    let data = message.data;
+                    notification.open({
+                         message: data.title,
+                         description: data.message,
+                         onClick: () => {
+                              router.push(`/home/account_information/notifications`)
+                         },
+                    });
+                    setMsgCount(mc + 1);
                }
           }
+          post("multiMessage/unread-count", null).then((result) => {
+               mc = parseInt(result.resultData || 0)
+               setMsgCount(mc)
+          })
      }, [])
 
      useEffect(() => {
@@ -94,8 +113,12 @@ export default function HeaderView(props) {
      function handleMenuClick(e) {
           switch (parseInt(e.key)) {
                case 1:
+                    router.push(`/home/account_information`)
+                    props.onMenuRoute({ label: '个人信息' }, false)
                     break;
                case 2:
+                    router.push(`/home/account_information/emails`)
+                    props.onMenuRoute({ label: '安全设置' }, false)
                     break;
                case 3:
                     props.logout && props.logout();
@@ -109,6 +132,12 @@ export default function HeaderView(props) {
           const menu = leafMenu.find((item) => item.value == v);
           menu && props.onMenuRoute(menu, true)
           setSearchValue('')
+     }
+
+     function toMessageCenter() {
+          router.push(`/home/account_information/notifications`)
+          props.onMenuRoute({ label: '消息中心' }, false)
+
      }
 
      return (<Fragment>
@@ -149,10 +178,10 @@ export default function HeaderView(props) {
                <Button
                     type="text"
                     icon={
-                         <Badge count={1} size='small'>
+                         <Badge count={msgCount} size='small'>
                               <MessageOutlined style={{ color: '#fff' }} />
                          </Badge>}
-                    onClick={() => console.log('message')}
+                    onClick={toMessageCenter}
                     style={btnStyle}
                />
           </Popover>

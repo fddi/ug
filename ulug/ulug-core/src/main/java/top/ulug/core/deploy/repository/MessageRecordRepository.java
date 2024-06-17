@@ -13,4 +13,5 @@ public interface MessageRecordRepository extends JpaRepository<MessageRecord, Lo
 
     Page<MessageRecord> findByMultiMessageIdAndUserNameLike(String multiMessageId, String userName, Pageable pageable);
 
+    Long countByUserNameAndReadStatusNotOrUserNameAndReadStatusIsNull(String u1, String status, String u2);
 }

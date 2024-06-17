@@ -76,6 +76,9 @@ export default function HomeLayout({ children }) {
 
     function onMenuRoute(menu, isRoute) {
         setActiveMenu(menu)
+        if (isRoute === false) {
+            return;
+        }
         let path;
         switch (menu.type) {
             case "1":

@@ -43,7 +43,7 @@ public class FormDataController {
 
     @RequestMapping(value = "/mapper", method = RequestMethod.POST)
     @ResponseBody
-    @ApiDocument(note = "表单配置", paramsExample = "", resultExample = "")
+    @ApiDocument(note = "查找UI表单配置", paramsExample = "", resultExample = "")
     public String mapper(@RequestParam(value = "formCode") String formCode) throws Exception {
         return formDataService.mapper(formCode).toString();
     }

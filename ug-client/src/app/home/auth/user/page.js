@@ -120,7 +120,7 @@ export default function UserMgr(props) {
                 post("user/reset", { userId: item.userId }).then(result => {
                     if (200 === result.resultCode) {
                         message.destroy();
-                        Modal.success({
+                        modal.success({
                             title: result.resultMsg,
                             content: `密码已重置为：${result.resultData}`,
                         })

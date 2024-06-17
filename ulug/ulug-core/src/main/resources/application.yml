@@ -48,7 +48,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   profiles:
-    active: pro
+    active: dev
   servlet:
     encoding:
       charset: UTF-8
