@@ -1,17 +1,25 @@
 "use client"
 
-import React, { useState, useRef, useEffect } from 'react';
-import { Card, Row, Col, Space, Upload, Avatar, Typography } from 'antd';
+import React, { useState, useEffect, useContext } from 'react';
+import { Card, Row, Col, Space, Upload, Avatar, Typography, Button } from 'antd';
 import ImgCrop from "antd-img-crop";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import { APPID, getAuthInfo, getImgUrl } from '@/config/client';
+import { APIURL, APPID, TAG, getAuthInfo, getImgUrl, post } from '@/config/client';
+import { HomeContext } from '@/app/home/components/HomeContext';
+import { useRouter } from 'next/navigation'
 
 export default function AccountLayout({ children }) {
     const [loading, setLoading] = useState(false)
     const [imgUrl, setImgUrl] = useState()
     const [account, setAccount] = useState({})
+    const [nickName, setNickName] = useState('')
+    const { handleMenu } = useContext(HomeContext);
+    const router = useRouter();
+
     useEffect(() => {
         setAccount(getAuthInfo())
+        setNickName(getAuthInfo().nickName)
+        setImgUrl(`${APIURL}/user/file/avatar/${getAuthInfo().userName}?v=${new Date().getTime()}`)
     }, [])
 
     const beforeUpload = (file) => {
@@ -32,11 +40,20 @@ export default function AccountLayout({ children }) {
             return;
         }
         if (info.file.status === 'done') {
-            const result = info.file.response;
             setLoading(false)
-            setImgUrl(getImgUrl(result.resultData))
+            setImgUrl(`${APIURL}/user/file/avatar/${account.userName}?v=${new Date().getTime()}`)
         }
     };
+
+    function onAccountInfo() {
+        router.push(`/home/account_information`)
+        handleMenu && handleMenu({ label: '个人信息' })
+    }
+
+    function onMessageCenter() {
+        router.push(`/home/account_information/notifications`)
+        handleMenu && handleMenu({ label: '消息中心' })
+    }
 
     const uploadButton = (
         <div>
@@ -44,25 +61,41 @@ export default function AccountLayout({ children }) {
             <div className="ant-upload-text">上传头像</div>
         </div>
     );
+
+    function onNickNameChange(v) {
+        setNickName(v)
+        post("user/update-nickname", {
+            nickname: v,
+        });
+        account.nickName = v;
+        sessionStorage.setItem(TAG.token, JSON.stringify(account));
+    }
+
     return (
         <Row gutter={8} style={{ padding: 5, }}>
             <Col span={5}>
                 <Card styles={{
                     body: {
                         display: 'flex',
-                        flexDirection: 'column', alignItems: 'center'
+                        flexDirection: 'column', alignItems: 'center', alignContent: 'center'
                     }
-                }}>
+                }}
+                    actions={[<Button type='text'
+                        onClick={onAccountInfo}
+                    >个人信息</Button>, <Button type='text'
+                        onClick={onMessageCenter}>消息中心</Button>
+                    ]}
+                >
                     <Space direction='vertical'>
                         <ImgCrop>
                             <Upload
-                                name="logo"
+                                name="avatar"
                                 listType="picture-circle"
                                 className="avatar-uploader c-avatar"
                                 showUploadList={false}
                                 beforeUpload={beforeUpload}
                                 onChange={handleChange}
-                                action={``}
+                                action={`${APIURL}/user/file/upload-avatar`}
                                 headers={{
                                     'Accept': 'application/json',
                                     'appId': APPID,
@@ -73,8 +106,11 @@ export default function AccountLayout({ children }) {
                             </Upload>
                         </ImgCrop>
                         <Typography style={{ width: '100%', }}>
-                            <Typography.Text>
-                                {account.nickName || ''}
+                            <Typography.Text
+                                editable={{
+                                    onChange: onNickNameChange,
+                                }}>
+                                {nickName}
                             </Typography.Text>
                         </Typography>
                     </Space>

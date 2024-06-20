@@ -29,7 +29,7 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long>,
     List<AuthUser> findByUserIdIn(List<Long> ids);
 
     @Modifying
-    @Query("update AuthUser set status='0' where id in ?1")
+    @Query("update AuthUser set status='0' where userId in ?1")
     void forbidden(List<Long> ids);
 
     @Query("select new top.ulug.core.auth.dto.UserDTO(t.userId,t.status,t.userName,t.userType,t.nickName,t.phoneNumber,t.address,t.areaCode,t.unitCode,t.orgId,t.org.orgName) from AuthUser t where t.status=:status and t.org.orgPath like :orgPath% and (t.userName like %:userName% or t.nickName like %:userName%)")
@@ -37,4 +37,11 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, Long>,
 
     List<AuthUser> findByUnitCodeAndStatus(String unitCode, String status);
 
+    @Modifying
+    @Query("update AuthUser set nickName=?2 where userName = ?1")
+    void updateNickname(String userName, String nickname);
+
+    @Modifying
+    @Query("update AuthUser set phoneNumber=?2,address=?3 where userName = ?1")
+    void updateContext(String userName, String phoneNumber, String address);
 }

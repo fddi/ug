@@ -205,6 +205,36 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public WrapperDTO<String> updateNickname(String nickName) {
+        String appId = requestUtils.getCurrentAppId();
+        String token = requestUtils.getCurrentToken();
+        if (StringUtils.isEmpty(token)) {
+            return WrapperDTO.fail(ResultMsgEnum.RESULT_ERROR_NPE, "token");
+        }
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
+        if (authDTO == null || authDTO.getAccount() == null) {
+            return WrapperDTO.fail(ResultMsgEnum.RESULT_ERROR_NPE, "token");
+        }
+        userRepository.updateNickname(authDTO.getAccount().getUserName(), nickName);
+        return WrapperDTO.success();
+    }
+
+    @Override
+    public WrapperDTO<String> updateContext(String phoneNumber, String address) {
+        String appId = requestUtils.getCurrentAppId();
+        String token = requestUtils.getCurrentToken();
+        if (StringUtils.isEmpty(token)) {
+            return WrapperDTO.fail(ResultMsgEnum.RESULT_ERROR_NPE, "token");
+        }
+        AuthDTO authDTO = cacheService.getAuth(appId, token);
+        if (authDTO == null || authDTO.getAccount() == null) {
+            return WrapperDTO.fail(ResultMsgEnum.RESULT_ERROR_NPE, "token");
+        }
+        userRepository.updateContext(authDTO.getAccount().getUserName(), phoneNumber, address);
+        return WrapperDTO.success();
+    }
+
+    @Override
     public WrapperDTO<String> save(AuthUser... users) {
         List<AuthUser> list = new ArrayList<>();
         for (AuthUser user : users) {

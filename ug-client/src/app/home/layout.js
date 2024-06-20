@@ -56,6 +56,7 @@ export default function HomeLayout({ children }) {
     const [collapsed, setCollapsed] = useState(false);
     const [activeMenu, setActiveMenu] = useState();
     const { data, loading, run } = useRequest(queryData, { loadingDelay: 1000 });
+    const [account, setAccount] = useState()
     const router = useRouter();
 
     useEffect(() => {
@@ -63,6 +64,7 @@ export default function HomeLayout({ children }) {
         if (StringUtils.isEmpty(authInfo.token)) {
             router.replace("/login");
         }
+        setAccount(authInfo)
     }, [data])
 
     function onTopMenuSelect(e) {
@@ -160,7 +162,7 @@ export default function HomeLayout({ children }) {
                                     color: "#fff"
                                 }}
                             />
-                            <MainHeader nickName={`demo`} logout={logout} menuList={menuList}
+                            <MainHeader nickName={account && account.nickName} logout={logout} menuList={menuList}
                                 menus={data && data.top} onSelect={onTopMenuSelect}
                                 onMenuRoute={onMenuRoute}
                             />
@@ -173,7 +175,7 @@ export default function HomeLayout({ children }) {
                                 title: <HomeOutlined />,
                             }, { title: activeMenu ? activeMenu.label : '工作台' },]} />
                         </div>
-                        <HomeContext.Provider value={{ activeMenu }}>
+                        <HomeContext.Provider value={{ activeMenu }} handleMenu={setActiveMenu}>
                             {children}
                         </HomeContext.Provider>
                     </Content>

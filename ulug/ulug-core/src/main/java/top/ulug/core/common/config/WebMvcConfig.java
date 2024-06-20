@@ -35,7 +35,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private AccessInterceptor accessInterceptor;
     private final String[] excludePaths = {
-            "/error", "/static/**", "/auth/**", "/sse/**",
+            "/error", "/static/**", "/auth/**", "/sse/**", "/**/file/**",
             "/ability/scanning-save", "/ov/one-public", "/ov/one", "/notice/public-list"
     };
 

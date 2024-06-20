@@ -59,4 +59,20 @@ public interface AccountService extends CurdService<AuthUser, UserDTO> {
      */
     WrapperDTO<String> impByExcel(MultipartFile file, String dataType) throws Exception;
 
+    /**
+     * 更新昵称
+     *
+     * @param nickName 昵称
+     * @return res
+     */
+    WrapperDTO<String> updateNickname(String nickName);
+
+    /**
+     * 更新联系方式
+     *
+     * @param phoneNumber 电话
+     * @param address     地址
+     * @return res
+     */
+    WrapperDTO<String> updateContext(String phoneNumber, String address);
 }

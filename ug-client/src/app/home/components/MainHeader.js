@@ -14,19 +14,15 @@ const btnStyle = {
 }
 const items = [
      {
-          label: '基本信息',
+          label: '个人信息',
           key: '1',
-     },
-     {
-          label: '安全设置',
-          key: '2',
      },
      {
           type: 'divider',
      },
      {
           label: <Space>退出登录<PoweroffOutlined /></Space>,
-          key: '3',
+          key: '2',
      },
 ];
 let mc = 0;
@@ -117,10 +113,6 @@ export default function HeaderView(props) {
                     props.onMenuRoute({ label: '个人信息' }, false)
                     break;
                case 2:
-                    router.push(`/home/account_information/emails`)
-                    props.onMenuRoute({ label: '安全设置' }, false)
-                    break;
-               case 3:
                     props.logout && props.logout();
                     break;
                default:

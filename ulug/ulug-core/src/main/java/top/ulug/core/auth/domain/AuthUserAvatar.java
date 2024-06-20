@@ -1,9 +1,7 @@
-package top.ulug.cms.media.domain;
+package top.ulug.core.auth.domain;
 
-
-import top.ulug.jpa.auditor.BaseEntity;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
+import top.ulug.base.auditor.BaseEntity;
 
 /**
  * Created by liujf on 2020/2/21.
@@ -11,62 +9,51 @@ import javax.persistence.*;
  */
 @Entity
 @Table
-public class MediaImage extends BaseEntity {
+public class AuthUserAvatar extends BaseEntity {
 
     @Id
-    @Column(columnDefinition = "VARCHAR(40) COMMENT '图片序列'")
-    private String imgKey;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long avatarId;
+
+    @Column(unique = true, nullable = false, length = 10)
+    private String userName;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    private String imgData;
+    private String avatarData;
 
-    @Column(columnDefinition = "VARCHAR(20) COMMENT '图片类型'")
-    private String imgType;
+    @Column(nullable = false, length = 10)
+    private String fileType;
 
-    @Column(columnDefinition = "VARCHAR(128) COMMENT '图片标签'")
-    private String imgTags;
-
-    @Column(columnDefinition = "VARCHAR(200) COMMENT '图片说明'")
-    private String imgNote;
-
-    public String getImgKey() {
-        return imgKey;
+    public Long getAvatarId() {
+        return avatarId;
     }
 
-    public void setImgKey(String imgKey) {
-        this.imgKey = imgKey;
+    public void setAvatarId(Long avatarId) {
+        this.avatarId = avatarId;
     }
 
-    public String getImgData() {
-        return imgData;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setImgData(String imgData) {
-        this.imgData = imgData;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getImgType() {
-        return imgType;
+    public String getAvatarData() {
+        return avatarData;
     }
 
-    public void setImgType(String imgType) {
-        this.imgType = imgType;
+    public void setAvatarData(String avatarData) {
+        this.avatarData = avatarData;
     }
 
-    public String getImgTags() {
-        return imgTags;
+    public String getFileType() {
+        return fileType;
     }
 
-    public void setImgTags(String imgTags) {
-        this.imgTags = imgTags;
-    }
-
-    public String getImgNote() {
-        return imgNote;
-    }
-
-    public void setImgNote(String imgNote) {
-        this.imgNote = imgNote;
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 }

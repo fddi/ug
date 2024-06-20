@@ -1,6 +1,7 @@
 package top.ulug.core.auth.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.ulug.base.dto.WrapperDTO;
@@ -9,6 +10,7 @@ import top.ulug.core.auth.domain.AuthUser;
 import top.ulug.core.auth.dto.UserDTO;
 import top.ulug.core.auth.service.AccountService;
 import top.ulug.base.dto.PageDTO;
+import top.ulug.core.auth.service.AvatarService;
 
 /**
  * Created by liujf on 2019/9/9.
@@ -19,6 +21,8 @@ import top.ulug.base.dto.PageDTO;
 public class UserController {
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private AvatarService avatarService;
 
     @RequestMapping(value = "/page-list", method = RequestMethod.POST)
     @ResponseBody
@@ -64,5 +68,38 @@ public class UserController {
     @ApiDocument(note = "用户密码重置", paramsExample = "", resultExample = "")
     public WrapperDTO<String> userReset(@RequestParam(value = "userId") Long userId) throws Exception {
         return accountService.resetPassword(userId);
+    }
+
+    @RequestMapping(value = "/file/upload-avatar", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiDocument(note = "头像上传", paramsExample = "", resultExample = "")
+    public WrapperDTO<String> uploadAvatar(@RequestParam("avatar") MultipartFile avatar) {
+        try {
+            return avatarService.upload(avatar);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @RequestMapping(value = "/file/avatar/{userName}", method = RequestMethod.GET)
+    @ApiDocument(note = "头像", paramsExample = "", resultExample = "")
+    public ResponseEntity<byte[]> readAvatar(
+            @PathVariable String userName) throws Exception {
+        return avatarService.read(userName);
+    }
+
+    @RequestMapping(value = "/update-nickname", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiDocument(note = "更新昵称", paramsExample = "", resultExample = "")
+    public WrapperDTO<String> updateNickname(@RequestParam(value = "nickname") String nickname) throws Exception {
+        return accountService.updateNickname(nickname);
+    }
+
+    @RequestMapping(value = "/update-context", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiDocument(note = "更新联系方式", paramsExample = "", resultExample = "")
+    public WrapperDTO<String> updateContext(@RequestParam(value = "phoneNumber", required = false) String phoneNumber,
+                                            @RequestParam(value = "address", required = false) String address) throws Exception {
+        return accountService.updateContext(phoneNumber, address);
     }
 }
