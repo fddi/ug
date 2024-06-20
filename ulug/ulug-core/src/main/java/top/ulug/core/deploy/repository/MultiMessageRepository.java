@@ -12,4 +12,6 @@ import top.ulug.core.deploy.domain.MultiMessage;
 public interface MultiMessageRepository extends JpaRepository<MultiMessage, Long> {
 
     Page<MultiMessage> findByTitleLike(String title, Pageable pageable);
+
+
 }

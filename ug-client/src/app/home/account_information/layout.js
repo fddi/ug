@@ -13,7 +13,7 @@ export default function AccountLayout({ children }) {
     const [imgUrl, setImgUrl] = useState()
     const [account, setAccount] = useState({})
     const [nickName, setNickName] = useState('')
-    const { handleMenu } = useContext(HomeContext);
+    const { setActiveMenu } = useContext(HomeContext);
     const router = useRouter();
 
     useEffect(() => {
@@ -47,12 +47,12 @@ export default function AccountLayout({ children }) {
 
     function onAccountInfo() {
         router.push(`/home/account_information`)
-        handleMenu && handleMenu({ label: '个人信息' })
+        setActiveMenu && setActiveMenu({ label: '个人信息' })
     }
 
     function onMessageCenter() {
         router.push(`/home/account_information/notifications`)
-        handleMenu && handleMenu({ label: '消息中心' })
+        setActiveMenu && setActiveMenu({ label: '消息中心' })
     }
 
     const uploadButton = (

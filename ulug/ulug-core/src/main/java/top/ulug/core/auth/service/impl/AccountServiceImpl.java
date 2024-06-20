@@ -205,6 +205,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<String> updateNickname(String nickName) {
         String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
@@ -220,6 +221,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<String> updateContext(String phoneNumber, String address) {
         String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
@@ -325,6 +327,8 @@ public class AccountServiceImpl implements AccountService {
         ad.setOrgName(user.getOrg().getOrgName());
         ad.setToken(token);
         ad.setAuthTime(time);
+        ad.setPhoneNumber(user.getPhoneNumber());
+        ad.setAddress(user.getAddress());
         return ad;
     }
 

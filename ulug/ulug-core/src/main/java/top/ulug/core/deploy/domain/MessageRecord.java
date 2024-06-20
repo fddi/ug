@@ -32,7 +32,7 @@ public class MessageRecord extends BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date readTime;
 
-    private String multiMessageId;
+    private Long multiMessageId;
 
     public Long getRecordId() {
         return recordId;
@@ -74,11 +74,11 @@ public class MessageRecord extends BaseEntity {
         this.readTime = readTime;
     }
 
-    public String getMultiMessageId() {
+    public Long getMultiMessageId() {
         return multiMessageId;
     }
 
-    public void setMultiMessageId(String multiMessageId) {
+    public void setMultiMessageId(Long multiMessageId) {
         this.multiMessageId = multiMessageId;
     }
 }

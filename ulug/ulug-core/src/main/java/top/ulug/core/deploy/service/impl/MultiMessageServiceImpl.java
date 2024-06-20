@@ -91,7 +91,7 @@ public class MultiMessageServiceImpl implements MultiMessageService {
             dto.setData(multiMessage);
             sseMessageService.send(user.getUserName(), dto);
             MessageRecord record = new MessageRecord();
-            record.setMultiMessageId(String.valueOf(multiMessage.getMessageId()));
+            record.setMultiMessageId(multiMessage.getMessageId());
             record.setSendStatus("1");
             record.setUserName(user.getUserName());
             records.add(record);

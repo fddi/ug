@@ -8,6 +8,7 @@ import top.ulug.base.inf.ApiDocument;
 import top.ulug.core.deploy.domain.DeployNotice;
 import top.ulug.core.deploy.domain.MessageRecord;
 import top.ulug.core.deploy.domain.MultiMessage;
+import top.ulug.core.deploy.dto.MessageRecordDTO;
 import top.ulug.core.deploy.service.MessageRecordService;
 import top.ulug.core.deploy.service.MultiMessageService;
 import top.ulug.core.deploy.service.NoticeService;
@@ -68,5 +69,20 @@ public class MultiMessageController {
     @ApiDocument(note = "用户未读消息数量", paramsExample = "", resultExample = "")
     public WrapperDTO<Long> messageCount() throws Exception {
         return messageRecordService.unreadCount();
+    }
+
+    @RequestMapping(value = "/page-unread-list", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiDocument(note = "消息中心", paramsExample = "", resultExample = "")
+    public WrapperDTO<PageDTO<MessageRecordDTO>> unreadPage(@RequestParam(value = "pageNo") Integer pageNo,
+                                                            @RequestParam(value = "pageSize") Integer pageSize) throws Exception {
+        return messageRecordService.unreadList(pageSize, pageNo);
+    }
+
+    @RequestMapping(value = "/read", method = RequestMethod.POST)
+    @ResponseBody
+    @ApiDocument(note = "消息中心", paramsExample = "", resultExample = "")
+    public WrapperDTO<String> read(@RequestParam(value = "recordId") Long recordId) throws Exception {
+        return messageRecordService.read(recordId);
     }
 }

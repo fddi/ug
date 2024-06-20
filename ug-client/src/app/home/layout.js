@@ -175,7 +175,7 @@ export default function HomeLayout({ children }) {
                                 title: <HomeOutlined />,
                             }, { title: activeMenu ? activeMenu.label : '工作台' },]} />
                         </div>
-                        <HomeContext.Provider value={{ activeMenu }} handleMenu={setActiveMenu}>
+                        <HomeContext.Provider value={{ activeMenu, setActiveMenu }}>
                             {children}
                         </HomeContext.Provider>
                     </Content>

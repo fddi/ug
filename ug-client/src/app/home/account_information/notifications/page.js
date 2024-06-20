@@ -1,12 +1,13 @@
 "use client"
 
 import { Fragment } from "react"
+import MainList from "../components/MainList"
 
 
 export default function AccountInfo({ children }) {
     return (
         <Fragment>
-            notification
+            <MainList defaultData={[{ loading: true }]} />
         </Fragment>
     )
 }
