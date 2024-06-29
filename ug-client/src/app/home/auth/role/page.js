@@ -121,11 +121,11 @@ export default function RoleMgr(props) {
             <DynamicCurd modules={modules} handleSelect={handleSelect}
                 refreshTime={refreshTime}
                 onExtraSelect={setOrg}
-                actions={[<DictTreeSelect
+                actions={[<DictTreeSelect  key="a-1"
                     onChange={onStChange} style={{ width: 150 }}
                     catalog="AREA_CODE" dictCode={areaCode}
                     placeholder="选择区域" value={areaCode} />,
-                <Button icon={<CopyOutlined />}
+                <Button icon={<CopyOutlined />}  key="a-2"
                     onClick={() => setVisible(true)}
                 >批量复制</Button>]}
             />

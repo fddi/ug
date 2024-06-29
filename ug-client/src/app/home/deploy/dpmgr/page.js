@@ -99,7 +99,7 @@ export default function FormDataMgr(props) {
                 handleSelect={onSelect}
                 onFinish={() => setItem(null)}
                 actions={[
-                    <Button icon={<EditOutlined />} disabled={disabled} type='primary'
+                    <Button key="a-1" icon={<EditOutlined />} disabled={disabled} type='primary'
                         onClick={() => setOpen(true)}>配置</Button>
                 ]} />
             <Modal

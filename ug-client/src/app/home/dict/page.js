@@ -96,10 +96,10 @@ export default function DictMgr(props) {
     return (
         <Fragment>
             <DynamicCurd modules={modules} refreshTime={refreshTime}
-                actions={[<Button icon={<DownloadOutlined />}>
+                actions={[<Button key="a-1" icon={<DownloadOutlined />}>
                     <a href={`${APIURL}/static/字典导入模板.xls`}>下载模版</a>
                 </Button>,
-                <Button icon={<UploadOutlined />} onClick={() => setOpen(true)}>导入字典数据</Button>]}
+                <Button key="a-1" icon={<UploadOutlined />} onClick={() => setOpen(true)}>导入字典数据</Button>]}
             />
             <Modal
                 title={`导入数据`}

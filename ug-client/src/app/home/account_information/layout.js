@@ -4,7 +4,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { App, Card, Row, Col, Space, Upload, Avatar, Typography, Button } from 'antd';
 import ImgCrop from "antd-img-crop";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import { APIURL, APPID, TAG, getAuthInfo, getImgUrl, post } from '@/config/client';
+import { APIURL, APPID, TAG, exportNextPath, getAuthInfo, getImgUrl, post } from '@/config/client';
 import { HomeContext } from '@/app/home/components/HomeContext';
 import { useRouter } from 'next/navigation'
 
@@ -47,12 +47,12 @@ export default function AccountLayout({ children }) {
     };
 
     function onAccountInfo() {
-        router.push(`/home/account_information`)
+        router.push(exportNextPath(`/home/account_information`))
         setActiveMenu && setActiveMenu({ label: '个人信息' })
     }
 
     function onMessageCenter() {
-        router.push(`/home/account_information/notifications`)
+        router.push(exportNextPath(`/home/account_information/notifications`))
         setActiveMenu && setActiveMenu({ label: '消息中心' })
     }
 
@@ -82,8 +82,8 @@ export default function AccountLayout({ children }) {
                     }
                 }}
                     actions={[<Button type='text'
-                        onClick={onAccountInfo}
-                    >个人信息</Button>, <Button type='text'
+                        onClick={onAccountInfo} key="a-1"
+                    >个人信息</Button>, <Button type='text' key="a-2"
                         onClick={onMessageCenter}>消息中心</Button>
                     ]}
                 >

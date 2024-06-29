@@ -47,10 +47,10 @@ export default function Help(props) {
     }
 
     return (<Fragment>
-        <Card title='项目信息'>
+        {/* <Card title='项目信息'>
 
         </Card>
-        <Divider />
+        <Divider /> */}
         <Card title='主题设置'>
             <FormItem label="主题">
                 <Group value={type} onChange={(v) => onChange(v, 1)} buttonStyle="solid">

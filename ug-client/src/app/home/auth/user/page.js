@@ -160,17 +160,17 @@ export default function UserMgr(props) {
                 onExtraSelect={() => setItem(null)}
                 onFinish={() => setItem(null)}
                 actions={[
-                    <AsyncTreeSelect
+                    <AsyncTreeSelect  key="a-1"
                         style={{ width: 150 }}
                         onChange={onStChange}
                         catalog="AREA_CODE" dictCode={areaCode}
                         placeholder="选择区域" value={areaCode} />,
-                    <Button icon={<DownloadOutlined />}>
+                    <Button  key="a-2" icon={<DownloadOutlined />}>
                         <a href={`${APIURL}/static/用户导入模板.xls`}>下载模版</a>
                     </Button>,
-                    <Button icon={<UploadOutlined />} onClick={() => setVisible(true)}>导入用户数据</Button>,
-                    <Button icon={<ReloadOutlined />} onClick={onResetPwd}>重置密码</Button>,
-                    <Radio.Group onChange={onSwChange} defaultValue={1} buttonStyle='solid'>
+                    <Button  key="a-3" icon={<UploadOutlined />} onClick={() => setVisible(true)}>导入用户数据</Button>,
+                    <Button  key="a-4" icon={<ReloadOutlined />} onClick={onResetPwd}>重置密码</Button>,
+                    <Radio.Group  key="a-5" onChange={onSwChange} defaultValue={1} buttonStyle='solid'>
                         <Radio.Button value={1}><CheckCircleOutlined />启用</Radio.Button>
                         <Radio.Button value={0}><StopOutlined />停用</Radio.Button>
                     </Radio.Group>

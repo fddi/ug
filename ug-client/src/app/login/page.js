@@ -8,7 +8,7 @@ import { lag } from '@/config/lag';
 import LoginNotice from './components/LoginNotice';
 import LoginByAccount from './components/LoginByAccount';
 import LoginByQRCode from './components/LoginByQRCode';
-import { getOv, post } from '@/config/client';
+import { exportNextPath, getOv, post } from '@/config/client';
 export default function Login(props) {
     const [jump, setJump] = useState(false);
     const [appName, setAppName] = useState('');
@@ -24,7 +24,7 @@ export default function Login(props) {
 
     useEffect(() => {
         if (jump) {
-            router.replace("/home");
+            router.replace(exportNextPath("/home"));
         }
     }, [jump])
 

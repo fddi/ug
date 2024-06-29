@@ -140,10 +140,10 @@ export default function OrgMgr(props) {
             <DynamicCurd modules={defModules} formModules={modules} handleSelect={handleSelect}
                 refreshTime={refreshTime} onFinish={onFinish}
                 actions={[
-                    <Button icon={<DownloadOutlined />}>
+                    <Button icon={<DownloadOutlined />}  key="a-1"> 
                         <a href={`${APIURL}/static/机构导入模板.xls`}>下载模版</a>
                     </Button>,
-                    <Button icon={<UploadOutlined />} onClick={() => setOpen(true)}>
+                    <Button icon={<UploadOutlined />} onClick={() => setOpen(true)}  key="a-2">
                         导入机构数据</Button>]} />
             <Modal
                 title={`导入数据`}

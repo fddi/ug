@@ -14,54 +14,54 @@ export default function AbilityList(props) {
     const [refreshTime, setRefreshTime] = useState(new Date().getTime())
     const { modal } = App.useApp()
 
-    const defaultModules = {
-        pageable: false,
-        rowKey: "abilityId",
-        queryApi: "ability/dev/list",
-        selectType: 'checkbox',
-        searchKey: 'abilityNote',
-        columns: [{
-            title: 'ID',
-            dataIndex: 'abilityId',
-            colsType: "hidden",
-        }, {
-            title: '删除',
-            width: 60,
-            render: (text, record) =>
-                (<Button size='small' danger type='default' shape="circle" icon={<DeleteOutlined />} onClick={() => onDel(record)} />),
-            align: 'center',
-        }, {
-            title: '接口说明',
-            dataIndex: 'abilityNote',
-            width: 200,
-            sorter: (a, b) => a.abilityNote.localeCompare(b.abilityNote),
-        }, {
-            title: '接口地址',
-            dataIndex: 'abilityUri',
-            width: 200,
-            sorter: (a, b) => a.abilityUri.localeCompare(b.abilityUri),
-        }, {
-            title: '参数示例',
-            dataIndex: 'paramsExample',
-            width: 250,
-            render: (text, record) => (
-                <pre style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
-                    {text}
-                </pre>
-            ),
-        }, {
-            title: '返回示例',
-            dataIndex: 'resultExample',
-            width: 250,
-            render: (text, record) => (
-                <pre style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
-                    {text}
-                </pre>
-            ),
-        }],
-    }
-
     useEffect(() => {
+
+        const defaultModules = {
+            pageable: false,
+            rowKey: "abilityId",
+            queryApi: "ability/dev/list",
+            selectType: 'checkbox',
+            searchKey: 'abilityNote',
+            columns: [{
+                title: 'ID',
+                dataIndex: 'abilityId',
+                colsType: "hidden",
+            }, {
+                title: '删除',
+                width: 60,
+                render: (text, record) =>
+                    (<Button size='small' danger type='default' shape="circle" icon={<DeleteOutlined />} onClick={() => onDel(record)} />),
+                align: 'center',
+            }, {
+                title: '接口说明',
+                dataIndex: 'abilityNote',
+                width: 200,
+                sorter: (a, b) => a.abilityNote.localeCompare(b.abilityNote),
+            }, {
+                title: '接口地址',
+                dataIndex: 'abilityUri',
+                width: 200,
+                sorter: (a, b) => a.abilityUri.localeCompare(b.abilityUri),
+            }, {
+                title: '参数示例',
+                dataIndex: 'paramsExample',
+                width: 250,
+                render: (text, record) => (
+                    <pre style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+                        {text}
+                    </pre>
+                ),
+            }, {
+                title: '返回示例',
+                dataIndex: 'resultExample',
+                width: 250,
+                render: (text, record) => (
+                    <pre style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+                        {text}
+                    </pre>
+                ),
+            }],
+        }
         setModules(defaultModules)
     }, [])
 

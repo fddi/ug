@@ -139,7 +139,7 @@ export default function MenuMgr(props) {
                 onFinish={() => { setMenu(null) }}
                 handleSelect={onSelect}
                 actions={[
-                    <Button icon={<SwapOutlined />} onClick={onBindClick}>接口绑定</Button>
+                    <Button key="a-1" icon={<SwapOutlined />} onClick={onBindClick}>接口绑定</Button>
                 ]} />
             <Modal
                 title={(<span>{`菜单[${menu && menu.title}]`}接口绑定</span>)}

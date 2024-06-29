@@ -26,9 +26,9 @@ export default function WorkBench(props) {
     return (
         <Row gutter={16}>
             {
-                projectData.map((item) => {
+                projectData.map((item, index) => {
                     return (
-                        <Col span={8}>
+                        <Col span={8} key={"a-" + index}>
                             <Card
                                 style={{ ...defaultStyle }}
                                 hoverable={true}

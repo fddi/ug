@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { ConfigProvider, Layout, Button, Flex, Breadcrumb, Space, App } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined, HomeOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks';
-import { post, getAuthInfo, getOv } from '../../config/client'
+import { post, getAuthInfo, getOv, exportNextPath } from '../../config/client'
 import StringUtils from '../../util/StringUtils'
 import MenuTree from './components/MenuTree'
 import MainHeader from './components/MainHeader'
@@ -74,7 +74,7 @@ export default function HomeLayout({ children }) {
     useEffect(() => {
         const authInfo = getAuthInfo();
         if (StringUtils.isEmpty(authInfo.token)) {
-            router.replace("/login");
+            router.replace(exportNextPath("/login"));
         }
         setAccount(authInfo)
     }, [data])
@@ -100,7 +100,7 @@ export default function HomeLayout({ children }) {
                 if (menu.value.indexOf('http') == 0) {
                     path = `/home/deploy/remote?url=${menu.value}`;
                 }
-                router.push(path)
+                router.push(exportNextPath(path))
                 break;
             case "2":
                 if (menu.value.indexOf('http') == 0) {
@@ -117,7 +117,7 @@ export default function HomeLayout({ children }) {
 
     function logout() {
         sessionStorage.clear();
-        router.replace("/login")
+        router.replace(exportNextPath("/login"))
     }
 
     return (

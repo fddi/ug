@@ -7,6 +7,9 @@ const IS_DEV = false;
 const TIMEOUT = 30000;
 
 export const APIURL = "http://localhost:9091";
+export const EXPORT_PATH = "/template";
+// export const APIURL = "/";
+
 export const APPID = "ug-client";
 export const APPKEY = "1b4673a6d2762ca5b575841bdd1382e2b200dd0a";
 export const LOCATE = "zh_cn";
@@ -28,6 +31,17 @@ export function checkDep() {
     return false;
 }
 
+export function exportNextPath(path) {
+    const isProd = process.env.NODE_ENV === 'production'
+    let url = new URL(`${document.location.protocol}//${document.location.hostname}:${document.location.port}/${path}`);
+    if (isProd) {
+        url.pathname = EXPORT_PATH + url.pathname + ".html";
+    } else {
+        url.pathname = url.pathname.replaceAll(".html");
+    }
+    return url.toString();
+}
+
 export async function getOv(optionCode) {
     return post('ov/one', { optionCode }).then(result => {
         if (200 === result.resultCode) {
@@ -35,7 +49,7 @@ export async function getOv(optionCode) {
         } else {
             return ''
         }
-    }).catch((e)=>{
+    }).catch((e) => {
         console.log(e)
         return ''
     })

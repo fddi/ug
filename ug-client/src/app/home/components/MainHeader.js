@@ -4,7 +4,7 @@ import { Badge, Menu, Button, Dropdown, Space, Input, AutoComplete, Drawer, Popo
 import { PoweroffOutlined, MessageOutlined, QuestionCircleOutlined, SearchOutlined } from '@ant-design/icons'
 import StringUtils from '@/util/StringUtils';
 import Help from './Help';
-import { APIURL, getAuthInfo, post } from '@/config/client';
+import { APIURL, exportNextPath, getAuthInfo, post } from '@/config/client';
 let sseSource = null;
 const btnStyle = {
      fontSize: '16px',
@@ -61,7 +61,7 @@ export default function HeaderView(props) {
                          message: data.title,
                          description: data.message,
                          onClick: () => {
-                              router.push(`/home/account_information/notifications`)
+                              router.push(exportNextPath(`/home/account_information/notifications`))
                          },
                     });
                     setMsgCount(mc + 1);
@@ -109,7 +109,7 @@ export default function HeaderView(props) {
      function handleMenuClick(e) {
           switch (parseInt(e.key)) {
                case 1:
-                    router.push(`/home/account_information`)
+                    router.push(exportNextPath(`/home/account_information`))
                     props.onMenuRoute({ label: '个人信息' }, false)
                     break;
                case 2:
@@ -127,7 +127,7 @@ export default function HeaderView(props) {
      }
 
      function toMessageCenter() {
-          router.push(`/home/account_information/notifications`)
+          router.push(exportNextPath(`/home/account_information/notifications`))
           props.onMenuRoute({ label: '消息中心' }, false)
 
      }

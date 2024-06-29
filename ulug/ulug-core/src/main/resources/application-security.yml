@@ -25,6 +25,7 @@ interfaces:
     #不做客户端鉴权的接口
     - /error
     - /static/**
+    - /template/**
     - /auth/**
     - /sse/**
     - /**/file/**
@@ -36,6 +37,7 @@ interfaces:
     #不做账号鉴权的接口
     - /error
     - /static/**
+    - /template/**
     - /auth/**
     - /sse/**
     - /**/file/**
