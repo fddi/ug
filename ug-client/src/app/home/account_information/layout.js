@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect, useContext } from 'react';
-import { Card, Row, Col, Space, Upload, Avatar, Typography, Button } from 'antd';
+import { App, Card, Row, Col, Space, Upload, Avatar, Typography, Button } from 'antd';
 import ImgCrop from "antd-img-crop";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { APIURL, APPID, TAG, getAuthInfo, getImgUrl, post } from '@/config/client';
@@ -15,6 +15,7 @@ export default function AccountLayout({ children }) {
     const [nickName, setNickName] = useState('')
     const { setActiveMenu } = useContext(HomeContext);
     const router = useRouter();
+    const { message } = App.useApp();
 
     useEffect(() => {
         setAccount(getAuthInfo())

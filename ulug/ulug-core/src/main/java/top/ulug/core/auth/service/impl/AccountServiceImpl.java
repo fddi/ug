@@ -48,8 +48,6 @@ import java.util.Optional;
 public class AccountServiceImpl implements AccountService {
     private static final String TAG_TIMES_LOGIN = "TimesLogin";
     private static final String SALT = "-a1b2";
-    @Value("${project.auth.active.time}")
-    private Long activeTime;
     @Value("${project.auth.token.key}")
     private String tokenKey;
     @Value("${project.auth.token.time}")

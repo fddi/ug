@@ -40,6 +40,7 @@ public class MultiMessageServiceImpl implements MultiMessageService {
     private MessageRecordService recordService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<String> save(MultiMessage... e) throws Exception {
         List<MultiMessage> list = Arrays.asList(e);
         multiMessageRepository.saveAll(list);
@@ -47,6 +48,7 @@ public class MultiMessageServiceImpl implements MultiMessageService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<String> del(MultiMessage... e) {
         List<MultiMessage> list = Arrays.asList(e);
         multiMessageRepository.deleteAllInBatch(list);
@@ -54,12 +56,14 @@ public class MultiMessageServiceImpl implements MultiMessageService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<MultiMessage> findOne(Long id) {
         Optional<MultiMessage> optional = multiMessageRepository.findById(id);
         return optional.map(WrapperDTO::success).orElseGet(() -> WrapperDTO.npe(String.valueOf(id)));
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<PageDTO<MultiMessage>> findPage(int pageSize, int pageNo, MultiMessage multiMessage) {
         pageSize = pageSize == 0 ? 10 : pageSize;
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("gmtModified").descending());

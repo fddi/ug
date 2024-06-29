@@ -34,10 +34,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private DevOpsInterceptor devOpsInterceptor;
     @Autowired
     private AccessInterceptor accessInterceptor;
-    private final String[] excludePaths = {
-            "/error", "/static/**", "/auth/**", "/sse/**", "/**/file/**",
-            "/ability/scanning-save", "/ov/one-public", "/ov/one", "/notice/public-list"
-    };
+    @Autowired
+    private SecurityIfConfig securityIfConfig;
 
     @Bean
     public HttpMessageConverter<String> responseBodyConverter() {
@@ -62,17 +60,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(commonInterceptor);
-        registry.addInterceptor(clientInterceptor).excludePathPatterns(excludePaths)
-                .excludePathPatterns("/**/file/**");
-        registry.addInterceptor(authInterceptor).excludePathPatterns(excludePaths);
-        registry.addInterceptor(devOpsInterceptor).excludePathPatterns(excludePaths)
-                .addPathPatterns("/**/dev/**");
+        registry.addInterceptor(clientInterceptor).excludePathPatterns(securityIfConfig.getNoClient());
+        registry.addInterceptor(authInterceptor).excludePathPatterns(securityIfConfig.getNoAuth());
+        registry.addInterceptor(devOpsInterceptor).addPathPatterns(securityIfConfig.getDeveloper());
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler(securityIfConfig.getResourceUrls())
+                .addResourceLocations(securityIfConfig.getResourcePaths());
     }
 
     @Override

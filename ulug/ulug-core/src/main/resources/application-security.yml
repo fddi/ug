@@ -1,0 +1,48 @@
+project:
+  auth:
+    token:
+      key: 161616161616161616161616161616161616161616161616
+      #token 有效期（秒）
+      time: 36000
+    #AES加密key
+    aes.key: 1616161616161616
+    #创建用户默认密码
+    default.password: 000000
+    #超级管理员标识user_type
+    developer.code: De
+    #有效期间允许的登录错误次数
+    error.times: 5
+  #启动时是否扫描接口
+  scanning-ability.on: false
+interfaces:
+  resourceUrls:
+    - /static/**
+    - /template/**
+  resourcePaths:
+    - classpath:/static/
+    - classpath:/template/
+  noClient:
+    #不做客户端鉴权的接口
+    - /error
+    - /static/**
+    - /auth/**
+    - /sse/**
+    - /**/file/**
+    - /ability/scanning-save
+    - /ov/one-public
+    - /ov/one
+    - /notice/public-list
+  noAuth:
+    #不做账号鉴权的接口
+    - /error
+    - /static/**
+    - /auth/**
+    - /sse/**
+    - /**/file/**
+    - /ability/scanning-save
+    - /ov/one-public
+    - /ov/one
+    - /notice/public-list
+  developer:
+    #超级管理员才可以访问的权限
+    - /**/dev/**

@@ -15,7 +15,7 @@ export default function LoginNotice(props) {
             return (
                 <div  key={item.noticeId}>
                     <Typography style={{ padding: 10 }}>
-                        <Typography.Title level={3} style={{ color: '#ccc' }}>{item.title}</Typography.Title>
+                        <Typography.Text level={3} style={{ color: '#ccc' }}>{item.title}</Typography.Text>
                         <Typography.Paragraph style={{ color: '#ccc' }}>
                             {item.content}
                         </Typography.Paragraph>

@@ -26,7 +26,6 @@ async function queryData(roleId) {
                     });
                     return { treeData: root.children, unitList, checkedKeys: targetKeys, }
                 } else {
-                    message.error(result.resultMsg);
                     return { treeData: [], unitList: [], checkedKeys: [] }
                 }
             });

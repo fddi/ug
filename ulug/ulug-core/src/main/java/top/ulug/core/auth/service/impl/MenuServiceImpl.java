@@ -37,8 +37,6 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class MenuServiceImpl implements MenuService {
 
-    @Value("${project.auth.active.time}")
-    private Long activeTime;
     @Autowired
     private AuthRoleRepository roleRepository;
     @Autowired

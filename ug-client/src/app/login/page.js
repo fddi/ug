@@ -4,16 +4,24 @@ import React, { useEffect, useState } from 'react';
 import './login.css'
 import { useRouter } from 'next/navigation'
 import { Layout, Row, Col, Tabs, App, } from 'antd'
-import { APPNMAE } from '@/config/client'
 import { lag } from '@/config/lag';
 import LoginNotice from './components/LoginNotice';
 import LoginByAccount from './components/LoginByAccount';
 import LoginByQRCode from './components/LoginByQRCode';
-
-
+import { getOv, post } from '@/config/client';
 export default function Login(props) {
     const [jump, setJump] = useState(false);
+    const [appName, setAppName] = useState('');
     const router = useRouter();
+
+    useEffect(() => {
+        post('ov/one-public', { unitCode: "Y", optionCode: 'admin_app_name' }).then(result => {
+            if (200 === result.resultCode) {
+                setAppName(result.resultData)
+            }
+        })
+    }, [])
+
     useEffect(() => {
         if (jump) {
             router.replace("/home");
@@ -33,7 +41,7 @@ export default function Login(props) {
                     <Col xs={0} sm={0} md={12}
                         className='left-info' >
                         <h2 className="slogan">
-                            欢迎使用<br />{APPNMAE}
+                            欢迎使用<br />{appName}
                         </h2>
                         <div className='notice'>
                             <LoginNotice />

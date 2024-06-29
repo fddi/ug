@@ -111,7 +111,7 @@ export default function OrgMgr(props) {
     const [open, setOpen] = useState(false)
     const [refreshTime, setRefreshTime] = useState(Date.now())
     const [defModules, setDefModules] = useState()
-    const [modules, setModules] = useState(getModules())
+    const [modules, setModules] = useState()
 
     useEffect(() => {
         setDefModules(getModules())

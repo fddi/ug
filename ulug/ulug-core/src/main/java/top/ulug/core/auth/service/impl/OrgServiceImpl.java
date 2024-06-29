@@ -92,14 +92,14 @@ public class OrgServiceImpl implements OrgService {
         if (authDTO == null || authDTO.getAccount() == null) {
             return list;
         }
+        //查询全部
+        list = orgRepository.findByAreaCode(areaCode);
         if (authService.checkDevOps()) {
-            //开发账号查询全部
-            list = orgRepository.findByAreaCode(areaCode);
-        } else {
-            //查询所属单位机构
-            list = orgRepository.findByUnitCodeOrderByOrgSort(
-                    authDTO.getAccount().getUnitCode());
+            //开发账号
+            return list;
         }
+        list = orgRepository.findByUnitCodeOrderByOrgSort(
+                authDTO.getAccount().getUnitCode());
         return list;
     }
 

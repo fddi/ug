@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import top.ulug.base.dto.WrapperDTO;
 import top.ulug.base.e.ResultMsgEnum;
 import top.ulug.base.util.StringUtils;
@@ -30,6 +31,7 @@ public class FormDataServiceImpl implements FormDataService {
     ModelMapper modelMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<String> save(AuthFormData... formData) {
         List<AuthFormData> list = Arrays.asList(formData);
         if (list.isEmpty()) {
@@ -40,6 +42,7 @@ public class FormDataServiceImpl implements FormDataService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<String> del(AuthFormData... formData) {
         List<AuthFormData> list = Arrays.asList(formData);
         if (list.isEmpty()) {
@@ -50,12 +53,14 @@ public class FormDataServiceImpl implements FormDataService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<AuthFormData> findOne(Long id) {
         Optional<AuthFormData> optional = formRepository.findById(id);
         return optional.map(WrapperDTO::success).orElseGet(() -> WrapperDTO.fail(ResultMsgEnum.RESULT_ERROR_NPE, "AuthFormData"));
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<PageDTO<AuthFormData>> findPage(int pageSize, int pageNo, AuthFormData formData) {
         pageSize = pageSize == 0 ? 10 : pageSize;
         Pageable pageable = PageRequest.of(pageNo, pageSize);
@@ -69,6 +74,7 @@ public class FormDataServiceImpl implements FormDataService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<AuthFormData> mapper(String formCode) {
         if (StringUtils.isEmpty(formCode)) {
             return WrapperDTO.fail(ResultMsgEnum.RESULT_ERROR_NPE, null);

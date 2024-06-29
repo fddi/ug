@@ -1,31 +1,14 @@
-project:
-  auth:
-    active:
-      time: 1800
-    token:
-      key: 161616161616161616161616161616161616161616161616
-      time: 36000
-    aes:
-      key: 1616161616161616
-    default:
-      password: 000000
-    developer:
-      code: De
-    error:
-      times: 5
-  scanning-ability:
-    'on': true
 server:
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript
     min-response-size: 2048
 spring:
+  application.name: ulug-core
+  profiles.active: security,pro
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-  application:
-    name: ulug-core
   datasource:
     hikari:
       auto-commit: true
@@ -37,18 +20,10 @@ spring:
       pool-name: DatebookHikariCP
     type: com.zaxxer.hikari.HikariDataSource
   jpa:
-    hibernate:
-      ddl-auto: update
+    hibernate.ddl-auto: update
     open-in-view: false
-    properties:
-      hibernate:
-        event:
-          merge:
-            entity_copy_observer: allow
-  main:
-    allow-bean-definition-overriding: true
-  profiles:
-    active: dev
+    properties.hibernate.event.merge.entity_copy_observer: allow
+  main.allow-bean-definition-overriding: true
   servlet:
     encoding:
       charset: UTF-8
@@ -57,3 +32,9 @@ spring:
     multipart:
       max-file-size: 200MB
       max-request-size: 200MB
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings.trace: false
+      settings.web-allow-others: false

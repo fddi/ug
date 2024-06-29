@@ -20,7 +20,6 @@ import top.ulug.core.deploy.service.CacheService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by liujf on 2019/3/31.
@@ -28,8 +27,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class AuthServiceImpl implements AuthService {
-    @Value("${project.auth.active.time}")
-    private Long activeTime;
+    @Value("${project.auth.token.time}")
+    private Long tokenTime;
     @Value("${project.auth.token.key}")
     private String tokenKey;
     @Value("${project.auth.developer.code}")
@@ -64,7 +63,7 @@ public class AuthServiceImpl implements AuthService {
             return false;
         }
         long time = new Date().getTime();
-        if ((authDTO.getAccount().getAuthTime() - time) / 1000 > activeTime) {
+        if ((authDTO.getAccount().getAuthTime() - time) / 1000 > tokenTime) {
             return false;
         }
         authDTO.getAccount().setAuthTime(time);

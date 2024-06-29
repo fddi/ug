@@ -16,24 +16,15 @@ logging:
       total-size-cap: 200MB
       # 保存存档日志文件的最大天数(默认为7天)
       max-history: 3
-server:
-  port: 9091
+server.port: 9091
 spring:
   datasource:
-    url: jdbc:h2:file:./ugDB
-    username: ug
+    url: jdbc:postgresql://localhost:5588/postgres?currentSchema=ug
+    username: postgres
     password: ug
-    driverClassName: org.h2.Driver
-  devtools:
-    add-properties: false
+    driverClassName: org.postgresql.Driver
+  devtools.add-properties: false
   jpa:
-    hibernate:
-      show-sql: false
+    hibernate.show-sql: false
     spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings.trace: false
-      settings.web-allow-others: false

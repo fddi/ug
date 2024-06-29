@@ -38,6 +38,7 @@ public class MessageRecordServiceImpl implements MessageRecordService {
     CacheService cacheService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<String> save(MessageRecord... e) throws Exception {
         List<MessageRecord> list = Arrays.asList(e);
         messageRecordRepository.saveAll(list);
@@ -45,6 +46,7 @@ public class MessageRecordServiceImpl implements MessageRecordService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<String> del(MessageRecord... e) {
         List<MessageRecord> list = Arrays.asList(e);
         messageRecordRepository.deleteAllInBatch(list);
@@ -52,12 +54,14 @@ public class MessageRecordServiceImpl implements MessageRecordService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<MessageRecord> findOne(Long id) {
         Optional<MessageRecord> optional = messageRecordRepository.findById(id);
         return optional.map(WrapperDTO::success).orElseGet(() -> WrapperDTO.npe(String.valueOf(id)));
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<PageDTO<MessageRecord>> findPage(int pageSize, int pageNo, MessageRecord messageRecord) {
         pageSize = pageSize == 0 ? 10 : pageSize;
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("gmtModified").descending());
@@ -68,6 +72,7 @@ public class MessageRecordServiceImpl implements MessageRecordService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<Long> unreadCount() {
         String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
@@ -78,6 +83,7 @@ public class MessageRecordServiceImpl implements MessageRecordService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<PageDTO<MessageRecordDTO>> unreadList(int pageSize, int pageNo) {
         pageSize = pageSize == 0 ? 10 : pageSize;
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("gmtModified").descending());

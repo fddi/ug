@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { ConfigProvider, Layout, Button, Flex, Breadcrumb, Space, App } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined, HomeOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks';
-import { APPNMAE, post, getAuthInfo } from '../../config/client'
+import { post, getAuthInfo, getOv } from '../../config/client'
 import StringUtils from '../../util/StringUtils'
 import MenuTree from './components/MenuTree'
 import MainHeader from './components/MainHeader'
@@ -55,9 +55,21 @@ async function queryData(localSearch, key) {
 export default function HomeLayout({ children }) {
     const [collapsed, setCollapsed] = useState(false);
     const [activeMenu, setActiveMenu] = useState();
+    const [appName, setAppName] = useState('');
+    const [appLogo, setAppLogo] = useState();
     const { data, loading, run } = useRequest(queryData, { loadingDelay: 1000 });
     const [account, setAccount] = useState()
     const router = useRouter();
+
+    useEffect(() => {
+        async function init() {
+            let cName = await getOv("admin_app_name");
+            let cLogo = await getOv("admin_app_logo");
+            setAppName(cName)
+            setAppLogo(cLogo)
+        }
+        init();
+    }, [])
 
     useEffect(() => {
         const authInfo = getAuthInfo();
@@ -123,12 +135,12 @@ export default function HomeLayout({ children }) {
                     id="menu_sider"
                 >
                     <a className="logo" href="/home">
-                        <Image src={logo}
+                        <Image src={appLogo || logo}
                             alt="logo"
                             width={64}
                             height={64} />
                         <h1 style={{ color: '#fff' }}>
-                            {APPNMAE}
+                            {appName}
                         </h1>
                     </a>
                     <MenuTree onSelect={onSelect} mode='inline'

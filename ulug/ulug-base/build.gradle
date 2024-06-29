@@ -7,6 +7,9 @@ plugins {
 group = 'top.ulug.base'
 version = '0.0.1'
 
+tasks.bootJar {
+    enabled = false
+}
 java {
     sourceCompatibility = '17'
 }

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { post } from '@/config/client';
-import { Button, Spin, Badge, Popconfirm, message, } from 'antd';
+import { App,Button, Spin, Badge, Popconfirm, } from 'antd';
 import { CaretRightOutlined, ThunderboltOutlined, PauseOutlined } from '@ant-design/icons'
 import DynamicCurd from '@/components/dynamic/DynamicCurd'
 
@@ -91,6 +91,7 @@ export default function QuartzMgr(props) {
     const [loading, setLoading] = useState(false)
     const [modules, setModules] = useState();
     const [refreshTime, setRefreshTime] = useState(Date.now());
+    const { message } = App.useApp()
 
     const control = (task, tag) => {
         setLoading(true)

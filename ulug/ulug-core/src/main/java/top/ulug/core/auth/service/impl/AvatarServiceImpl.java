@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import top.ulug.base.dto.WrapperDTO;
 import top.ulug.base.e.ResultMsgEnum;
@@ -31,6 +32,7 @@ public class AvatarServiceImpl implements AvatarService {
     private AuthUserAvatarRepository avatarRepository;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WrapperDTO<String> upload(MultipartFile file) throws Exception {
         String appId = requestUtils.getCurrentAppId();
         String token = requestUtils.getCurrentToken();
@@ -60,6 +62,7 @@ public class AvatarServiceImpl implements AvatarService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<byte[]> read(String userName) {
         if (StringUtils.isEmpty(userName)) {
             return null;
