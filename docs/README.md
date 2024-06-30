@@ -11,17 +11,18 @@ java -jar ulug-core-0.0.1.jar
 3. 访问：http://localhost:9091/template/home.html
 - 登录界面
 
-<img src="https://fddi.github.io/ug/login.png" width="80%">
+<img src="https://gitee.com/fddi/ug/raw/master/docs/login.png" width="80%">
 
 
 - 管理平台
 
-<img src="https://fddi.github.io/ug/home.png" width="80%">
+<img src="https://gitee.com/fddi/ug/raw/master/docs/home.png" width="80%">
 
 4. 默认使用H2数据库，修改config配置文件自定义。
 ## 功能清单
-
+todo 功能清单说明
 
 
 # 二次开发
+todo 项目架构说明，后端二次开发，前端开发，部署
 
