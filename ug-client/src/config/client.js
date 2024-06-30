@@ -6,9 +6,10 @@ const IS_TEST_DATA = false;
 const IS_DEV = false;
 const TIMEOUT = 30000;
 
-export const APIURL = "http://localhost:9091";
+// export const APIURL = "http://localhost:9091";
+export const APIURL = "";
+
 export const EXPORT_PATH = "/template";
-// export const APIURL = "/";
 
 export const APPID = "ug-client";
 export const APPKEY = "1b4673a6d2762ca5b575841bdd1382e2b200dd0a";
@@ -33,7 +34,7 @@ export function checkDep() {
 
 export function exportNextPath(path) {
     const isProd = process.env.NODE_ENV === 'production'
-    let url = new URL(`${document.location.protocol}//${document.location.hostname}:${document.location.port}/${path}`);
+    let url = new URL(`${document.location.protocol}//${document.location.hostname}:${document.location.port}${path}`);
     if (isProd) {
         url.pathname = EXPORT_PATH + url.pathname + ".html";
     } else {
