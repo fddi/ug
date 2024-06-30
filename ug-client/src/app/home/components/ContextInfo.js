@@ -1,10 +1,10 @@
 "use client"
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { App, Button, Form, Input } from 'antd';
 import { TAG, getAuthInfo, post } from '@/config/client';
 
-export default function AccountInfo({ children }) {
+export default function ContextInfo() {
     const [account, setAccount] = useState({})
     const [form] = Form.useForm();
     const { message } = App.useApp();

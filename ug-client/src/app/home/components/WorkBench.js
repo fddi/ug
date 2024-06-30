@@ -1,4 +1,4 @@
-import { Card, Col, Row, Space, Typography } from 'antd';
+import { Card, Col, Layout, Row, Space, Typography } from 'antd';
 import React, { useState } from 'react';
 const projectData = [{
     title: 'ug',
@@ -24,29 +24,31 @@ export default function WorkBench(props) {
         window.open(url, '__blank');
     }
     return (
-        <Row gutter={16}>
-            {
-                projectData.map((item, index) => {
-                    return (
-                        <Col span={8} key={"a-" + index}>
-                            <Card
-                                style={{ ...defaultStyle }}
-                                hoverable={true}
-                                onClick={() => onPressCard(item.url)}
-                                bordered={false}
-                            >
-                                <Space direction='vertical'>
-                                    <Card.Meta
-                                        title={<Typography.Title level={4}>{item.title}</Typography.Title>}
-                                        description={item.desc}
-                                    />
-                                    {item.star()}
-                                </Space>
-                            </Card>
-                        </Col>
-                    )
-                })
-            }
-        </Row>
+        <Layout style={{ ...props.style, padding: 16 }}>
+            <Row gutter={16}>
+                {
+                    projectData.map((item, index) => {
+                        return (
+                            <Col span={8} key={"a-" + index}>
+                                <Card
+                                    style={{ ...defaultStyle }}
+                                    hoverable={true}
+                                    onClick={() => onPressCard(item.url)}
+                                    bordered={false}
+                                >
+                                    <Space direction='vertical'>
+                                        <Card.Meta
+                                            title={<Typography.Title level={4}>{item.title}</Typography.Title>}
+                                            description={item.desc}
+                                        />
+                                        {item.star()}
+                                    </Space>
+                                </Card>
+                            </Col>
+                        )
+                    })
+                }
+            </Row>
+        </Layout>
     )
 }

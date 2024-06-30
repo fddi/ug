@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { checkDep, post } from '@/config/client';
 import { Spin, Transfer, } from 'antd';
 import { useRequest } from 'ahooks';
-import OrgSearchBar from '../../org/components/OrgSearchBar';
+import OrgSearchBar from './OrgSearchBar';
 
 async function queryData(roleId, unitCode) {
     if (roleId) {

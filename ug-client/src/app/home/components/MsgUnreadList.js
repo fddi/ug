@@ -19,7 +19,7 @@ async function queryData(params, pageNo) {
      })
 }
 
-export default function MainList(props) {
+export default function MsgUnreadList(props) {
      const { callBackTotal, params, defaultData } = props
      const [pno, setPno] = useState(0)
      const [data, setData] = useState(defaultData);

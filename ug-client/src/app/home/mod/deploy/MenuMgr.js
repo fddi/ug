@@ -4,7 +4,7 @@ import React, { Fragment, useState } from 'react';
 import DynamicCurd from '@/components/dynamic/DynamicCurd';
 import { App, Button, Modal } from 'antd';
 import { SwapOutlined, } from '@ant-design/icons'
-import PeAbility from './components/PeAbility';
+import PeAbility from '../../components/PeAbility';
 import StringUtils from '@/util/StringUtils';
 
 const modules = {

@@ -61,7 +61,12 @@ export default function HeaderView(props) {
                          message: data.title,
                          description: data.message,
                          onClick: () => {
-                              router.push(exportNextPath(`/home/account_information/notifications`))
+                              props.setActiveMenu({
+                                   key: 'account_info_msg',
+                                   value: '/home/account_info?target=msg',
+                                   label: '消息中心',
+                                   type: '1'
+                              })
                          },
                     });
                     setMsgCount(mc + 1);
@@ -93,8 +98,6 @@ export default function HeaderView(props) {
                }
           })
           setLeafMenu(searchData)
-          let defaultMenu = searchData.find(item => item.value == window.location.pathname)
-          defaultMenu && props.onMenuRoute(defaultMenu)
      }, [props.menus])
 
      function handleMenuSelect(e) {
@@ -109,8 +112,12 @@ export default function HeaderView(props) {
      function handleMenuClick(e) {
           switch (parseInt(e.key)) {
                case 1:
-                    router.push(exportNextPath(`/home/account_information`))
-                    props.onMenuRoute({ label: '个人信息' }, false)
+                    props.setActiveMenu({
+                         key: 'account_info_context',
+                         value: '/home/account_info?target=context',
+                         label: '个人信息',
+                         type: '1'
+                    })
                     break;
                case 2:
                     props.logout && props.logout();
@@ -122,14 +129,17 @@ export default function HeaderView(props) {
 
      function onSelect(v) {
           const menu = leafMenu.find((item) => item.value == v);
-          menu && props.onMenuRoute(menu, true)
+          menu && props.setActiveMenu(menu)
           setSearchValue('')
      }
 
      function toMessageCenter() {
-          router.push(exportNextPath(`/home/account_information/notifications`))
-          props.onMenuRoute({ label: '消息中心' }, false)
-
+          props.setActiveMenu({
+               key: 'account_info_msg',
+               value: '/home/account_info?target=msg',
+               label: '消息中心',
+               type: '1'
+          })
      }
 
      return (<Fragment>

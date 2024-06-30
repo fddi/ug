@@ -8,9 +8,9 @@ import { BiSlider } from "react-icons/bi";
 import AsyncTreeSelect from '@/components/AsyncTreeSelect';
 import AsyncTree from '@/components/AsyncTree';
 import AsyncTable from '@/components/AsyncTable';
-import PeMenu from './components/PeMenu';
-import PeUser from './components/PeUser';
-import PeOrg from './components/PeOrg';
+import PeMenu from '@/app/home/components/PeMenu';
+import PeUser from '@/app/home/components/PeUser';
+import PeOrg from '@/app/home/components/PeOrg';
 import StringUtils from '@/util/StringUtils';
 
 function getExtraModules(areaCode) {

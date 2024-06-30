@@ -4,7 +4,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Button, Badge, Drawer } from 'antd';
 import { BiPaperPlane } from "react-icons/bi";
 import DynamicCurd from '@/components/dynamic/DynamicCurd'
-import MultiMessageRecord from './components/MultiMessageRecord';
+import MultiMessageRecord from '../../components/MultiMessageRecord';
 
 function getModules(control) {
     return {

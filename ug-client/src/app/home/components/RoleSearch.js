@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
-import OrgSearchBar from '../../org/components/OrgSearchBar';
+import OrgSearchBar from './OrgSearchBar';
 import AsyncTable from '@/components/AsyncTable';
 const defaultModules = {
     rowKey: "roleId",

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { checkDep, post } from '@/config/client';
 import { Button, Table, Row, Col, Tree, App } from 'antd';
 import { DeleteOutlined, } from '@ant-design/icons'
-import OrgSearchBar from '../../org/components/OrgSearchBar';
+import OrgSearchBar from './OrgSearchBar';
 import ArrayUtils from '@/util/ArrayUtils';
 import { useRequest } from 'ahooks';
 

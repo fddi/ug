@@ -3,7 +3,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Button, Spin, Modal, App, } from 'antd';
 import AsyncTable from '@/components/AsyncTable';
-import RoleSearch from '@/app/home/auth/role/components/RoleSearch';
+import RoleSearch from '@/app/home/components/RoleSearch';
 import StringUtils from '@/util/StringUtils';
 import { lag } from '@/config/lag';
 import { post } from '@/config/client';

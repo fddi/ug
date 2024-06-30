@@ -6,7 +6,7 @@ import { getAuthInfo, getOv, post } from '@/config/client';
 import { Modal, Button, Spin, App, } from 'antd';
 import { CopyOutlined, } from '@ant-design/icons'
 import DictTreeSelect from '@/components/AsyncTreeSelect';
-import RoleSearch from './components/RoleSearch';
+import RoleSearch from '@/app/home/components/RoleSearch';
 import StringUtils from '@/util/StringUtils';
 import { lag } from '@/config/lag';
 

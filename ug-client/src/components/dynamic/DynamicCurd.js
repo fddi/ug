@@ -144,7 +144,7 @@ export default function DynamicCurd(props) {
                 </Space>
             </Card>
             <Row gutter={[8, 8]} style={{
-                height: 'calc(100vh - 200px)', ...props.style
+                height: 'calc(100vh - 160px)', ...props.style
             }}>
                 <Col span={Extra == null ? 0 : 5} style={{ height: '100%', }}>
                     <Card className="card-extra" styles={{ body: { padding: 5,height: '100%', } }} bordered={false}>
@@ -155,7 +155,7 @@ export default function DynamicCurd(props) {
                     <AsyncTable
                         modules={modules} refreshTime={refreshTime}
                         extraItem={extraItem} handleSelect={onRowSelect}
-                        scroll={{ x: 600, y: 'calc(100vh - 288px)' }}
+                        scroll={{ x: 600, y: 'calc(100vh - 250px)' }}
                         onEdit={onEdit} onDel={onDel}
                     />
                 </Col>
