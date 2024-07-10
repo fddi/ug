@@ -20,6 +20,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'com.github.ben-manes.caffeine:caffeine'
     implementation "org.springframework.boot:spring-boot-starter-quartz"
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
+    runtimeOnly 'com.oracle.database.nls:orai18n'
     runtimeOnly "org.postgresql:postgresql"
     runtimeOnly 'com.h2database:h2'
     implementation 'io.jsonwebtoken:jjwt-api:0.12.5'

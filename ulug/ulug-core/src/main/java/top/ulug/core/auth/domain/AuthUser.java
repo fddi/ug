@@ -16,7 +16,7 @@ import jakarta.persistence.*;
 public class AuthUser extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
 
     @Column(length = 10)
