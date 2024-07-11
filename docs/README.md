@@ -11,15 +11,15 @@ java -jar ulug-core-0.0.1.jar
 3. 访问：http://localhost:9091/template/home.html
 - 登录界面
 
-<img src="https://gitee.com/fddi/ug/raw/master/docs/login.png" width="80%">
+<img src="https://fddi.github.io/ug/login.png" width="80%">
 
 
 - 管理平台
 
-<img src="https://gitee.com/fddi/ug/raw/master/docs/home.png" width="80%">
+<img src="https://fddi.github.io/ug/home.png" width="80%">
 
 
-4. 默认使用H2数据库，修改config配置文件无缝切换生产数据库。
+4. 默认使用H2数据库，修改config配置文件切换生产数据库。
 ## 功能清单
 
 1.  部署管理-部署维护
@@ -66,30 +66,30 @@ java -jar ulug-core-0.0.1.jar
 |个人中心|首页|个人账户联系方式维护|
 |消息中心|首页|个人账户消息|
 
-更多说明，请查看[使用手册](use.md).
-
 # 二次开发
 
-1. 后端目录
+1. 后端
 
-Springboot3.2.2基于grald构建。使用了JPA、cache、quartz组件。
+项目目录：ulug
+
+Springboot3.2.2基于gradle构建。使用了JPA、cache、quartz组件。
 
 > 尽量不使用任何XML文件。
 
 ```bash
 #包路径说明
 top.ulug.core.auth
-    domain #Entity实例
-    dto #传输对象
-    repository #JPA 持久化接口
-    service # 服务
-    web # 接口定义
+    domain       #Entity实例
+    dto          #传输对象
+    repository   #JPA持久化接口
+    service      #服务
+    web          #接口定义
 ```
 ```bash
-#resources
-    sql #初始化数据
-    static #静态文件
-    template #前端编译部署路径
+resources
+    sql              #初始化数据
+    static           #静态文件
+    template         #前端编译部署路径
 ```
 2. 前端目录
 
@@ -97,12 +97,12 @@ Nextjs框架搭建。使用了ant-design前端组件。
 
 ```bash
 #包路径说明
-    app #页面代码
-    asset #静态资源
-    component #通用组件
-    config # 客户端配置
-    util # 工具箱
+    app              #页面代码
+    asset            #静态资源
+    component        #通用组件
+    config           #客户端配置
+    util             #工具箱
 ```
+# 项目文档
 
-
-更多说明，请查看[开发文档](developer.md).
+[有瓜开源](https://fddi.github.io/ug/)
